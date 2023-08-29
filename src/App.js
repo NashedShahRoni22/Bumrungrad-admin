@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Main from "./layouts/Main";
 import AddDoctors from "./pages/AddDoctors";
 import SignIn from "./auth/SignIn";
+import AddPackages from "./pages/AddPackages";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path:"/home/add-doctors",
         element: <AddDoctors/>
+      },
+      {
+        path:"/home/add-packages",
+        element: <AddPackages/>
       }
     ]
   },

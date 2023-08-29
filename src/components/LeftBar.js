@@ -15,10 +15,11 @@ import {
   GiftIcon,
   BuildingOffice2Icon,
   CalendarDaysIcon,
-  PlusIcon  ,
-  ListBulletIcon 
+  PlusIcon,
+  ListBulletIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 export function LeftBar() {
   const [open, setOpen] = React.useState(0);
@@ -29,12 +30,14 @@ export function LeftBar() {
   return (
     <div className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4">
       <List>
-        <ListItem>
-          <ListItemPrefix>
-            <PresentationChartBarIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Dashboard
-        </ListItem>
+        <Link to='/home'>
+          <ListItem>
+            <ListItemPrefix>
+              <PresentationChartBarIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Dashboard
+          </ListItem>
+        </Link>
         <Accordion
           open={open === 1}
           icon={
@@ -61,17 +64,19 @@ export function LeftBar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
+              <Link to="/home/add-doctors">
+                <ListItem>
+                  <ListItemPrefix>
+                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                  </ListItemPrefix>
+                  Add Doctor
+                </ListItem>
+              </Link>
               <ListItem>
                 <ListItemPrefix>
                   <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
                 </ListItemPrefix>
                 Doctors List
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <PlusIcon  strokeWidth={3} className="h-5 w-5" />
-                </ListItemPrefix>
-                Add Doctor
               </ListItem>
             </List>
           </AccordionBody>
@@ -102,17 +107,19 @@ export function LeftBar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
+              <Link to="/home/add-packages">
+                <ListItem>
+                  <ListItemPrefix>
+                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                  </ListItemPrefix>
+                  Add Package
+                </ListItem>
+              </Link>
               <ListItem>
                 <ListItemPrefix>
                   <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
                 </ListItemPrefix>
                 Packages List
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <PlusIcon  strokeWidth={3} className="h-5 w-5" />
-                </ListItemPrefix>
-                Add Package
               </ListItem>
             </List>
           </AccordionBody>
@@ -145,15 +152,15 @@ export function LeftBar() {
             <List className="p-0">
               <ListItem>
                 <ListItemPrefix>
-                  <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
+                  <PlusIcon strokeWidth={3} className="h-5 w-5" />
                 </ListItemPrefix>
-                Centers List
+                Add Centers
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
-                  <PlusIcon  strokeWidth={3} className="h-5 w-5" />
+                  <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
                 </ListItemPrefix>
-                Add Centers
+                Centers List
               </ListItem>
             </List>
           </AccordionBody>
