@@ -64,6 +64,14 @@ export function LeftBar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
+              <Link to="/home/add-speciality">
+                <ListItem>
+                  <ListItemPrefix>
+                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                  </ListItemPrefix>
+                  Add Speciality
+                </ListItem>
+              </Link>
               <Link to="/home/add-doctors">
                 <ListItem>
                   <ListItemPrefix>

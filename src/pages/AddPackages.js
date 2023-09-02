@@ -7,14 +7,19 @@ import {
   TabPanel,
   Input,
   Textarea,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 
 export default function AddPackages() {
   const [activeTab, setActiveTab] = React.useState("Parent");
-  const [selectedParentImage, setSelectedParentImage] = useState("No file chosen");
-  const [selectedChildImage, setSelectedChildImage] = useState("No file chosen");
+  const [selectedParentImage, setSelectedParentImage] =
+    useState("No file chosen");
+  const [selectedChildImage, setSelectedChildImage] =
+    useState("No file chosen");
   return (
-    <div className="px-5 my-10 md:container md:mx-auto rounded-xl shadow-xl">
+    <div className="mx-5 py-10 md:container md:mx-auto">
+      <div className="rounded-xl shadow-xl bg-white">
       <Tabs value={activeTab}>
         <TabsHeader
           className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
@@ -45,7 +50,9 @@ export default function AddPackages() {
                 <input
                   type="file"
                   id="custom-input"
-                  onChange={(e) => setSelectedParentImage(e.target.files[0].name)}
+                  onChange={(e) =>
+                    setSelectedParentImage(e.target.files[0].name)
+                  }
                   hidden
                 />
                 <label
@@ -54,22 +61,29 @@ export default function AddPackages() {
                 >
                   Choose file
                 </label>
-                <label className="text-sm text-slate-500">{selectedParentImage}</label>
+                <label className="text-sm text-slate-500">
+                  {selectedParentImage}
+                </label>
               </div>
               <Input label="Enter Title" />
               <Textarea label="Enter Description" />
-              <button className="py-2 bg-black text-white hover:bg-blue duration-300 ease-linear font-semibold rounded-lg" type="submit">
-                Add Package
+              <button
+                className="py-2 bg-black text-white hover:bg-blue duration-300 ease-linear font-semibold rounded-lg"
+                type="submit"
+              >
+                Add Parent
               </button>
             </form>
           </TabPanel>
           <TabPanel value={"Child"}>
-          <form action="" className="flex flex-col gap-4">
+            <form action="" className="flex flex-col gap-4">
               <div className="flex flex-row items-center">
                 <input
                   type="file"
                   id="custom-input"
-                  onChange={(e) => setSelectedChildImage(e.target.files[0].name)}
+                  onChange={(e) =>
+                    setSelectedChildImage(e.target.files[0].name)
+                  }
                   hidden
                 />
                 <label
@@ -78,19 +92,36 @@ export default function AddPackages() {
                 >
                   Choose file
                 </label>
-                <label className="text-sm text-slate-500">{selectedChildImage}</label>
+                <label className="text-sm text-slate-500">
+                  {selectedChildImage}
+                </label>
               </div>
-              <Input label="Enter Title" />
-              <Input label="Enter ID" />
-              <Input label="Enter Price" />
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="w-full">
+                  <Select label="Select Version">
+                    <Option>Parent Package HTML</Option>
+                    <Option>Parent Package React</Option>
+                    <Option>Parent Package Vue</Option>
+                    <Option>Parent Package Angular</Option>
+                    <Option>Parent Package Svelte</Option>
+                  </Select>
+                </div>
+                <Input label="Enter Title" />
+                <Input label="Enter ID" />
+                <Input label="Enter Price" />
+              </div>
               <Textarea label="Enter Description" />
-              <button className="py-2 bg-black text-white hover:bg-blue duration-300 ease-linear font-semibold rounded-lg" type="submit">
-                Add Package
+              <button
+                className="py-2 bg-black text-white hover:bg-blue duration-300 ease-linear font-semibold rounded-lg"
+                type="submit"
+              >
+                Add Child
               </button>
             </form>
           </TabPanel>
         </TabsBody>
       </Tabs>
+    </div>
     </div>
   );
 }

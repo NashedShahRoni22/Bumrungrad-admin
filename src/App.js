@@ -4,6 +4,7 @@ import Main from "./layouts/Main";
 import AddDoctors from "./pages/AddDoctors";
 import SignIn from "./auth/SignIn";
 import AddPackages from "./pages/AddPackages";
+import AddSpeciality from "./pages/AddSpeciality";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path:"/home",
         element: <Home/>
+      },
+      {
+        path:"/home/add-speciality",
+        element: <AddSpeciality/>
       },
       {
         path:"/home/add-doctors",

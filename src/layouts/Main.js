@@ -21,7 +21,7 @@ export default function Main() {
         <div className="hidden lg:block lg:fixed left-0 h-full">
           <LeftBar />
         </div>
-        <div className="lg:flex-1 lg:ml-[320px]">
+        <div className="lg:flex-1 lg:ml-[320px] bg-silver min-h-screen">
           <Outlet />
         </div>
       </section>

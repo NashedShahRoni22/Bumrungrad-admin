@@ -21,15 +21,13 @@ export default function Home() {
     },
   ];
   return (
-    <div className="bg-silver min-h-screen">
-      <div className="grid grid-cols-2 md:grid-cols-4 py-10 md:container mx-5 md:mx-auto gap-6">
-        {dashboards.map((d, i) => (
-          <Card key={i} className="p-8 text-black">
-            <p className="text-3xl lg:text-5xl font-bold">{d.quantity}</p>
-            <p className="text-xl lg:text-3xl text-end">{d.name}</p>
-          </Card>
-        ))}
-      </div>
+    <div className="grid grid-cols-2 md:grid-cols-4 py-10 md:container mx-5 md:mx-auto gap-6">
+      {dashboards.map((d, i) => (
+        <Card key={i} className="p-8 text-black">
+          <p className="text-3xl lg:text-5xl font-bold">{d.quantity}</p>
+          <p className="text-xl lg:text-3xl text-end">{d.name}</p>
+        </Card>
+      ))}
     </div>
   );
 }
