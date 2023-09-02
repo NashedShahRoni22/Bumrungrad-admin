@@ -17,6 +17,16 @@ export default function AddDoctors() {
   const handleOpen = () => setOpen(!open);
   const [open2, setOpen2] = React.useState(false);
   const handleOpen2 = () => setOpen2(!open2);
+  const [open3, setOpen3] = React.useState(false);
+  const handleOpen3 = () => setOpen3(!open3);
+  const [open4, setOpen4] = React.useState(false);
+  const handleOpen4 = () => setOpen4(!open4);
+
+  const [open5, setOpen5] = React.useState(false);
+  const handleOpen5 = () => setOpen5(!open5);
+
+
+
   //states of datas
   const [selectedDoctorImg, setSelectedDoctorImg] = useState("");
 
@@ -26,6 +36,14 @@ export default function AddDoctors() {
   const [fellowship, setFellowship] = useState("");
   const [fellowships, setFellowships] = useState([]);
 
+  const [Interest, setInterest] = useState("");
+  const [Interests, setInterests] = useState([]);
+
+  const [experience, setExperience] = useState("");
+  const [experiences, setExperiences] = useState([]);
+
+  const [research, setResearch] = useState("");
+  const [researchs, setResearchs] = useState([]);
   // certificates add remove functions
   const addCertificates = () => {
     const newCertificates = [...certificates, { certificate }];
@@ -48,6 +66,43 @@ export default function AddDoctors() {
     const updatedFellowships = [...fellowships];
     updatedFellowships.splice(index, 1);
     setFellowships(updatedFellowships);
+  };
+
+  // Interest add remove functions
+  const addInterest = () => {
+    const newInterests = [...Interests, { Interest }];
+    setInterests(newInterests);
+    setInterest("");
+  };
+  const removeInterest = (index) => {
+    const updatedInterests = [...Interests];
+    updatedInterests.splice(index, 1);
+    setInterests(updatedInterests);
+  };
+
+  // Experience add remove functions
+  const addExperience = () => {
+    const newExperiences = [...experiences, { experience }];
+    setExperiences(newExperiences);
+    setExperience("");
+  };
+  const removeExperience = (index) => {
+    const updatedExperiences = [...experiences];
+    updatedExperiences.splice(index, 1);
+    setExperiences(updatedExperiences);
+  };
+
+
+  // Research add remove functions
+  const addResearch = () => {
+    const newResearchs = [...researchs, { research }];
+    setResearchs(newResearchs);
+    setResearch("");
+  };
+  const removeResearch = (index) => {
+    const updatedResearchs = [...researchs];
+    updatedResearchs.splice(index, 1);
+    setResearchs(updatedResearchs);
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
@@ -101,6 +156,7 @@ export default function AddDoctors() {
               size="sm"
               onClick={addCertificates}
               className="!absolute right-1 top-1 rounded bg-blue"
+              disabled={certificate === ""}
             >
               Add
             </Button>
@@ -114,19 +170,28 @@ export default function AddDoctors() {
               View
             </Button>
             {certificates.length > 0 && (
-              <div className="h-3 w-3 rounded-full bg-blue absolute -top-2 -right-2 shadow-xl"></div>
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
             )}
             <Dialog open={open} handler={handleOpen}>
               <DialogHeader>Cerificates</DialogHeader>
               <DialogBody divider>
-                <div className="flex flex-col gap-4">
-                  {certificates.map((c, i) => (
-                    <div key={i} className="flex justify-between">
-                      <p className="text-xl">{c.certificate}</p>
-                      <AiOutlineDelete onClick={() => removeCertificate(i)} className="text-red-500 text-3xl" />
-                    </div>
-                  ))}
-                </div>
+                {certificates.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {certificates.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">{c.certificate}</p>
+                        <AiOutlineDelete
+                          onClick={() => removeCertificate(i)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 font-semibold text-red-500">
+                    Enter Something!
+                  </p>
+                )}
               </DialogBody>
               <DialogFooter>
                 <Button
@@ -155,6 +220,7 @@ export default function AddDoctors() {
               size="sm"
               onClick={addFellowship}
               className="!absolute right-1 top-1 rounded bg-blue"
+              disabled={fellowship === ""}
             >
               Add
             </Button>
@@ -168,19 +234,28 @@ export default function AddDoctors() {
               View
             </Button>
             {fellowships.length > 0 && (
-              <div className="h-3 w-3 rounded-full bg-blue absolute -top-2 -right-2 shadow-xl"></div>
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
             )}
             <Dialog open={open2} handler={handleOpen2}>
               <DialogHeader>Fellowships</DialogHeader>
               <DialogBody divider>
-                <div className="flex flex-col gap-4">
-                  {fellowships.map((c, i) => (
-                    <div key={i} className="flex justify-between">
-                      <p className="text-xl">{c.fellowship}</p>
-                      <AiOutlineDelete onClick={() => removeFellowship(i)} className="text-red-500 text-3xl" />
-                    </div>
-                  ))}
-                </div>
+                {fellowships.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {fellowships.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">{c.fellowship}</p>
+                        <AiOutlineDelete
+                          onClick={() => removeFellowship(i)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 font-semibold text-red-500">
+                    Enter Something!
+                  </p>
+                )}
               </DialogBody>
               <DialogFooter>
                 <Button
@@ -196,6 +271,199 @@ export default function AddDoctors() {
             </Dialog>
           </div>
         </div>
+        {/* Interests */}
+        <div className="flex items-center gap-5">
+          <div className="relative flex w-full">
+            <Input
+              value={Interest}
+              type="text"
+              label="Interest"
+              onChange={(e) => setInterest(e.target.value)}
+            />
+            <Button
+              size="sm"
+              onClick={addInterest}
+              className="!absolute right-1 top-1 rounded bg-blue"
+              disabled={Interest === ""}
+            >
+              Add
+            </Button>
+          </div>
+          <div className="relative">
+            <Button
+              onClick={handleOpen3}
+              size="sm"
+              className="bg-white text-blue border border-blue"
+            >
+              View
+            </Button>
+            {Interests.length > 0 && (
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            )}
+            <Dialog open={open3} handler={handleOpen3}>
+              <DialogHeader>Interests</DialogHeader>
+              <DialogBody divider>
+                {Interests.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {Interests.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">{c.Interest}</p>
+                        <AiOutlineDelete
+                          onClick={() => removeInterest(i)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 text-red-500 font-semibold">
+                    Enter something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  size="sm"
+                  onClick={handleOpen3}
+                  className="mr-1"
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </div>
+        </div>
+        {/* Experiences  */}
+        <div className="flex items-center gap-5">
+          <div className="relative flex w-full">
+            <Input
+              value={experience}
+              type="text"
+              label="Experience"
+              onChange={(e) => setExperience(e.target.value)}
+            />
+            <Button
+              size="sm"
+              onClick={addExperience}
+              className="!absolute right-1 top-1 rounded bg-blue"
+              disabled={experience === ""}
+            >
+              Add
+            </Button>
+          </div>
+          <div className="relative">
+            <Button
+              onClick={handleOpen4}
+              size="sm"
+              className="bg-white text-blue border border-blue"
+            >
+              View
+            </Button>
+            {experiences.length > 0 && (
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            )}
+            <Dialog open={open4} handler={handleOpen4}>
+              <DialogHeader>Experiences</DialogHeader>
+              <DialogBody divider>
+                {experiences.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {experiences.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">{c.experience}</p>
+                        <AiOutlineDelete
+                          onClick={() => removeExperience(i)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 text-red-500 font-semibold">
+                    Enter something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  size="sm"
+                  onClick={handleOpen4}
+                  className="mr-1"
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </div>
+        </div>
+        {/* Research  */}
+        <div className="flex items-center gap-5">
+          <div className="relative flex w-full">
+            <Input
+              value={research}
+              type="text"
+              label="Research"
+              onChange={(e) => setResearch(e.target.value)}
+            />
+            <Button
+              size="sm"
+              onClick={addResearch}
+              className="!absolute right-1 top-1 rounded bg-blue"
+              disabled={research === ""}
+            >
+              Add
+            </Button>
+          </div>
+          <div className="relative">
+            <Button
+              onClick={handleOpen5}
+              size="sm"
+              className="bg-white text-blue border border-blue"
+            >
+              View
+            </Button>
+            {researchs.length > 0 && (
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            )}
+            <Dialog open={open5} handler={handleOpen5}>
+              <DialogHeader>Researchs</DialogHeader>
+              <DialogBody divider>
+                {researchs.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {researchs.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">{c.research}</p>
+                        <AiOutlineDelete
+                          onClick={() => removeResearch(i)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 text-red-500 font-semibold">
+                    Enter something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  size="sm"
+                  onClick={handleOpen5}
+                  className="mr-1"
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </div>
+        </div>
+
         <button
           className="py-2 px-4 w-fit bg-black text-white hover:bg-blue duration-300 ease-linear font-semibold rounded-lg"
           type="submit"
