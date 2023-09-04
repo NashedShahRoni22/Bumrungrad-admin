@@ -8,7 +8,7 @@ import {
   Option,
   Select,
 } from "@material-tailwind/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 
 export default function AddDoctors() {
@@ -21,11 +21,11 @@ export default function AddDoctors() {
   const handleOpen3 = () => setOpen3(!open3);
   const [open4, setOpen4] = React.useState(false);
   const handleOpen4 = () => setOpen4(!open4);
-
   const [open5, setOpen5] = React.useState(false);
   const handleOpen5 = () => setOpen5(!open5);
 
-
+  const [open6, setOpen6] = React.useState(false);
+  const handleOpen6 = () => setOpen6(!open6);
 
   //states of datas
   const [selectedDoctorImg, setSelectedDoctorImg] = useState("");
@@ -37,13 +37,55 @@ export default function AddDoctors() {
   const [fellowships, setFellowships] = useState([]);
 
   const [Interest, setInterest] = useState("");
-  const [Interests, setInterests] = useState([]);
+  const [interests, setInterests] = useState([]);
 
   const [experience, setExperience] = useState("");
   const [experiences, setExperiences] = useState([]);
 
   const [research, setResearch] = useState("");
   const [researchs, setResearchs] = useState([]);
+
+  const [specialities, setSpecialities] = useState([]);
+  const [subSpecialities, setSubSpecialities] = useState([]);
+
+  const [parentSpecialityId, setparentSpecialityId] = useState("");
+
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  //docotrs schedule
+  const [selectedDay, setSelectedDay] = useState("");
+  const [message, setMessage] = useState("");
+  const [enterTime, setEnterTime] = useState("");
+  const [exitTime, setExitTime] = useState("");
+  const [schedules, setSchedules] = useState([]);
+
+  // Handle "Add" schedules
+  const handleAddClick = () => {
+    // Create a new object with the current input values
+    const newData = { selectedDay, message, enterTime, exitTime };
+
+    // Add the new data to the schedules
+    setSchedules([...schedules, newData]);
+
+    // Reset the input fields
+    setSelectedDay("");
+    setMessage("");
+    setEnterTime("");
+    setExitTime("");
+  };
+  // Handle "Remove" schedules
+  const removeSchedule = (index) => {
+    const updatedSchedules = schedules.filter((_, i) => i !== index);
+    setSchedules(updatedSchedules);
+  };
+
   // certificates add remove functions
   const addCertificates = () => {
     const newCertificates = [...certificates, { certificate }];
@@ -70,14 +112,14 @@ export default function AddDoctors() {
 
   // Interest add remove functions
   const addInterest = () => {
-    const newInterests = [...Interests, { Interest }];
-    setInterests(newInterests);
+    const newinterests = [...interests, { Interest }];
+    setInterests(newinterests);
     setInterest("");
   };
   const removeInterest = (index) => {
-    const updatedInterests = [...Interests];
-    updatedInterests.splice(index, 1);
-    setInterests(updatedInterests);
+    const updatedinterests = [...interests];
+    updatedinterests.splice(index, 1);
+    setInterests(updatedinterests);
   };
 
   // Experience add remove functions
@@ -92,7 +134,6 @@ export default function AddDoctors() {
     setExperiences(updatedExperiences);
   };
 
-
   // Research add remove functions
   const addResearch = () => {
     const newResearchs = [...researchs, { research }];
@@ -104,10 +145,63 @@ export default function AddDoctors() {
     updatedResearchs.splice(index, 1);
     setResearchs(updatedResearchs);
   };
+
+  //get speacilities
+  useEffect(() => {
+    fetch("https://api.bumrungraddiscover.com/api/get/specialty")
+      .then((res) => res.json())
+      .then((data) => setSpecialities(data?.response?.data));
+  }, []);
+
+  //get sub speacilities
+  useEffect(() => {
+    if (parentSpecialityId) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/get/selected/sub/specialty/${parentSpecialityId}`
+      )
+        .then((res) => res.json())
+        .then((data) => setSubSpecialities(data?.response?.data));
+    }
+  }, [parentSpecialityId]);
+
+  const handleAddDoctor = (e) => {
+    e.preventDefault();
+    const image = selectedDoctorImg;
+    const name = e.target.name.value;
+    const lang = e.target.lang.value;
+    const school = e.target.school.value;
+    const postData = {
+      image,
+      name,
+      lang,
+      school,
+      certificates: certificates,
+      fellowships: fellowships,
+      interests: interests,
+      experiences: experiences,
+      researches: researchs,
+      schedules: schedules,
+    };
+    console.log(postData);
+    // fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(postData),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     toast.success("Doctor Added Successfully!");
+    //   })
+    //   .catch((e) => console.error(e));
+  };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
       <form
         action=""
+        onSubmit={handleAddDoctor}
         className="flex flex-col gap-4 bg-white rounded-xl shadow-xl p-5"
       >
         <div className="flex flex-row items-center">
@@ -119,7 +213,7 @@ export default function AddDoctors() {
           />
           <label
             htmlFor="custom-input"
-            className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-black hover:bg-blue duration-300 ease-linear text-white cursor-pointer"
+            className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-purple-500 hover:bg-blue duration-300 ease-linear text-white cursor-pointer"
           >
             Choose file
           </label>
@@ -129,19 +223,32 @@ export default function AddDoctors() {
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="w-full">
-            <Select label="Select Specialties">
-              <Option>Cardiology</Option>
-              <Option>Anesthesiology</Option>
+            <Select
+              label="Select Specialties"
+              onChange={(value) => setparentSpecialityId(value)}
+            >
+              {specialities.map((s) => (
+                <Option key={s.id} value={s.id.toString()}>
+                  {s.name}
+                </Option>
+              ))}
             </Select>
           </div>
           <div className="w-full">
-            <Select label="Select Sub Specialties">
-              <Option>Cardiology</Option>
+            <Select
+              label="Select Sub Specialties"
+              disabled={subSpecialities.length === 0}
+            >
+              {subSpecialities.map((sb, i) => (
+                <Option key={i} value={sb.id.toString()}>
+                  {sb.sub_specialty}
+                </Option>
+              ))}
             </Select>
           </div>
-          <Input label="Enter Name" />
-          <Input label="Language spoken" />
-          <Input label="Medical School" />
+          <Input label="Enter Name" name="name" />
+          <Input label="Language spoken" name="lang" />
+          <Input label="Medical School" name="school" />
         </div>
         {/* Certifications */}
         <div className="flex items-center gap-5">
@@ -271,7 +378,7 @@ export default function AddDoctors() {
             </Dialog>
           </div>
         </div>
-        {/* Interests */}
+        {/* interests */}
         <div className="flex items-center gap-5">
           <div className="relative flex w-full">
             <Input
@@ -297,15 +404,15 @@ export default function AddDoctors() {
             >
               View
             </Button>
-            {Interests.length > 0 && (
+            {interests.length > 0 && (
               <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
             )}
             <Dialog open={open3} handler={handleOpen3}>
-              <DialogHeader>Interests</DialogHeader>
+              <DialogHeader>interests</DialogHeader>
               <DialogBody divider>
-                {Interests.length > 0 ? (
+                {interests.length > 0 ? (
                   <div className="flex flex-col gap-4">
-                    {Interests.map((c, i) => (
+                    {interests.map((c, i) => (
                       <div key={i} className="flex justify-between">
                         <p className="text-xl">{c.Interest}</p>
                         <AiOutlineDelete
@@ -463,13 +570,137 @@ export default function AddDoctors() {
             </Dialog>
           </div>
         </div>
+        <div className="flex justify-between items-center">
+          <p className="font-semibold">Enter Schedule Information</p>
+          <div className="relative">
+            <Button
+              size="sm"
+              variant="outlined"
+              className="font-semibold text-blue"
+              onClick={handleOpen6}
+            >
+              View
+            </Button>
+            {schedules.length > 0 && (
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            )}
+            <Dialog open={open6} handler={handleOpen6}>
+              <DialogHeader>Doctor Schedules</DialogHeader>
+              <DialogBody divider>
+                {schedules.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {schedules.map((s, i) => (
+                      <div
+                        key={i}
+                        className="flex justify-between shadow-xl rounded-xl p-5"
+                      >
+                        <div>
+                          <p className="">
+                            {" "}
+                            <span className="font-semibold">Day:</span>{" "}
+                            {s.selectedDay}
+                          </p>
+                          <div>
+                            <p className="">
+                              {" "}
+                              <span className="font-semibold">Entry</span>{" "}
+                              {s.enterTime}
+                            </p>
+                            <p className="">
+                              {" "}
+                              <span className="font-semibold">Exit</span>{" "}
+                              {s.exitTime}
+                            </p>
+                          </div>
+                        </div>
+                        <AiOutlineDelete
+                          onClick={() => removeSchedule(i)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 font-semibold text-red-500">
+                    Enter Something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  size="sm"
+                  onClick={handleOpen6}
+                  className="mr-1"
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </div>
+        </div>
 
-        <button
-          className="py-2 px-4 w-fit bg-black text-white hover:bg-blue duration-300 ease-linear font-semibold rounded-lg"
-          type="submit"
-        >
+        <div className="grid md:grid-cols-2 gap-4">
+          <Select
+            label="Select Day"
+            name="selectedDay"
+            value={selectedDay}
+            onChange={(value) => setSelectedDay(value)}
+          >
+            {weekdays.map((w, i) => (
+              <Option key={i} value={w}>
+                {w}
+              </Option>
+            ))}
+          </Select>
+          <Input
+            label="Enter Message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <Input
+            label="Enter Time"
+            type="time"
+            value={enterTime}
+            onChange={(e) => setEnterTime(e.target.value)}
+          />
+          <Input
+            label="Exit Time"
+            type="time"
+            value={exitTime}
+            onChange={(e) => setExitTime(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-between items-center">
+          <p className="font-semibold text-blue">
+            Click on add to save a schedule
+          </p>
+          <Button
+            disabled={
+              selectedDay === "" ||
+              enterTime === "" ||
+              exitTime === ""
+            }
+            size="sm"
+            className=" bg-blue w-fit"
+            onClick={handleAddClick}
+          >
+            Add
+          </Button>
+        </div>
+        <ul>
+          {schedules.map((data, index) => (
+            <li key={index}>{/* Render data properties here */}</li>
+          ))}
+        </ul>
+
+        <p className="font-semibold text-red-500 uppercase">
+          *Double check your given information before submit!
+        </p>
+        <Button variant="gradient" color="purple" type="submit">
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );
