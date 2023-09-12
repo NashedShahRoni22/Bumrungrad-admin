@@ -84,7 +84,7 @@ export default function AddSpeciality() {
             <Button
               size="sm"
               onClick={addSpeciality}
-              className="!absolute right-1 top-1 rounded"
+              className="!absolute right-1 top-1 rounded bg-blue"
             >
               {loading ? "Loading..." : "Add"}
             </Button>
@@ -129,7 +129,7 @@ export default function AddSpeciality() {
               label="Add Sub Specility"
               name="sub_speciality"
             />
-            <Button size="sm" type="submit">
+            <Button size="sm" type="submit" className="bg-blue">
               {loading2 ? "Loading..." : "Add"}
             </Button>
           </form>

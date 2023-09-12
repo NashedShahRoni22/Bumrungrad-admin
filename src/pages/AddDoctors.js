@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 export default function AddDoctors() {
   //dialogue
@@ -23,7 +24,6 @@ export default function AddDoctors() {
   const handleOpen4 = () => setOpen4(!open4);
   const [open5, setOpen5] = React.useState(false);
   const handleOpen5 = () => setOpen5(!open5);
-
   const [open6, setOpen6] = React.useState(false);
   const handleOpen6 = () => setOpen6(!open6);
 
@@ -80,7 +80,7 @@ export default function AddDoctors() {
     setEnterTime("");
     setExitTime("");
   };
-  // Handle "Remove" schedules
+  // Handle remove schedules
   const removeSchedule = (index) => {
     const updatedSchedules = schedules.filter((_, i) => i !== index);
     setSchedules(updatedSchedules);
@@ -166,6 +166,8 @@ export default function AddDoctors() {
 
   const handleAddDoctor = (e) => {
     e.preventDefault();
+    // const formData = new FormData();
+    // formData.append("image", selectedDoctorImg);
     const image = selectedDoctorImg;
     const name = e.target.name.value;
     const lang = e.target.lang.value;
@@ -183,19 +185,19 @@ export default function AddDoctors() {
       schedules: schedules,
     };
     console.log(postData);
-    // fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(postData),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     toast.success("Doctor Added Successfully!");
-    //   })
-    //   .catch((e) => console.error(e));
+    fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // toast.success("Doctor Added Successfully!");
+      })
+      .catch((e) => console.error(e));
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
@@ -213,7 +215,7 @@ export default function AddDoctors() {
           />
           <label
             htmlFor="custom-input"
-            className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-purple-500 hover:bg-blue duration-300 ease-linear text-white cursor-pointer"
+            className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer"
           >
             Choose file
           </label>
@@ -570,8 +572,9 @@ export default function AddDoctors() {
             </Dialog>
           </div>
         </div>
+        {/* Schedule  */}
         <div className="flex justify-between items-center">
-          <p className="font-semibold">Enter Schedule Information</p>
+          <p className="font-semibold uppercase">Enter Schedule Information</p>
           <div className="relative">
             <Button
               size="sm"
@@ -673,7 +676,7 @@ export default function AddDoctors() {
           />
         </div>
         <div className="flex justify-between items-center">
-          <p className="font-semibold text-blue">
+          <p className="font-semibold text-blue uppercase">
             Click on add to save a schedule
           </p>
           <Button
@@ -698,7 +701,7 @@ export default function AddDoctors() {
         <p className="font-semibold text-red-500 uppercase">
           *Double check your given information before submit!
         </p>
-        <Button variant="gradient" color="purple" type="submit">
+        <Button className="bg-blue" type="submit">
           Submit
         </Button>
       </form>

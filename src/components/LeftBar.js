@@ -30,7 +30,7 @@ export function LeftBar() {
   return (
     <div className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4">
       <List>
-        <Link to='/home'>
+        <Link to="/home">
           <ListItem>
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
@@ -158,12 +158,14 @@ export function LeftBar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <PlusIcon strokeWidth={3} className="h-5 w-5" />
-                </ListItemPrefix>
-                Add Centers
-              </ListItem>
+              <Link to="/home/add-centers">
+                <ListItem>
+                  <ListItemPrefix>
+                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                  </ListItemPrefix>
+                  Add Centers
+                </ListItem>
+              </Link>
               <ListItem>
                 <ListItemPrefix>
                   <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
