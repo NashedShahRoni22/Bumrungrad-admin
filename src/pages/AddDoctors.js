@@ -26,10 +26,11 @@ export default function AddDoctors() {
   const handleOpen5 = () => setOpen5(!open5);
   const [open6, setOpen6] = React.useState(false);
   const handleOpen6 = () => setOpen6(!open6);
+  const [open7, setOpen7] = React.useState(false);
+  const handleOpen7 = () => setOpen7(!open7);
 
   //states of datas
   const [selectedDoctorImg, setSelectedDoctorImg] = useState("");
-
   const [certificate, setCertificate] = useState("");
   const [certificates, setCertificates] = useState([]);
 
@@ -47,8 +48,24 @@ export default function AddDoctors() {
 
   const [specialities, setSpecialities] = useState([]);
   const [subSpecialities, setSubSpecialities] = useState([]);
-
+  
   const [parentSpecialityId, setparentSpecialityId] = useState("");
+  const [selectedSubSpecialities, setSelectedSubSpecialities] = useState([]);
+  console.log(selectedSubSpecialities);
+  const handleSubSpecialityChange = (value) => {
+    // Check if the value is not empty and not already selected
+    if (value && !selectedSubSpecialities.includes(value)) {
+      setSelectedSubSpecialities([...selectedSubSpecialities, value]);
+      // setSubSpecialityId(""); // Clear the input after selection
+    }
+  };
+
+  const removeSubSpeciality = (value) => {
+    const updatedSubSpecialities = selectedSubSpecialities.filter(
+      (subSpeciality) => subSpeciality !== value
+    );
+    setSelectedSubSpecialities(updatedSubSpecialities);
+  };
 
   const weekdays = [
     "Sunday",
@@ -62,23 +79,23 @@ export default function AddDoctors() {
   //docotrs schedule
   const [selectedDay, setSelectedDay] = useState("");
   const [message, setMessage] = useState("");
-  const [enterTime, setEnterTime] = useState("");
-  const [exitTime, setExitTime] = useState("");
+  const [time, setTime] = useState("");
+  // const [enterTime, setEnterTime] = useState("");
+  // const [exitTime, setExitTime] = useState("");
   const [schedules, setSchedules] = useState([]);
 
   // Handle "Add" schedules
   const handleAddClick = () => {
     // Create a new object with the current input values
-    const newData = { selectedDay, message, enterTime, exitTime };
-
+    const newData = { selectedDay, message, time };
     // Add the new data to the schedules
     setSchedules([...schedules, newData]);
-
     // Reset the input fields
     setSelectedDay("");
     setMessage("");
-    setEnterTime("");
-    setExitTime("");
+    setTime("");
+    // setEnterTime("");
+    // setExitTime("");
   };
   // Handle remove schedules
   const removeSchedule = (index) => {
@@ -167,7 +184,6 @@ export default function AddDoctors() {
   const handleAddDoctor = (e) => {
     e.preventDefault();
     // const formData = new FormData();
-    // formData.append("image", selectedDoctorImg);
     const image = selectedDoctorImg;
     const name = e.target.name.value;
     const lang = e.target.lang.value;
@@ -177,6 +193,8 @@ export default function AddDoctors() {
       name,
       lang,
       school,
+      parentSpeciality: parentSpecialityId,
+      subSpecialities: subSpecialities,
       certificates: certificates,
       fellowships: fellowships,
       interests: interests,
@@ -185,19 +203,19 @@ export default function AddDoctors() {
       schedules: schedules,
     };
     console.log(postData);
-    fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        // toast.success("Doctor Added Successfully!");
-      })
-      .catch((e) => console.error(e));
+    // fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(postData),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     toast.success("Doctor Added Successfully!");
+    //   })
+    //   .catch((e) => console.error(e));
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
@@ -230,23 +248,68 @@ export default function AddDoctors() {
               onChange={(value) => setparentSpecialityId(value)}
             >
               {specialities.map((s) => (
-                <Option key={s.id} value={s.id.toString()}>
+                <Option key={s.id} value={s.id}>
                   {s.name}
                 </Option>
               ))}
             </Select>
           </div>
-          <div className="w-full">
+          <div className="w-full relative flex gap-1">
             <Select
               label="Select Sub Specialties"
               disabled={subSpecialities.length === 0}
+              onChange={(value) => handleSubSpecialityChange(value)}
             >
               {subSpecialities.map((sb, i) => (
-                <Option key={i} value={sb.id.toString()}>
+                <Option key={i} value={sb.id}>
                   {sb.sub_specialty}
                 </Option>
               ))}
             </Select>
+            <button
+              onClick={handleOpen7}
+              className="bg-white text-blue text-sm font-semibold  border border-blue px-1 py-0.5 rounded"
+            >
+              View
+            </button>
+            {selectedSubSpecialities.length > 0 && (
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            )}
+            <Dialog open={open7} handler={handleOpen7}>
+              <DialogHeader>Sub Specialities</DialogHeader>
+              <DialogBody divider>
+                {selectedSubSpecialities.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {selectedSubSpecialities.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">
+                          {i+1}.  {c}
+                        </p>
+                        <AiOutlineDelete
+                          onClick={() => removeSubSpeciality(c)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 font-semibold text-red-500">
+                    Enter Something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  size="sm"
+                  onClick={handleOpen7}
+                  className="mr-1"
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
           </div>
           <Input label="Enter Name" name="name" />
           <Input label="Language spoken" name="lang" />
@@ -606,6 +669,11 @@ export default function AddDoctors() {
                           <div>
                             <p className="">
                               {" "}
+                              <span className="font-semibold">Time</span>{" "}
+                              {s.time}
+                            </p>
+                            {/* <p className="">
+                              {" "}
                               <span className="font-semibold">Entry</span>{" "}
                               {s.enterTime}
                             </p>
@@ -613,7 +681,7 @@ export default function AddDoctors() {
                               {" "}
                               <span className="font-semibold">Exit</span>{" "}
                               {s.exitTime}
-                            </p>
+                            </p> */}
                           </div>
                         </div>
                         <AiOutlineDelete
@@ -662,7 +730,17 @@ export default function AddDoctors() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <Input
+          <Select
+            label="Select Time"
+            name="select time"
+            value={time}
+            onChange={(value) => setTime(value)}
+          >
+            <Option value={1}>Morning</Option>
+            <Option value={2}>Evening</Option>
+            <Option value={3}>Night</Option>
+          </Select>
+          {/* <Input
             label="Enter Time"
             type="time"
             value={enterTime}
@@ -673,18 +751,14 @@ export default function AddDoctors() {
             type="time"
             value={exitTime}
             onChange={(e) => setExitTime(e.target.value)}
-          />
+          /> */}
         </div>
         <div className="flex justify-between items-center">
           <p className="font-semibold text-blue uppercase">
             Click on add to save a schedule
           </p>
           <Button
-            disabled={
-              selectedDay === "" ||
-              enterTime === "" ||
-              exitTime === ""
-            }
+            disabled={selectedDay === "" || time === ""}
             size="sm"
             className=" bg-blue w-fit"
             onClick={handleAddClick}

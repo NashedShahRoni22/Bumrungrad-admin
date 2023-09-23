@@ -18,6 +18,32 @@ export default function AddPackages() {
     useState("No file chosen");
   const [selectedChildImage, setSelectedChildImage] =
     useState("No file chosen");
+
+  const handleAddParentPackage = (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const description = e.target.description.value;
+    const postData = {
+      title,
+      description,
+      cover_photo: selectedParentImage,
+    };
+    console.log(postData);
+
+    fetch("https://api.bumrungraddiscover.com/api/create/package", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // toast.success("Doctor Added Successfully!");
+      })
+      .catch((e) => console.error(e));
+  };
   return (
     <div className="mx-5 py-10 md:container md:mx-auto">
       <div className="rounded-xl shadow-xl bg-white">
@@ -46,7 +72,11 @@ export default function AddPackages() {
           </TabsHeader>
           <TabsBody>
             <TabPanel value={"Parent"}>
-              <form action="" className="flex flex-col gap-4">
+              <form
+                onSubmit={handleAddParentPackage}
+                action=""
+                className="flex flex-col gap-4"
+              >
                 <div className="flex flex-row items-center">
                   <input
                     type="file"
@@ -66,12 +96,9 @@ export default function AddPackages() {
                     {selectedParentImage}
                   </label>
                 </div>
-                <Input label="Enter Title" />
-                <Textarea label="Enter Description" />
-                <Button
-                  className="bg-blue w-fit"
-                  type="submit"
-                >
+                <Input label="Enter Title" name="title" />
+                <Textarea label="Enter Description" name="description" />
+                <Button className="bg-blue w-fit" type="submit">
                   Add Parent
                 </Button>
               </form>
@@ -108,11 +135,12 @@ export default function AddPackages() {
                     </Select>
                   </div>
                   <Input label="Enter Title" />
-                  <Input label="Enter ID" />
                   <Input label="Enter Price" />
                 </div>
                 <Textarea label="Enter Description" />
-                <Button className="bg-blue w-fit" type="submit">Add Child</Button>
+                <Button className="bg-blue w-fit" type="submit">
+                  Add Child
+                </Button>
               </form>
             </TabPanel>
           </TabsBody>
