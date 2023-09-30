@@ -1,5 +1,6 @@
 import {
   Button,
+  Card,
   Dialog,
   DialogBody,
   DialogFooter,
@@ -7,12 +8,16 @@ import {
   Input,
   Option,
   Select,
+  Spinner,
+  Typography,
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export default function AddDoctors() {
+  //loader
+  const [loader, setLoader] = useState(false);
   //dialogue
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
@@ -28,9 +33,12 @@ export default function AddDoctors() {
   const handleOpen6 = () => setOpen6(!open6);
   const [open7, setOpen7] = React.useState(false);
   const handleOpen7 = () => setOpen7(!open7);
+  const [open8, setOpen8] = React.useState(false);
+  const handleOpen8 = () => setOpen8(!open8);
 
   //states of datas
   const [selectedDoctorImg, setSelectedDoctorImg] = useState("");
+
   const [certificate, setCertificate] = useState("");
   const [certificates, setCertificates] = useState([]);
 
@@ -46,12 +54,14 @@ export default function AddDoctors() {
   const [research, setResearch] = useState("");
   const [researchs, setResearchs] = useState([]);
 
+  const [article, setArticle] = useState("");
+  const [articles, setArticles] = useState([]);
+
   const [specialities, setSpecialities] = useState([]);
   const [subSpecialities, setSubSpecialities] = useState([]);
-  
+
   const [parentSpecialityId, setparentSpecialityId] = useState("");
   const [selectedSubSpecialities, setSelectedSubSpecialities] = useState([]);
-  console.log(selectedSubSpecialities);
   const handleSubSpecialityChange = (value) => {
     // Check if the value is not empty and not already selected
     if (value && !selectedSubSpecialities.includes(value)) {
@@ -79,23 +89,24 @@ export default function AddDoctors() {
   //docotrs schedule
   const [selectedDay, setSelectedDay] = useState("");
   const [message, setMessage] = useState("");
-  const [time, setTime] = useState("");
-  // const [enterTime, setEnterTime] = useState("");
-  // const [exitTime, setExitTime] = useState("");
+  // const [time, setTime] = useState("");
+  const [gender, setGender] = useState("");
+  const [enterTime, setEnterTime] = useState("");
+  const [exitTime, setExitTime] = useState("");
   const [schedules, setSchedules] = useState([]);
 
   // Handle "Add" schedules
-  const handleAddClick = () => {
+  const handleAddSchedule = () => {
     // Create a new object with the current input values
-    const newData = { selectedDay, message, time };
+    const newData = [selectedDay, enterTime, exitTime, message];
     // Add the new data to the schedules
     setSchedules([...schedules, newData]);
     // Reset the input fields
     setSelectedDay("");
     setMessage("");
-    setTime("");
-    // setEnterTime("");
-    // setExitTime("");
+    // setTime("");
+    setEnterTime("");
+    setExitTime("");
   };
   // Handle remove schedules
   const removeSchedule = (index) => {
@@ -163,6 +174,18 @@ export default function AddDoctors() {
     setResearchs(updatedResearchs);
   };
 
+  // Article add remove functions
+  const addArticle = () => {
+    const newArticles = [...articles, { article }];
+    setArticles(newArticles);
+    setArticle("");
+  };
+  const removeArticle = (index) => {
+    const updatedArticles = [...articles];
+    updatedArticles.splice(index, 1);
+    setArticles(updatedArticles);
+  };
+
   //get speacilities
   useEffect(() => {
     fetch("https://api.bumrungraddiscover.com/api/get/specialty")
@@ -182,40 +205,57 @@ export default function AddDoctors() {
   }, [parentSpecialityId]);
 
   const handleAddDoctor = (e) => {
+    setLoader(true);
     e.preventDefault();
-    // const formData = new FormData();
-    const image = selectedDoctorImg;
     const name = e.target.name.value;
     const lang = e.target.lang.value;
     const school = e.target.school.value;
     const postData = {
-      image,
+      image: selectedDoctorImg,
       name,
       lang,
       school,
       parentSpeciality: parentSpecialityId,
-      subSpecialities: subSpecialities,
+      subSpecialities: selectedSubSpecialities,
       certificates: certificates,
       fellowships: fellowships,
       interests: interests,
       experiences: experiences,
       researches: researchs,
+      articles: articles,
       schedules: schedules,
     };
     console.log(postData);
+
+    const formData = new FormData();
+    formData.append("image", selectedDoctorImg);
+    formData.append("name", JSON.stringify(name));
+    formData.append("specialty", JSON.stringify(parentSpecialityId));
+    formData.append("sub_specialty", JSON.stringify(selectedSubSpecialities));
+    formData.append("article", JSON.stringify(articles));
+    formData.append("lang", JSON.stringify(lang));
+    formData.append("gender", JSON.stringify(gender));
+    formData.append("school", JSON.stringify(school));
+    formData.append("certificates", JSON.stringify(certificates));
+    formData.append("fellowships", JSON.stringify(fellowships));
+    formData.append("interests", JSON.stringify(interests));
+    formData.append("experiences", JSON.stringify(experiences));
+    formData.append("researches", JSON.stringify(researchs));
+    formData.append("schedule", JSON.stringify(schedules));
+
     // fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
     //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(postData),
+    //   body: formData,
     // })
     //   .then((res) => res.json())
     //   .then((data) => {
     //     console.log(data);
-    //     toast.success("Doctor Added Successfully!");
+    //     setLoader(false);
     //   })
-    //   .catch((e) => console.error(e));
+    //   .catch((e) => {
+    //     console.error(e);
+    //     setLoader(false);
+    //   });
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
@@ -283,7 +323,7 @@ export default function AddDoctors() {
                     {selectedSubSpecialities.map((c, i) => (
                       <div key={i} className="flex justify-between">
                         <p className="text-xl">
-                          {i+1}.  {c}
+                          {i + 1}. {c}
                         </p>
                         <AiOutlineDelete
                           onClick={() => removeSubSpeciality(c)}
@@ -314,6 +354,10 @@ export default function AddDoctors() {
           <Input label="Enter Name" name="name" />
           <Input label="Language spoken" name="lang" />
           <Input label="Medical School" name="school" />
+          <Select label="Select Gender" onChange={(value) => setGender(value)}>
+            <Option value={2}>Male</Option>
+            <Option value={1}>Female</Option>
+          </Select>
         </div>
         {/* Certifications */}
         <div className="flex items-center gap-5">
@@ -371,6 +415,70 @@ export default function AddDoctors() {
                   color="red"
                   size="sm"
                   onClick={handleOpen}
+                  className="mr-1"
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </div>
+        </div>
+        {/* Articles */}
+        <div className="flex items-center gap-5">
+          <div className="relative flex w-full">
+            <Input
+              value={article}
+              type="text"
+              label="Enter Articles"
+              onChange={(e) => setArticle(e.target.value)}
+            />
+            <Button
+              size="sm"
+              onClick={addArticle}
+              className="!absolute right-1 top-1 rounded bg-blue"
+              disabled={article === ""}
+            >
+              Add
+            </Button>
+          </div>
+          <div className="relative">
+            <Button
+              onClick={handleOpen8}
+              size="sm"
+              className="bg-white text-blue border border-blue"
+            >
+              View
+            </Button>
+            {articles.length > 0 && (
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            )}
+            <Dialog open={open8} handler={handleOpen8}>
+              <DialogHeader>Articles</DialogHeader>
+              <DialogBody divider>
+                {articles.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {articles.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">{c.article}</p>
+                        <AiOutlineDelete
+                          onClick={() => removeArticle(i)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 font-semibold text-red-500">
+                    Enter Something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  size="sm"
+                  onClick={handleOpen8}
                   className="mr-1"
                 >
                   <span>Close</span>
@@ -654,43 +762,89 @@ export default function AddDoctors() {
               <DialogHeader>Doctor Schedules</DialogHeader>
               <DialogBody divider>
                 {schedules.length > 0 ? (
-                  <div className="flex flex-col gap-4">
-                    {schedules.map((s, i) => (
-                      <div
-                        key={i}
-                        className="flex justify-between shadow-xl rounded-xl p-5"
-                      >
-                        <div>
-                          <p className="">
-                            {" "}
-                            <span className="font-semibold">Day:</span>{" "}
-                            {s.selectedDay}
-                          </p>
-                          <div>
-                            <p className="">
-                              {" "}
-                              <span className="font-semibold">Time</span>{" "}
-                              {s.time}
-                            </p>
-                            {/* <p className="">
-                              {" "}
-                              <span className="font-semibold">Entry</span>{" "}
-                              {s.enterTime}
-                            </p>
-                            <p className="">
-                              {" "}
-                              <span className="font-semibold">Exit</span>{" "}
-                              {s.exitTime}
-                            </p> */}
-                          </div>
-                        </div>
-                        <AiOutlineDelete
-                          onClick={() => removeSchedule(i)}
-                          className="text-red-500 text-3xl cursor-pointer"
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  <Card className="h-full w-full overflow-scroll">
+                    <table className="w-full min-w-max table-auto text-left">
+                      <thead>
+                        <tr>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Day
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Time
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Location
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Action
+                            </Typography>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {schedules.map((s, i) => (
+                          <tr key={i} className="even:bg-blue-gray-50/50">
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {s[0]}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {s[1]} to {s[2]}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {s[3]}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <AiOutlineDelete
+                                onClick={() => removeSchedule(i)}
+                                className="text-red-500 text-3xl cursor-pointer"
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </Card>
                 ) : (
                   <p className="py-5 font-semibold text-red-500">
                     Enter Something!
@@ -726,11 +880,11 @@ export default function AddDoctors() {
             ))}
           </Select>
           <Input
-            label="Enter Message"
+            label="Enter Location"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <Select
+          {/* <Select
             label="Select Time"
             name="select time"
             value={time}
@@ -739,8 +893,8 @@ export default function AddDoctors() {
             <Option value={1}>Morning</Option>
             <Option value={2}>Evening</Option>
             <Option value={3}>Night</Option>
-          </Select>
-          {/* <Input
+          </Select> */}
+          <Input
             label="Enter Time"
             type="time"
             value={enterTime}
@@ -751,17 +905,17 @@ export default function AddDoctors() {
             type="time"
             value={exitTime}
             onChange={(e) => setExitTime(e.target.value)}
-          /> */}
+          />
         </div>
         <div className="flex justify-between items-center">
           <p className="font-semibold text-blue uppercase">
             Click on add to save a schedule
           </p>
           <Button
-            disabled={selectedDay === "" || time === ""}
+            disabled={selectedDay === "" || enterTime === "" || exitTime === ""}
             size="sm"
-            className=" bg-blue w-fit"
-            onClick={handleAddClick}
+            className="bg-blue w-fit"
+            onClick={handleAddSchedule}
           >
             Add
           </Button>
@@ -775,8 +929,8 @@ export default function AddDoctors() {
         <p className="font-semibold text-red-500 uppercase">
           *Double check your given information before submit!
         </p>
-        <Button className="bg-blue" type="submit">
-          Submit
+        <Button className="bg-blue flex items-center w-fit gap-1" type="submit">
+          Submit {loader && <Spinner className="h-4 w-4" color="white" />}
         </Button>
       </form>
     </div>
