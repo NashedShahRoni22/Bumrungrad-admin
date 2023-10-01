@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiFillEye } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export default function AddDoctors() {
@@ -35,6 +35,8 @@ export default function AddDoctors() {
   const handleOpen7 = () => setOpen7(!open7);
   const [open8, setOpen8] = React.useState(false);
   const handleOpen8 = () => setOpen8(!open8);
+  const [open9, setOpen9] = React.useState(false);
+  const handleOpen9 = () => setOpen9(!open9);
 
   //states of datas
   const [selectedDoctorImg, setSelectedDoctorImg] = useState("");
@@ -86,6 +88,19 @@ export default function AddDoctors() {
     "Friday",
     "Saturday",
   ];
+  const languages = [
+    "Thai",
+    "English",
+    "Arabic",
+    "Chinese",
+    "Dutch",
+    "French",
+    "German",
+    "Hindi",
+    "Japanese",
+    "Spanish",
+    "Urdo",
+  ];
   //docotrs schedule
   const [selectedDay, setSelectedDay] = useState("");
   const [message, setMessage] = useState("");
@@ -94,6 +109,22 @@ export default function AddDoctors() {
   const [enterTime, setEnterTime] = useState("");
   const [exitTime, setExitTime] = useState("");
   const [schedules, setSchedules] = useState([]);
+  const [langs, setLangs] = useState([]);
+
+  const handleLangChange = (value) => {
+    // Check if the value is not empty and not already selected
+    if (value && !langs.includes(value)) {
+      setLangs([...langs, value]);
+      // setSubSpecialityId(""); // Clear the input after selection
+    }
+  };
+
+  const removeLang = (value) => {
+    const updatedLangs = langs.filter(
+      (lang) => lang !== value
+    );
+    setLangs(updatedLangs);
+  };
 
   // Handle "Add" schedules
   const handleAddSchedule = () => {
@@ -213,7 +244,7 @@ export default function AddDoctors() {
     const postData = {
       image: selectedDoctorImg,
       name,
-      lang,
+      lang: langs,
       school,
       parentSpeciality: parentSpecialityId,
       subSpecialities: selectedSubSpecialities,
@@ -226,7 +257,6 @@ export default function AddDoctors() {
       schedules: schedules,
     };
     console.log(postData);
-
     const formData = new FormData();
     formData.append("image", selectedDoctorImg);
     formData.append("name", JSON.stringify(name));
@@ -243,19 +273,23 @@ export default function AddDoctors() {
     formData.append("researches", JSON.stringify(researchs));
     formData.append("schedule", JSON.stringify(schedules));
 
-    // fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setLoader(false);
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //     setLoader(false);
-    //   });
+    fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setLoader(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        setLoader(false);
+      });
+
+    // {
+    //   Can you add specialities in string also?
+    // }
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
@@ -301,16 +335,16 @@ export default function AddDoctors() {
               onChange={(value) => handleSubSpecialityChange(value)}
             >
               {subSpecialities.map((sb, i) => (
-                <Option key={i} value={sb.id}>
+                <Option key={i} value={sb.sub_specialty}>
                   {sb.sub_specialty}
                 </Option>
               ))}
             </Select>
             <button
               onClick={handleOpen7}
-              className="bg-white text-blue text-sm font-semibold  border border-blue px-1 py-0.5 rounded"
+              className="px-2.5 py-0.5 border border-blue rounded"
             >
-              View
+              <AiFillEye className="text-3xl text-blue"/>
             </button>
             {selectedSubSpecialities.length > 0 && (
               <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
@@ -352,7 +386,62 @@ export default function AddDoctors() {
             </Dialog>
           </div>
           <Input label="Enter Name" name="name" />
-          <Input label="Language spoken" name="lang" />
+          <div className="w-full relative flex gap-1">
+            <Select
+              label="Language Spoken"
+              onChange={(value) => handleLangChange(value)}
+            >
+              {languages.map((l, i) => (
+                <Option key={i} value={l}>
+                  {l}
+                </Option>
+              ))}
+            </Select>
+            <button
+              onClick={handleOpen9}
+              className="px-2.5 py-0.5 border border-blue rounded"
+            >
+              <AiFillEye className="text-3xl text-blue"/>
+            </button>
+            {langs.length > 0 && (
+              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            )}
+            <Dialog open={open9} handler={handleOpen9}>
+              <DialogHeader>Language Spoken</DialogHeader>
+              <DialogBody divider>
+                {langs.length > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {langs.map((c, i) => (
+                      <div key={i} className="flex justify-between">
+                        <p className="text-xl">
+                          {i + 1}. {c}
+                        </p>
+                        <AiOutlineDelete
+                          onClick={() => removeLang(c)}
+                          className="text-red-500 text-3xl cursor-pointer"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-5 font-semibold text-red-500">
+                    Enter Something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="text"
+                  color="red"
+                  size="sm"
+                  onClick={handleOpen9}
+                  className="mr-1"
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </div>
           <Input label="Medical School" name="school" />
           <Select label="Select Gender" onChange={(value) => setGender(value)}>
             <Option value={2}>Male</Option>
@@ -395,7 +484,9 @@ export default function AddDoctors() {
                   <div className="flex flex-col gap-4">
                     {certificates.map((c, i) => (
                       <div key={i} className="flex justify-between">
-                        <p className="text-xl">{c.certificate}</p>
+                        <p className="text-xl">
+                          {i + 1}. {c.certificate}
+                        </p>
                         <AiOutlineDelete
                           onClick={() => removeCertificate(i)}
                           className="text-red-500 text-3xl cursor-pointer"
@@ -459,7 +550,9 @@ export default function AddDoctors() {
                   <div className="flex flex-col gap-4">
                     {articles.map((c, i) => (
                       <div key={i} className="flex justify-between">
-                        <p className="text-xl">{c.article}</p>
+                        <p className="text-xl">
+                          {i + 1}. {c.article}
+                        </p>
                         <AiOutlineDelete
                           onClick={() => removeArticle(i)}
                           className="text-red-500 text-3xl cursor-pointer"
@@ -523,7 +616,9 @@ export default function AddDoctors() {
                   <div className="flex flex-col gap-4">
                     {fellowships.map((c, i) => (
                       <div key={i} className="flex justify-between">
-                        <p className="text-xl">{c.fellowship}</p>
+                        <p className="text-xl">
+                          {i + 1}. {c.fellowship}
+                        </p>
                         <AiOutlineDelete
                           onClick={() => removeFellowship(i)}
                           className="text-red-500 text-3xl cursor-pointer"
@@ -581,13 +676,15 @@ export default function AddDoctors() {
               <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
             )}
             <Dialog open={open3} handler={handleOpen3}>
-              <DialogHeader>interests</DialogHeader>
+              <DialogHeader>Interests</DialogHeader>
               <DialogBody divider>
                 {interests.length > 0 ? (
                   <div className="flex flex-col gap-4">
                     {interests.map((c, i) => (
                       <div key={i} className="flex justify-between">
-                        <p className="text-xl">{c.Interest}</p>
+                        <p className="text-xl">
+                          {i + 1}. {c.Interest}
+                        </p>
                         <AiOutlineDelete
                           onClick={() => removeInterest(i)}
                           className="text-red-500 text-3xl cursor-pointer"
@@ -651,7 +748,9 @@ export default function AddDoctors() {
                   <div className="flex flex-col gap-4">
                     {experiences.map((c, i) => (
                       <div key={i} className="flex justify-between">
-                        <p className="text-xl">{c.experience}</p>
+                        <p className="text-xl">
+                          {i + 1}. {c.experience}
+                        </p>
                         <AiOutlineDelete
                           onClick={() => removeExperience(i)}
                           className="text-red-500 text-3xl cursor-pointer"
@@ -715,7 +814,9 @@ export default function AddDoctors() {
                   <div className="flex flex-col gap-4">
                     {researchs.map((c, i) => (
                       <div key={i} className="flex justify-between">
-                        <p className="text-xl">{c.research}</p>
+                        <p className="text-xl">
+                          {i + 1}. {c.research}
+                        </p>
                         <AiOutlineDelete
                           onClick={() => removeResearch(i)}
                           className="text-red-500 text-3xl cursor-pointer"

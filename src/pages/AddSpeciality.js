@@ -71,9 +71,10 @@ export default function AddSpeciality() {
 
   return (
     <div className="py-10 mx-5 md:container md:mx-auto">
-      <div className="grid md:grid-cols-2 gap-4">
+      {/* input boxes  here  */}
+      <div className="grid gap-5 md:grid-cols-2">
         <div className="bg-white rounded-xl shadow-xl p-5">
-          <p className="text-xl mb-5 text-center lg:text-left font-semibold">Add Speciality</p>
+          <p className="text-xl mb-5 font-semibold">Add Speciality</p>
           <div className="relative">
             <Input
               value={speciality}
@@ -89,21 +90,6 @@ export default function AddSpeciality() {
               {loading ? "Loading..." : "Add"}
             </Button>
           </div>
-          <div className="mt-5 p-2">
-            <p className="font-semibold">Specility List</p>
-            <hr className="my-3" />
-            <ul className="min-h-[400px]">
-              {specialties?.map((speciality) => (
-                <li
-                  className="p-2.5 rounded-md shadow-md flex items-center justify-between"
-                  key={speciality.id}
-                >
-                  <span>{speciality.name}</span>
-                  <AiOutlineDelete className="text-2xl text-red-500" />
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
         <div className="bg-white rounded-xl shadow-xl p-5">
           <form
@@ -112,13 +98,13 @@ export default function AddSpeciality() {
             onSubmit={addSubSpeciality}
           >
             <div>
-            <p className="text-xl mb-5 text-center lg:text-left font-semibold">Add Sub Speciality</p>
+              <p className="text-xl mb-5 font-semibold">Add Sub Speciality</p>
               <Select
                 label="Select Specialty"
-                onChange={value => setparentSpecialityId(value)}
+                onChange={(value) => setparentSpecialityId(value)}
               >
                 {specialties?.map((speciality) => (
-                  <Option key={speciality.id} value={(speciality.id).toString()}>
+                  <Option key={speciality.id} value={speciality.id.toString()}>
                     {speciality.name}
                   </Option>
                 ))}
@@ -133,22 +119,39 @@ export default function AddSpeciality() {
               {loading2 ? "Loading..." : "Add"}
             </Button>
           </form>
-
-          <div className="mt-5 p-2">
-            <p className="font-semibold">Sub Specility List</p>
-            <hr className="my-3" />
-            <ul className="min-h-[400px]">
-              {subSpecialties.map((speciality) => (
-                <li
-                  className="p-2.5 my-1 rounded-md shadow-md flex justify-between items-center"
-                  key={speciality.id}
-                >
-                  <span className="uppercase">{speciality.sub_specialty}</span>
-                  <AiOutlineDelete className="text-2xl text-red-500" />
-                </li>
-              ))}
-            </ul>
-          </div>
+        </div>
+      </div>
+      {/* data rendered here  */}
+      <div>
+        <div className="bg-white mt-5 p-5 shadow rounded-xl">
+          <p className="font-semibold">Specility List</p>
+          <hr className="my-3" />
+          <ul className="min-h-[400px]">
+            {specialties?.map((speciality) => (
+              <li
+                className="p-2.5 rounded-md shadow-md flex items-center justify-between"
+                key={speciality.id}
+              >
+                <span>{speciality.name}</span>
+                <AiOutlineDelete className="text-2xl text-red-500" />
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-white mt-5 p-5 shadow rounded-xl">
+          <p className="font-semibold">Sub Specility List</p>
+          <hr className="my-3" />
+          <ul className="min-h-[400px]">
+            {subSpecialties.map((speciality) => (
+              <li
+                className="p-2.5 my-1 rounded-md shadow-md flex justify-between items-center"
+                key={speciality.id}
+              >
+                <span className="uppercase">{speciality.sub_specialty}</span>
+                <AiOutlineDelete className="text-2xl text-red-500" />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
