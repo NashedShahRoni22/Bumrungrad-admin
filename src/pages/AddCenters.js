@@ -280,10 +280,10 @@ export default function AddCenters() {
             </div>
           </div>
         </div>
-        <Textarea label="Enter Details" className="lg:w-1/2"/>
-        <Button className="bg-blue">
-          Add Center
-        </Button>
+        <div className="lg:w-1/2">
+          <Textarea label="Enter Details" className="" />
+        </div>
+        <Button className="bg-blue">Add Center</Button>
       </form>
     </div>
   );

@@ -56,7 +56,7 @@ export default function AddPackages() {
         .then((data) => {
           setLoader(false);
           e.target.reset();
-          // selectedParentImage("");
+          // selectedParentImage("No file chosen");
           toast.success("Package Added Successfully!");
         })
         .catch((e) => console.error(e));
@@ -88,7 +88,7 @@ export default function AddPackages() {
         .then((data) => {
           setChildLoader(false);
           e.target.reset();
-          // selectedParentImage("");
+          // selectedChildImage("No file chosen");
           toast.success("Child Package Added Successfully!");
         })
         .catch((e) => console.error(e));
@@ -96,7 +96,7 @@ export default function AddPackages() {
   };
   return (
     <div className="mx-5 py-10 md:container md:mx-auto">
-      <div className="rounded-xl shadow-xl bg-white">
+      <div className="rounded-xl shadow-xl bg-white min-h-[40vh]">
         <Tabs value={activeTab}>
           <TabsHeader
             className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"

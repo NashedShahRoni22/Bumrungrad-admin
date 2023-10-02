@@ -104,7 +104,6 @@ export default function AddDoctors() {
   //docotrs schedule
   const [selectedDay, setSelectedDay] = useState("");
   const [message, setMessage] = useState("");
-  // const [time, setTime] = useState("");
   const [gender, setGender] = useState("");
   const [enterTime, setEnterTime] = useState("");
   const [exitTime, setExitTime] = useState("");
@@ -115,7 +114,6 @@ export default function AddDoctors() {
     // Check if the value is not empty and not already selected
     if (value && !langs.includes(value)) {
       setLangs([...langs, value]);
-      // setSubSpecialityId(""); // Clear the input after selection
     }
   };
 
@@ -239,7 +237,6 @@ export default function AddDoctors() {
     setLoader(true);
     e.preventDefault();
     const name = e.target.name.value;
-    const lang = e.target.lang.value;
     const school = e.target.school.value;
     const postData = {
       image: selectedDoctorImg,
@@ -263,7 +260,7 @@ export default function AddDoctors() {
     formData.append("specialty", JSON.stringify(parentSpecialityId));
     formData.append("sub_specialty", JSON.stringify(selectedSubSpecialities));
     formData.append("article", JSON.stringify(articles));
-    formData.append("lang", JSON.stringify(lang));
+    formData.append("lang", JSON.stringify(langs));
     formData.append("gender", JSON.stringify(gender));
     formData.append("school", JSON.stringify(school));
     formData.append("certificates", JSON.stringify(certificates));
@@ -444,8 +441,8 @@ export default function AddDoctors() {
           </div>
           <Input label="Medical School" name="school" />
           <Select label="Select Gender" onChange={(value) => setGender(value)}>
-            <Option value={2}>Male</Option>
-            <Option value={1}>Female</Option>
+            <Option value={"Male"}>Male</Option>
+            <Option value={"Female"}>Female</Option>
           </Select>
         </div>
         {/* Certifications */}
