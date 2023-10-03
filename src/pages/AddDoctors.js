@@ -255,19 +255,25 @@ export default function AddDoctors() {
     };
     console.log(postData);
     const formData = new FormData();
+    // file upload 
     formData.append("image", selectedDoctorImg);
-    formData.append("name", JSON.stringify(name));
-    formData.append("specialty", JSON.stringify(parentSpecialityId));
-    formData.append("sub_specialty", JSON.stringify(selectedSubSpecialities));
+    // single strings 
+    formData.append("name", name);
+    formData.append("school", school);
+    //select
+    formData.append("gender", gender);
+    formData.append("specialty", parentSpecialityId);
+    // array 
+    formData.append("sub_specialty", selectedSubSpecialities);
+    formData.append("lang", langs);
+    //array of objects
     formData.append("article", JSON.stringify(articles));
-    formData.append("lang", JSON.stringify(langs));
-    formData.append("gender", JSON.stringify(gender));
-    formData.append("school", JSON.stringify(school));
     formData.append("certificates", JSON.stringify(certificates));
     formData.append("fellowships", JSON.stringify(fellowships));
     formData.append("interests", JSON.stringify(interests));
     formData.append("experiences", JSON.stringify(experiences));
     formData.append("researches", JSON.stringify(researchs));
+    //array of array
     formData.append("schedule", JSON.stringify(schedules));
 
     fetch("https://api.bumrungraddiscover.com/api/add/doctor", {
