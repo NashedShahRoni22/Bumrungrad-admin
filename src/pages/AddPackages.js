@@ -86,6 +86,7 @@ export default function AddPackages() {
       })
         .then((res) => res.json())
         .then((data) => {
+          // console.log(data);
           setChildLoader(false);
           e.target.reset();
           // selectedChildImage("No file chosen");

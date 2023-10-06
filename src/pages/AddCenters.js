@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 export default function AddCenters() {
   //dialogue
@@ -33,7 +34,7 @@ export default function AddCenters() {
 
   // informations add remove functions
   const addInformations = () => {
-    const newInformations = [...informations, { information }];
+    const newInformations = [...informations,  information ];
     setInformations(newInformations);
     setInformation("");
   };
@@ -44,7 +45,7 @@ export default function AddCenters() {
   };
   // conditions add remove functions
   const addConditions = () => {
-    const newConditions = [...conditions, { condition }];
+    const newConditions = [...conditions,  condition ];
     setConditions(newConditions);
     setCondition("");
   };
@@ -55,7 +56,7 @@ export default function AddCenters() {
   };
   // conditions add remove functions
   const addTreatments = () => {
-    const newTreatments = [...treatments, { treatment }];
+    const newTreatments = [...treatments,  treatment ];
     setTreatments(newTreatments);
     setTreatment("");
   };
@@ -64,9 +65,56 @@ export default function AddCenters() {
     updatedTreatments.splice(index, 1);
     setTreatments(updatedTreatments);
   };
+
+  //add clinic and centers
+  const handleAddClinics = (e) => {
+    // setChildLoader(true);
+    e.preventDefault();
+    const name = e.target.name.value;
+    const location = e.target.location.value;
+    const description = e.target.description.value;
+    const postData = {
+      selectedCenterImg,
+      name, 
+      location,
+      description,
+      informations,
+      conditions,
+      treatments,
+    }
+    console.log(postData);
+    if (setSelectedCenterImg === "No file chosen") {
+      // setChildLoader(false);
+      toast.error("Select Center Image");
+    } else {
+      const formData = new FormData();
+      formData.append("cover_photo", setSelectedCenterImg);
+      formData.append("name", name);
+      formData.append("location", location);
+      formData.append("informations", informations);
+      formData.append("conditions", conditions);
+      formData.append("treatments", treatments);
+
+      
+
+      fetch("https://api.bumrungraddiscover.com/api/add/center", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // setChildLoader(false);
+          // e.target.reset();
+          // selectedChildImage("No file chosen");
+          // toast.success("Child Package Added Successfully!");
+        })
+        .catch((e) => console.error(e));
+    }
+  };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
-      <form action="" className="bg-white shadow-xl rounded-xl p-5">
+      <form onSubmit={handleAddClinics} className="bg-white shadow-xl rounded-xl p-5">
         <p className="text-2xl font-semibold">
           Add Center
         </p>
@@ -89,8 +137,8 @@ export default function AddCenters() {
           </label>
         </div>
         <div className="grid gap-4 lg:grid-cols-2 my-4">
-          <Input label="Enter Name" />
-          <Input label="Enter Location" />
+          <Input label="Enter Name" name="name" />
+          <Input label="Enter Location"  name="location" />
           {/* multiple information */}
           <div className="flex items-center gap-5">
             <div className="relative flex w-full">
@@ -285,9 +333,9 @@ export default function AddCenters() {
           </div>
         </div>
         <div className="lg:w-1/2">
-          <Textarea label="Enter Details" className="" />
+          <Textarea label="Enter Details" name="description" />
         </div>
-        <Button className="bg-blue">Add Center</Button>
+        <Button className="bg-blue" type="submit">Add Center</Button>
       </form>
     </div>
   );

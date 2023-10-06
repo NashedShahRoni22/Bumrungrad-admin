@@ -17,6 +17,7 @@ import {
 } from "@material-tailwind/react";
 
 export default function AddSpeciality() {
+  const [loader, setLoader] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [speciality, setSpeciality] = useState("");
@@ -71,16 +72,24 @@ export default function AddSpeciality() {
 
   //get speacilities
   useEffect(() => {
+    setLoader(true);
     fetch("https://api.bumrungraddiscover.com/api/get/specialty")
       .then((res) => res.json())
-      .then((data) => setSpecialities(data?.response?.data));
+      .then((data) => {
+        setSpecialities(data?.response?.data);
+        setLoader(false);
+      });
   }, [loading]);
 
   //get sub speacilities
   useEffect(() => {
+    setLoader(true);
     fetch("https://api.bumrungraddiscover.com/api/get/sub/specialty")
       .then((res) => res.json())
-      .then((data) => setSubSpecialities(data?.response?.data));
+      .then((data) => {
+        setSubSpecialities(data?.response?.data);
+        setLoader(false);
+      });
   }, [loading2]);
 
   return (
@@ -114,7 +123,7 @@ export default function AddSpeciality() {
             </TabsHeader>
             <TabsBody>
               <TabPanel value={"Expertise"} className="">
-                <div className="md:flex md:justify-center">
+                <div className="">
                   <div className="bg-white rounded-xl shadow p-5 md:w-1/2">
                     <p className="text-xl mb-5 font-semibold">Add Speciality</p>
                     <div className="relative">
@@ -151,7 +160,7 @@ export default function AddSpeciality() {
                 </div>
               </TabPanel>
               <TabPanel value={"Speciality"} className="">
-                <div className="md:flex md:justify-center">
+                <div className="">
                   <div className="bg-white rounded-xl shadow p-5 mt-5 md:w-1/2">
                     <form
                       action=""

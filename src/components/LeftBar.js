@@ -123,12 +123,14 @@ export function LeftBar() {
                   Add Package
                 </ListItem>
               </Link>
-              <ListItem>
-                <ListItemPrefix>
-                  <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
-                </ListItemPrefix>
-                Packages List
-              </ListItem>
+              <Link to="/home/get-packages">
+                <ListItem>
+                  <ListItemPrefix>
+                    <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
+                  </ListItemPrefix>
+                  Packages List
+                </ListItem>
+              </Link>
             </List>
           </AccordionBody>
         </Accordion>

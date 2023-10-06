@@ -6,6 +6,7 @@ import SignIn from "./auth/SignIn";
 import AddPackages from "./pages/AddPackages";
 import AddSpeciality from "./pages/AddSpeciality";
 import AddCenters from "./pages/AddCenters";
+import GetPackages from "./pages/GetPackages";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path:"/home/add-packages",
         element: <AddPackages/>
+      },
+      {
+        path:"/home/get-packages",
+        element: <GetPackages/>
       },
       {
         path:"/home/add-centers",
