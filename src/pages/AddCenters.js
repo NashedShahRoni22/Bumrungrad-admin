@@ -88,7 +88,7 @@ export default function AddCenters() {
       toast.error("Select Center Image");
     } else {
       const formData = new FormData();
-      formData.append("cover_photo", setSelectedCenterImg);
+      formData.append("cover_photo", selectedCenterImg);
       formData.append("name", name);
       formData.append("location", location);
       formData.append("informations", informations);
