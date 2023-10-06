@@ -118,9 +118,7 @@ export default function AddDoctors() {
   };
 
   const removeLang = (value) => {
-    const updatedLangs = langs.filter(
-      (lang) => lang !== value
-    );
+    const updatedLangs = langs.filter((lang) => lang !== value);
     setLangs(updatedLangs);
   };
 
@@ -255,15 +253,15 @@ export default function AddDoctors() {
     };
     console.log(postData);
     const formData = new FormData();
-    // file upload 
+    // file upload
     formData.append("image", selectedDoctorImg);
-    // single strings 
+    // single strings
     formData.append("name", name);
     formData.append("school", school);
     //select
     formData.append("gender", gender);
     formData.append("specialty", parentSpecialityId);
-    // array 
+    // array
     formData.append("sub_specialty", selectedSubSpecialities);
     formData.append("lang", langs);
     //array of objects
@@ -301,6 +299,8 @@ export default function AddDoctors() {
         onSubmit={handleAddDoctor}
         className="flex flex-col gap-4 bg-white rounded-xl shadow-xl p-5"
       >
+        <p className="text-2xl font-semibold">Add Doctor</p>
+        <hr/>
         <div className="flex flex-row items-center">
           <input
             type="file"
@@ -347,7 +347,7 @@ export default function AddDoctors() {
               onClick={handleOpen7}
               className="px-2.5 py-0.5 border border-blue rounded"
             >
-              <AiFillEye className="text-3xl text-blue"/>
+              <AiFillEye className="text-3xl text-blue" />
             </button>
             {selectedSubSpecialities.length > 0 && (
               <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
@@ -404,7 +404,7 @@ export default function AddDoctors() {
               onClick={handleOpen9}
               className="px-2.5 py-0.5 border border-blue rounded"
             >
-              <AiFillEye className="text-3xl text-blue"/>
+              <AiFillEye className="text-3xl text-blue" />
             </button>
             {langs.length > 0 && (
               <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>

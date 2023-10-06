@@ -96,7 +96,9 @@ export default function AddPackages() {
   };
   return (
     <div className="mx-5 py-10 md:container md:mx-auto">
-      <div className="rounded-xl shadow-xl bg-white min-h-[40vh]">
+      <div className="rounded-xl p-5 shadow-xl bg-white">
+        <p className="text-2xl font-semibold">Add Packages</p>
+        <hr className="my-5" />
         <Tabs value={activeTab}>
           <TabsHeader
             className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
@@ -193,7 +195,7 @@ export default function AddPackages() {
                       required
                       onChange={(value) => setParentId(value)}
                     >
-                      {parentPckages.map((pp) => (
+                      {parentPckages?.map((pp) => (
                         <Option key={pp.id} value={pp.id.toString()}>
                           {pp.title}
                         </Option>
@@ -204,7 +206,10 @@ export default function AddPackages() {
                   <Input label="Enter Price" name="price" required />
                 </div>
                 <Textarea label="Enter Description" name="desc" required />
-                <Button className="bg-blue w-fit flex items-center gap-1" type="submit">
+                <Button
+                  className="bg-blue w-fit flex items-center gap-1"
+                  type="submit"
+                >
                   Add Child{" "}
                   {childLoader && <Spinner className="h-4 w-4" color="white" />}
                 </Button>

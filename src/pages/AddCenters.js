@@ -67,6 +67,10 @@ export default function AddCenters() {
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
       <form action="" className="bg-white shadow-xl rounded-xl p-5">
+        <p className="text-2xl font-semibold">
+          Add Center
+        </p>
+        <hr className="my-5" />
         <div className="flex flex-row items-center">
           <input
             type="file"
