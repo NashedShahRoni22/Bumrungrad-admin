@@ -91,11 +91,10 @@ export default function AddCenters() {
       formData.append("cover_photo", selectedCenterImg);
       formData.append("name", name);
       formData.append("location", location);
+      formData.append("description", description);
       formData.append("informations", informations);
       formData.append("conditions", conditions);
       formData.append("treatments", treatments);
-
-      
 
       fetch("https://api.bumrungraddiscover.com/api/add/center", {
         method: "POST",

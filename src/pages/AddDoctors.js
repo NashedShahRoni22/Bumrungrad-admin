@@ -107,6 +107,7 @@ export default function AddDoctors() {
   const [gender, setGender] = useState("");
   const [enterTime, setEnterTime] = useState("");
   const [exitTime, setExitTime] = useState("");
+  const [time, setTime] = useState("");
   const [schedules, setSchedules] = useState([]);
   const [langs, setLangs] = useState([]);
 
@@ -125,7 +126,7 @@ export default function AddDoctors() {
   // Handle "Add" schedules
   const handleAddSchedule = () => {
     // Create a new object with the current input values
-    const newData = [selectedDay, enterTime, exitTime, message];
+    const newData = [selectedDay, time, enterTime, exitTime, message];
     // Add the new data to the schedules
     setSchedules([...schedules, newData]);
     // Reset the input fields
@@ -894,6 +895,15 @@ export default function AddDoctors() {
                               color="blue-gray"
                               className="font-normal leading-none opacity-70"
                             >
+                              Duration
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
                               Location
                             </Typography>
                           </th>
@@ -926,7 +936,7 @@ export default function AddDoctors() {
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {s[1]} to {s[2]}
+                                {s[1]}
                               </Typography>
                             </td>
                             <td className="p-4">
@@ -935,7 +945,16 @@ export default function AddDoctors() {
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {s[3]}
+                                {s[2]} to {s[3]}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {s[4]}
                               </Typography>
                             </td>
                             <td className="p-4">
@@ -988,16 +1007,6 @@ export default function AddDoctors() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          {/* <Select
-            label="Select Time"
-            name="select time"
-            value={time}
-            onChange={(value) => setTime(value)}
-          >
-            <Option value={1}>Morning</Option>
-            <Option value={2}>Evening</Option>
-            <Option value={3}>Night</Option>
-          </Select> */}
           <Input
             label="Enter Time"
             type="time"
@@ -1010,6 +1019,16 @@ export default function AddDoctors() {
             value={exitTime}
             onChange={(e) => setExitTime(e.target.value)}
           />
+          <Select
+            label="Select Time"
+            name="select time"
+            value={time}
+            onChange={(value) => setTime(value)}
+          >
+            <Option value="Morning">Morning</Option>
+            <Option value="Evening">Evening</Option>
+            <Option value="Night">Night</Option>
+          </Select>
         </div>
         <div className="flex justify-between items-center">
           <p className="font-semibold text-blue uppercase">
@@ -1024,12 +1043,6 @@ export default function AddDoctors() {
             Add
           </Button>
         </div>
-        <ul>
-          {schedules.map((data, index) => (
-            <li key={index}>{/* Render data properties here */}</li>
-          ))}
-        </ul>
-
         <p className="font-semibold text-red-500 uppercase">
           *Double check your given information before submit!
         </p>
