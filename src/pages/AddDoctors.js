@@ -218,17 +218,33 @@ export default function AddDoctors() {
   useEffect(() => {
     fetch("https://api.bumrungraddiscover.com/api/get/specialty")
       .then((res) => res.json())
-      .then((data) => setSpecialities(data?.response?.data));
+      .then((data) => {
+        if (data?.response?.status === 200) {
+          setSpecialities(data?.response?.data);
+          setLoader(false);
+        } else {
+          console.log(data);
+        }
+      });
   }, []);
 
   //get sub speacilities
   useEffect(() => {
+    setSubSpecialities([]);
     if (parentSpecialityId) {
       fetch(
         `https://api.bumrungraddiscover.com/api/get/selected/sub/specialty/${parentSpecialityId}`
       )
         .then((res) => res.json())
-        .then((data) => setSubSpecialities(data?.response?.data));
+        .then((data) => {
+          if (data?.response?.status === 200) {
+            setSubSpecialities(data?.response?.data);
+            setLoader(false);
+          }
+          else{
+            console.log(data);
+          }
+        });
     }
   }, [parentSpecialityId]);
 
@@ -282,16 +298,13 @@ export default function AddDoctors() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        toast.success("Doctor Added Successfully!");
         setLoader(false);
       })
       .catch((e) => {
         console.error(e);
         setLoader(false);
       });
-
-    // {
-    //   Can you add specialities in string also?
-    // }
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
@@ -301,7 +314,7 @@ export default function AddDoctors() {
         className="flex flex-col gap-4 bg-white rounded-xl shadow-xl p-5"
       >
         <p className="text-2xl font-semibold">Add Doctor</p>
-        <hr/>
+        <hr />
         <div className="flex flex-row items-center">
           <input
             type="file"
@@ -325,8 +338,8 @@ export default function AddDoctors() {
               label="Select Specialties"
               onChange={(value) => setparentSpecialityId(value)}
             >
-              {specialities.map((s) => (
-                <Option key={s.id} value={s.id}>
+              {specialities?.map((s) => (
+                <Option key={s.id} value={s.name}>
                   {s.name}
                 </Option>
               ))}
@@ -338,9 +351,9 @@ export default function AddDoctors() {
               disabled={subSpecialities.length === 0}
               onChange={(value) => handleSubSpecialityChange(value)}
             >
-              {subSpecialities.map((sb, i) => (
-                <Option key={i} value={sb.sub_specialty}>
-                  {sb.sub_specialty}
+              {subSpecialities?.map((sb, i) => (
+                <Option key={i} value={sb?.sub_specialty}>
+                  {sb?.sub_specialty}
                 </Option>
               ))}
             </Select>

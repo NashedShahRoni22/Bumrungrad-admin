@@ -9,11 +9,9 @@ import {
   Tab,
   TabPanel,
   Input,
-  Textarea,
   Select,
   Option,
   Button,
-  Spinner,
 } from "@material-tailwind/react";
 
 export default function AddSpeciality() {
@@ -39,9 +37,14 @@ export default function AddSpeciality() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setSpeciality("");
-        setLoading(false);
-        toast.success("Speciality Added Successfully!");
+        if (data.response.status === 404) {
+          toast.error("Speciality Exist!");
+          console.log(data);
+        } else {
+          setSpeciality("");
+          setLoading(false);
+          toast.success("Speciality Added Successfully!");
+        }
       })
       .catch((e) => console.error(e));
   };
@@ -51,7 +54,7 @@ export default function AddSpeciality() {
     e.preventDefault();
     const sub_speciality = e.target.sub_speciality.value;
     const postData = {
-      specialty_id: parentSpecialityId,
+      specialty: parentSpecialityId,
       sub_specialty: sub_speciality,
     };
     fetch("https://api.bumrungraddiscover.com/api/add/sub/specialty", {
@@ -63,9 +66,15 @@ export default function AddSpeciality() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setLoading2(false);
-        toast.success("Sub Speciality Added Successfully!");
-        e.target.reset();
+        console.log(data);
+        if (data?.response?.status === 404) {
+          toast.error("This Sub Speciality Exist!");
+          setLoading2(false);
+        } else {
+          setLoading2(false);
+          toast.success("Sub Speciality Added Successfully!");
+          e.target.reset();
+        }
       })
       .catch((e) => console.error(e));
   };
@@ -76,8 +85,12 @@ export default function AddSpeciality() {
     fetch("https://api.bumrungraddiscover.com/api/get/specialty")
       .then((res) => res.json())
       .then((data) => {
-        setSpecialities(data?.response?.data);
-        setLoader(false);
+        if (data?.response?.status === 200) {
+          setSpecialities(data?.response?.data);
+          setLoader(false);
+        } else {
+          console.log(data);
+        }
       });
   }, [loading]);
 
@@ -176,10 +189,7 @@ export default function AddSpeciality() {
                           onChange={(value) => setparentSpecialityId(value)}
                         >
                           {specialties?.map((speciality) => (
-                            <Option
-                              key={speciality.id}
-                              value={speciality.id.toString()}
-                            >
+                            <Option key={speciality.id} value={speciality.name}>
                               {speciality.name}
                             </Option>
                           ))}
