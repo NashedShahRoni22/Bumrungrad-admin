@@ -240,24 +240,27 @@ export default function AddDoctors() {
           if (data?.response?.status === 200) {
             setSubSpecialities(data?.response?.data);
             setLoader(false);
-          }
-          else{
+          } else {
             console.log(data);
           }
         });
     }
   }, [parentSpecialityId]);
 
+  const [err, setErr] = useState("");
+  const [name, setName] = useState("");
+  const [school, setSchool] = useState("");
+
   const handleAddDoctor = (e) => {
     setLoader(true);
     e.preventDefault();
-    const name = e.target.name.value;
-    const school = e.target.school.value;
+    // const name = e.target.name.value;
+    // const school = e.target.school.value;
     const postData = {
       image: selectedDoctorImg,
-      name,
+      name: name,
       lang: langs,
-      school,
+      school: name,
       parentSpeciality: parentSpecialityId,
       subSpecialities: selectedSubSpecialities,
       certificates: certificates,
@@ -297,9 +300,16 @@ export default function AddDoctors() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        toast.success("Doctor Added Successfully!");
-        setLoader(false);
+        if (data.status === 404) {
+          setErr(data.err);
+          toast.error(err.length);
+          setLoader(false);
+          console.log(data);
+        } else {
+          console.log(data);
+          toast.success("Doctor Added Successfully!");
+          setLoader(false);
+        }
       })
       .catch((e) => {
         console.error(e);
@@ -344,126 +354,169 @@ export default function AddDoctors() {
                 </Option>
               ))}
             </Select>
-          </div>
-          <div className="w-full relative flex gap-1">
-            <Select
-              label="Select Sub Specialties"
-              disabled={subSpecialities.length === 0}
-              onChange={(value) => handleSubSpecialityChange(value)}
-            >
-              {subSpecialities?.map((sb, i) => (
-                <Option key={i} value={sb?.sub_specialty}>
-                  {sb?.sub_specialty}
-                </Option>
-              ))}
-            </Select>
-            <button
-              onClick={handleOpen7}
-              className="px-2.5 py-0.5 border border-blue rounded"
-            >
-              <AiFillEye className="text-3xl text-blue" />
-            </button>
-            {selectedSubSpecialities.length > 0 && (
-              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+            {parentSpecialityId === "" && (
+              <p className="capitalize text-red-400 font-semibold text-sm">
+                *required
+              </p>
             )}
-            <Dialog open={open7} handler={handleOpen7}>
-              <DialogHeader>Sub Specialities</DialogHeader>
-              <DialogBody divider>
-                {selectedSubSpecialities.length > 0 ? (
-                  <div className="flex flex-col gap-4">
-                    {selectedSubSpecialities.map((c, i) => (
-                      <div key={i} className="flex justify-between">
-                        <p className="text-xl">
-                          {i + 1}. {c}
-                        </p>
-                        <AiOutlineDelete
-                          onClick={() => removeSubSpeciality(c)}
-                          className="text-red-500 text-3xl cursor-pointer"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="py-5 font-semibold text-red-500">
-                    Enter Something!
-                  </p>
-                )}
-              </DialogBody>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="red"
-                  size="sm"
-                  onClick={handleOpen7}
-                  className="mr-1"
-                >
-                  <span>Close</span>
-                </Button>
-              </DialogFooter>
-            </Dialog>
           </div>
-          <Input label="Enter Name" name="name" />
-          <div className="w-full relative flex gap-1">
-            <Select
-              label="Language Spoken"
-              onChange={(value) => handleLangChange(value)}
-            >
-              {languages.map((l, i) => (
-                <Option key={i} value={l}>
-                  {l}
-                </Option>
-              ))}
-            </Select>
-            <button
-              onClick={handleOpen9}
-              className="px-2.5 py-0.5 border border-blue rounded"
-            >
-              <AiFillEye className="text-3xl text-blue" />
-            </button>
-            {langs.length > 0 && (
-              <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+          <div>
+            <div className="w-full relative flex gap-1">
+              <Select
+                label="Select Sub Specialties"
+                disabled={subSpecialities.length === 0}
+                onChange={(value) => handleSubSpecialityChange(value)}
+              >
+                {subSpecialities?.map((sb, i) => (
+                  <Option key={i} value={sb?.sub_specialty}>
+                    {sb?.sub_specialty}
+                  </Option>
+                ))}
+              </Select>
+              <button
+                onClick={handleOpen7}
+                className="px-2.5 py-0.5 border border-blue rounded"
+              >
+                <AiFillEye className="text-3xl text-blue" />
+              </button>
+              {selectedSubSpecialities.length > 0 && (
+                <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+              )}
+              <Dialog open={open7} handler={handleOpen7}>
+                <DialogHeader>Sub Specialities</DialogHeader>
+                <DialogBody divider>
+                  {selectedSubSpecialities.length > 0 ? (
+                    <div className="flex flex-col gap-4">
+                      {selectedSubSpecialities.map((c, i) => (
+                        <div key={i} className="flex justify-between">
+                          <p className="text-xl">
+                            {i + 1}. {c}
+                          </p>
+                          <AiOutlineDelete
+                            onClick={() => removeSubSpeciality(c)}
+                            className="text-red-500 text-3xl cursor-pointer"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="py-5 font-semibold text-red-500">
+                      Enter Something!
+                    </p>
+                  )}
+                </DialogBody>
+                <DialogFooter>
+                  <Button
+                    variant="text"
+                    color="red"
+                    size="sm"
+                    onClick={handleOpen7}
+                    className="mr-1"
+                  >
+                    <span>Close</span>
+                  </Button>
+                </DialogFooter>
+              </Dialog>
+            </div>
+            {selectedSubSpecialities.length === 0 && (
+              <p className="capitalize text-red-400 font-semibold text-sm">
+                *required
+              </p>
             )}
-            <Dialog open={open9} handler={handleOpen9}>
-              <DialogHeader>Language Spoken</DialogHeader>
-              <DialogBody divider>
-                {langs.length > 0 ? (
-                  <div className="flex flex-col gap-4">
-                    {langs.map((c, i) => (
-                      <div key={i} className="flex justify-between">
-                        <p className="text-xl">
-                          {i + 1}. {c}
-                        </p>
-                        <AiOutlineDelete
-                          onClick={() => removeLang(c)}
-                          className="text-red-500 text-3xl cursor-pointer"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="py-5 font-semibold text-red-500">
-                    Enter Something!
-                  </p>
-                )}
-              </DialogBody>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="red"
-                  size="sm"
-                  onClick={handleOpen9}
-                  className="mr-1"
-                >
-                  <span>Close</span>
-                </Button>
-              </DialogFooter>
-            </Dialog>
           </div>
-          <Input label="Medical School" name="school" />
-          <Select label="Select Gender" onChange={(value) => setGender(value)}>
-            <Option value={"Male"}>Male</Option>
-            <Option value={"Female"}>Female</Option>
-          </Select>
+          <div>
+            <Input label="Enter Name" name="name" />
+            {name === "" && (
+              <p className="capitalize text-red-400 font-semibold text-sm">
+                *required
+              </p>
+            )}
+          </div>
+          <div>
+            <div className="w-full relative flex gap-1">
+              <Select
+                label="Language Spoken"
+                onChange={(value) => handleLangChange(value)}
+              >
+                {languages.map((l, i) => (
+                  <Option key={i} value={l}>
+                    {l}
+                  </Option>
+                ))}
+              </Select>
+              <button
+                onClick={handleOpen9}
+                className="px-2.5 py-0.5 border border-blue rounded"
+              >
+                <AiFillEye className="text-3xl text-blue" />
+              </button>
+              {langs.length > 0 && (
+                <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+              )}
+              <Dialog open={open9} handler={handleOpen9}>
+                <DialogHeader>Language Spoken</DialogHeader>
+                <DialogBody divider>
+                  {langs.length > 0 ? (
+                    <div className="flex flex-col gap-4">
+                      {langs.map((c, i) => (
+                        <div key={i} className="flex justify-between">
+                          <p className="text-xl">
+                            {i + 1}. {c}
+                          </p>
+                          <AiOutlineDelete
+                            onClick={() => removeLang(c)}
+                            className="text-red-500 text-3xl cursor-pointer"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="py-5 font-semibold text-red-500">
+                      Enter Something!
+                    </p>
+                  )}
+                </DialogBody>
+                <DialogFooter>
+                  <Button
+                    variant="text"
+                    color="red"
+                    size="sm"
+                    onClick={handleOpen9}
+                    className="mr-1"
+                  >
+                    <span>Close</span>
+                  </Button>
+                </DialogFooter>
+              </Dialog>
+            </div>
+            {langs.length === 0 && (
+              <p className="capitalize text-red-400 font-semibold text-sm">
+                *required
+              </p>
+            )}
+          </div>
+          <div>
+            <Input label="Medical School" name="school" required />
+            {school === "" && (
+              <p className="capitalize text-red-400 font-semibold text-sm">
+                *required
+              </p>
+            )}
+          </div>
+          <div>
+            <Select
+              label="Select Gender"
+              onChange={(value) => setGender(value)}
+            >
+              <Option value={"Male"}>Male</Option>
+              <Option value={"Female"}>Female</Option>
+            </Select>
+            {gender === "" && (
+              <p className="capitalize text-red-400 font-semibold text-sm">
+                *required
+              </p>
+            )}
+          </div>
         </div>
         {/* Certifications */}
         <div className="flex items-center gap-5">
@@ -1048,7 +1101,12 @@ export default function AddDoctors() {
             Click on add to save a schedule
           </p>
           <Button
-            disabled={selectedDay === "" || enterTime === "" || exitTime === ""}
+            disabled={
+              selectedDay === "" ||
+              enterTime === "" ||
+              exitTime === "" ||
+              time === ""
+            }
             size="sm"
             className="bg-blue w-fit"
             onClick={handleAddSchedule}
@@ -1059,7 +1117,17 @@ export default function AddDoctors() {
         <p className="font-semibold text-red-500 uppercase">
           *Double check your given information before submit!
         </p>
-        <Button className="bg-blue flex items-center w-fit gap-1" type="submit">
+        <Button
+          disabled={
+            selectedDoctorImg === "" ||
+            gender === "" ||
+            langs === "" ||
+            parentSpecialityId === "" ||
+            selectedSubSpecialities.length === 0
+          }
+          className="bg-blue flex items-center w-fit gap-1"
+          type="submit"
+        >
           Submit {loader && <Spinner className="h-4 w-4" color="white" />}
         </Button>
       </form>

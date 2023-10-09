@@ -94,6 +94,8 @@ export default function AddSpeciality() {
       });
   }, [loading]);
 
+  
+
   //get sub speacilities
   useEffect(() => {
     setLoader(true);
