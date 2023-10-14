@@ -12,6 +12,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export default function AddCenters() {
+  const [loader, setLoader] = useState(false);
   //dialogue
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
@@ -34,7 +35,7 @@ export default function AddCenters() {
 
   // informations add remove functions
   const addInformations = () => {
-    const newInformations = [...informations,  information ];
+    const newInformations = [...informations, information];
     setInformations(newInformations);
     setInformation("");
   };
@@ -45,7 +46,7 @@ export default function AddCenters() {
   };
   // conditions add remove functions
   const addConditions = () => {
-    const newConditions = [...conditions,  condition ];
+    const newConditions = [...conditions, condition];
     setConditions(newConditions);
     setCondition("");
   };
@@ -56,7 +57,7 @@ export default function AddCenters() {
   };
   // conditions add remove functions
   const addTreatments = () => {
-    const newTreatments = [...treatments,  treatment ];
+    const newTreatments = [...treatments, treatment];
     setTreatments(newTreatments);
     setTreatment("");
   };
@@ -68,24 +69,40 @@ export default function AddCenters() {
 
   //add clinic and centers
   const handleAddClinics = (e) => {
-    // setChildLoader(true);
+    setLoader(true);
     e.preventDefault();
     const name = e.target.name.value;
     const location = e.target.location.value;
     const description = e.target.description.value;
-    const postData = {
-      selectedCenterImg,
-      name, 
-      location,
-      description,
-      informations,
-      conditions,
-      treatments,
+    // const postData = {
+    //   selectedCenterImg,
+    //   name,
+    //   location,
+    //   description,
+    //   informations,
+    //   conditions,
+    //   treatments,
+    // };
+    // console.log(postData);
+    if (
+      selectedCenterImg === "" ||
+      name === "" ||
+      location === "" ||
+      description === ""
+    ) {
+      setLoader(false);
     }
-    console.log(postData);
-    if (setSelectedCenterImg === "No file chosen") {
-      // setChildLoader(false);
+    if (selectedCenterImg === "") {
       toast.error("Select Center Image");
+    }
+    if (name === "") {
+      toast.error("Center Name is Required");
+    }
+    if (location === "") {
+      toast.error("Center Location is Required");
+    }
+    if (description === "") {
+      toast.error("Center Description");
     } else {
       const formData = new FormData();
       formData.append("cover_photo", selectedCenterImg);
@@ -103,20 +120,23 @@ export default function AddCenters() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          // setChildLoader(false);
-          // e.target.reset();
-          // selectedChildImage("No file chosen");
-          // toast.success("Child Package Added Successfully!");
+          setLoader(false);
+          e.target.reset();
+          setInformations([]);
+          setConditions([]);
+          setTreatments([]);
+          toast.success("Child Package Added Successfully!");
         })
         .catch((e) => console.error(e));
     }
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
-      <form onSubmit={handleAddClinics} className="bg-white shadow-xl rounded-xl p-5">
-        <p className="text-2xl font-semibold">
-          Add Center
-        </p>
+      <form
+        onSubmit={handleAddClinics}
+        className="bg-white shadow-xl rounded-xl p-5"
+      >
+        <p className="text-2xl font-semibold">Add Center</p>
         <hr className="my-5" />
         <div className="flex flex-row items-center">
           <input
@@ -137,7 +157,7 @@ export default function AddCenters() {
         </div>
         <div className="grid gap-4 lg:grid-cols-2 my-4">
           <Input label="Enter Name" name="name" />
-          <Input label="Enter Location"  name="location" />
+          <Input label="Enter Location" name="location" />
           {/* multiple information */}
           <div className="flex items-center gap-5">
             <div className="relative flex w-full">
@@ -174,7 +194,7 @@ export default function AddCenters() {
                     <div className="flex flex-col gap-4">
                       {informations.map((c, i) => (
                         <div key={i} className="flex justify-between">
-                          <p className="text-xl">{c.information}</p>
+                          <p className="text-xl">{c}</p>
                           <AiOutlineDelete
                             onClick={() => removeInformation(i)}
                             className="text-red-500 text-3xl cursor-pointer"
@@ -238,7 +258,7 @@ export default function AddCenters() {
                     <div className="flex flex-col gap-4">
                       {conditions.map((c, i) => (
                         <div key={i} className="flex justify-between">
-                          <p className="text-xl">{c.condition}</p>
+                          <p className="text-xl">{c}</p>
                           <AiOutlineDelete
                             onClick={() => removeCondition(i)}
                             className="text-red-500 text-3xl cursor-pointer"
@@ -302,7 +322,7 @@ export default function AddCenters() {
                     <div className="flex flex-col gap-4">
                       {treatments.map((c, i) => (
                         <div key={i} className="flex justify-between">
-                          <p className="text-xl">{c.treatment}</p>
+                          <p className="text-xl">{c}</p>
                           <AiOutlineDelete
                             onClick={() => removeTreatment(i)}
                             className="text-red-500 text-3xl cursor-pointer"
@@ -334,7 +354,9 @@ export default function AddCenters() {
         <div className="lg:w-1/2">
           <Textarea label="Enter Details" name="description" />
         </div>
-        <Button className="bg-blue" type="submit">Add Center</Button>
+        <Button className="bg-blue" type="submit">
+          {loader ? "Loading" : "Add Center"}
+        </Button>
       </form>
     </div>
   );

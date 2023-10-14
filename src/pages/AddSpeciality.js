@@ -28,6 +28,7 @@ export default function AddSpeciality() {
   const addSpeciality = () => {
     setLoading(true);
     const postData = { name: speciality };
+    console.log(postData);
     fetch("https://api.bumrungraddiscover.com/api/add/specialty", {
       method: "POST",
       headers: {

@@ -425,7 +425,7 @@ export default function AddDoctors() {
             )}
           </div>
           <div>
-            <Input label="Enter Name" name="name" />
+            <Input label="Enter Name" name="name" onChange={e => setName(e.target.value)}/>
             {name === "" && (
               <p className="capitalize text-red-400 font-semibold text-sm">
                 *required
@@ -496,7 +496,7 @@ export default function AddDoctors() {
             )}
           </div>
           <div>
-            <Input label="Medical School" name="school" required />
+            <Input label="Medical School" name="school" required onChange={e => setSchool(e.target.value)} />
             {school === "" && (
               <p className="capitalize text-red-400 font-semibold text-sm">
                 *required

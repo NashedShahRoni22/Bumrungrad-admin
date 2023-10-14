@@ -19,6 +19,10 @@ import {
   ListBulletIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { BiSolidAmbulance } from "react-icons/bi";
+import { AiOutlineOrderedList, AiOutlineFile } from "react-icons/ai";
+import { BsFillTelephoneForwardFill } from "react-icons/bs";
+import { MdAirplaneTicket, MdWheelchairPickup } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 export function LeftBar() {
@@ -182,6 +186,42 @@ export function LeftBar() {
             <CalendarDaysIcon className="h-5 w-5" />
           </ListItemPrefix>
           Appoinments
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <BiSolidAmbulance className="h-5 w-5" />
+          </ListItemPrefix>
+          Air Ambulance
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <AiOutlineOrderedList className="h-5 w-5" />
+          </ListItemPrefix>
+          Medicine Orders
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <BsFillTelephoneForwardFill className="h-5 w-5" />
+          </ListItemPrefix>
+          Tele Medicine
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <MdAirplaneTicket className="h-5 w-5" />
+          </ListItemPrefix>
+          Air Tickets
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <MdWheelchairPickup className="h-5 w-5" />
+          </ListItemPrefix>
+          Air Pickup
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <AiOutlineFile className="h-5 w-5" />
+          </ListItemPrefix>
+          Medical Record
         </ListItem>
         <ListItem>
           <ListItemPrefix>
