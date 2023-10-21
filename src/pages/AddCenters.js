@@ -74,16 +74,16 @@ export default function AddCenters() {
     const name = e.target.name.value;
     const location = e.target.location.value;
     const description = e.target.description.value;
-    // const postData = {
-    //   selectedCenterImg,
-    //   name,
-    //   location,
-    //   description,
-    //   informations,
-    //   conditions,
-    //   treatments,
-    // };
-    // console.log(postData);
+    const postData = {
+      selectedCenterImg,
+      name,
+      location,
+      description,
+      informations,
+      conditions,
+      treatments,
+    };
+     console.log(postData);
     if (
       selectedCenterImg === "" ||
       name === "" ||

@@ -32,12 +32,12 @@ export function LeftBar() {
   };
 
   return (
-    <div className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4">
+    <div className='h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4'>
       <List>
-        <Link to="/home">
+        <Link to='/home'>
           <ListItem>
             <ListItemPrefix>
-              <PresentationChartBarIcon className="h-5 w-5" />
+              <PresentationChartBarIcon className='h-5 w-5' />
             </ListItemPrefix>
             Dashboard
           </ListItem>
@@ -48,48 +48,50 @@ export function LeftBar() {
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? "rotate-180" : ""
+                open === 1 ? 'rotate-180' : ''
               }`}
             />
           }
         >
-          <ListItem className="p-0" selected={open === 1}>
+          <ListItem className='p-0' selected={open === 1}>
             <AccordionHeader
               onClick={() => handleOpen(1)}
-              className="border-b-0 p-3"
+              className='border-b-0 p-3'
             >
               <ListItemPrefix>
-                <ClipboardDocumentListIcon className="h-5 w-5" />
+                <ClipboardDocumentListIcon className='h-5 w-5' />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color='blue-gray' className='mr-auto font-normal'>
                 Doctors
               </Typography>
             </AccordionHeader>
           </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0">
-              <Link to="/home/add-speciality">
+          <AccordionBody className='py-1'>
+            <List className='p-0'>
+              <Link to='/home/add-speciality'>
                 <ListItem>
                   <ListItemPrefix>
-                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                    <PlusIcon strokeWidth={3} className='h-5 w-5' />
                   </ListItemPrefix>
                   Add Speciality
                 </ListItem>
               </Link>
-              <Link to="/home/add-doctors">
+              <Link to='/home/add-doctors'>
                 <ListItem>
                   <ListItemPrefix>
-                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                    <PlusIcon strokeWidth={3} className='h-5 w-5' />
                   </ListItemPrefix>
                   Add Doctor
                 </ListItem>
               </Link>
-              <ListItem>
-                <ListItemPrefix>
-                  <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
-                </ListItemPrefix>
-                Doctors List
-              </ListItem>
+              <Link to='/home/doctors-list'>
+                <ListItem>
+                  <ListItemPrefix>
+                    <ListBulletIcon strokeWidth={3} className='h-5 w-5' />
+                  </ListItemPrefix>
+                  Doctors List
+                </ListItem>
+              </Link>
             </List>
           </AccordionBody>
         </Accordion>
@@ -99,38 +101,38 @@ export function LeftBar() {
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
+                open === 2 ? 'rotate-180' : ''
               }`}
             />
           }
         >
-          <ListItem className="p-0" selected={open === 2}>
+          <ListItem className='p-0' selected={open === 2}>
             <AccordionHeader
               onClick={() => handleOpen(2)}
-              className="border-b-0 p-3"
+              className='border-b-0 p-3'
             >
               <ListItemPrefix>
-                <GiftIcon className="h-5 w-5" />
+                <GiftIcon className='h-5 w-5' />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color='blue-gray' className='mr-auto font-normal'>
                 Packages
               </Typography>
             </AccordionHeader>
           </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0">
-              <Link to="/home/add-packages">
+          <AccordionBody className='py-1'>
+            <List className='p-0'>
+              <Link to='/home/add-packages'>
                 <ListItem>
                   <ListItemPrefix>
-                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                    <PlusIcon strokeWidth={3} className='h-5 w-5' />
                   </ListItemPrefix>
                   Add Package
                 </ListItem>
               </Link>
-              <Link to="/home/get-packages">
+              <Link to='/home/get-packages'>
                 <ListItem>
                   <ListItemPrefix>
-                    <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
+                    <ListBulletIcon strokeWidth={3} className='h-5 w-5' />
                   </ListItemPrefix>
                   Packages List
                 </ListItem>
@@ -144,92 +146,110 @@ export function LeftBar() {
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 3 ? "rotate-180" : ""
+                open === 3 ? 'rotate-180' : ''
               }`}
             />
           }
         >
-          <ListItem className="p-0" selected={open === 3}>
+          <ListItem className='p-0' selected={open === 3}>
             <AccordionHeader
               onClick={() => handleOpen(3)}
-              className="border-b-0 p-3"
+              className='border-b-0 p-3'
             >
               <ListItemPrefix>
-                <BuildingOffice2Icon className="h-5 w-5" />
+                <BuildingOffice2Icon className='h-5 w-5' />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color='blue-gray' className='mr-auto font-normal'>
                 Clinic & Centers
               </Typography>
             </AccordionHeader>
           </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0">
-              <Link to="/home/add-centers">
+          <AccordionBody className='py-1'>
+            <List className='p-0'>
+              <Link to='/home/add-centers'>
                 <ListItem>
                   <ListItemPrefix>
-                    <PlusIcon strokeWidth={3} className="h-5 w-5" />
+                    <PlusIcon strokeWidth={3} className='h-5 w-5' />
                   </ListItemPrefix>
                   Add Centers
                 </ListItem>
               </Link>
               <ListItem>
                 <ListItemPrefix>
-                  <ListBulletIcon strokeWidth={3} className="h-5 w-5" />
+                  <ListBulletIcon strokeWidth={3} className='h-5 w-5' />
                 </ListItemPrefix>
                 Centers List
               </ListItem>
             </List>
           </AccordionBody>
         </Accordion>
+        <Link to='/home/add-appointMent'>
+          <ListItem>
+            <ListItemPrefix>
+              <CalendarDaysIcon className='h-5 w-5' />
+            </ListItemPrefix>
+            Appoinments
+          </ListItem>
+        </Link>
+        <Link to='/home/airAmbulance'>
+          <ListItem>
+            <ListItemPrefix>
+              <BiSolidAmbulance className='h-5 w-5' />
+            </ListItemPrefix>
+            Air Ambulance
+          </ListItem>
+        </Link>
+        <Link to='/home/medicineOrder'>
+          <ListItem>
+            <ListItemPrefix>
+              <AiOutlineOrderedList className='h-5 w-5' />
+            </ListItemPrefix>
+            Medicine Orders
+          </ListItem>
+        </Link>
+        <Link to='/home/teleMedicine'>
+          {' '}
+          <ListItem>
+            <ListItemPrefix>
+              <BsFillTelephoneForwardFill className='h-5 w-5' />
+            </ListItemPrefix>
+            Tele Medicine
+          </ListItem>
+        </Link>
+        <Link to='/home/airTicket'>
+          <ListItem>
+            <ListItemPrefix>
+              <MdAirplaneTicket className='h-5 w-5' />
+            </ListItemPrefix>
+            Air Tickets
+          </ListItem>
+        </Link>
+        <Link to='/home/airPickup'>
+          {' '}
+          <ListItem>
+            <ListItemPrefix>
+              <MdWheelchairPickup className='h-5 w-5' />
+            </ListItemPrefix>
+            Air Pickup
+          </ListItem>
+        </Link>
+        <Link to='/home/medicalRecord'>
+          {' '}
+          <ListItem>
+            <ListItemPrefix>
+              <AiOutlineFile className='h-5 w-5' />
+            </ListItemPrefix>
+            Medical Record
+          </ListItem>
+        </Link>
+
         <ListItem>
           <ListItemPrefix>
-            <CalendarDaysIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Appoinments
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <BiSolidAmbulance className="h-5 w-5" />
-          </ListItemPrefix>
-          Air Ambulance
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <AiOutlineOrderedList className="h-5 w-5" />
-          </ListItemPrefix>
-          Medicine Orders
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <BsFillTelephoneForwardFill className="h-5 w-5" />
-          </ListItemPrefix>
-          Tele Medicine
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <MdAirplaneTicket className="h-5 w-5" />
-          </ListItemPrefix>
-          Air Tickets
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <MdWheelchairPickup className="h-5 w-5" />
-          </ListItemPrefix>
-          Air Pickup
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <AiOutlineFile className="h-5 w-5" />
-          </ListItemPrefix>
-          Medical Record
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className="h-5 w-5" />
+            <PowerIcon className='h-5 w-5' />
           </ListItemPrefix>
           Log Out
         </ListItem>
       </List>
     </div>
-  );
+  )
 }
