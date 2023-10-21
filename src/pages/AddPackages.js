@@ -11,10 +11,23 @@ import {
   Option,
   Button,
   Spinner,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
+import { AiOutlineDelete } from "react-icons/ai";
 
 export default function AddPackages() {
+  //dialogue
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(!open);
+  const [open2, setOpen2] = React.useState(false);
+  const handleOpen2 = () => setOpen2(!open2);
+  const [open3, setOpen3] = React.useState(false);
+  const handleOpen3 = () => setOpen3(!open3);
+
   const [loader, setLoader] = useState(false);
   const [childLoader, setChildLoader] = useState(false);
 
@@ -26,6 +39,49 @@ export default function AddPackages() {
     useState("No file chosen");
   const [selectedChildImage, setSelectedChildImage] =
     useState("No file chosen");
+
+  const [information, setInformation] = useState("");
+  const [informations, setInformations] = useState([]);
+
+  const [condition, setCondition] = useState("");
+  const [conditions, setConditions] = useState([]);
+
+  const [treatment, setTreatment] = useState("");
+  const [treatments, setTreatments] = useState([]);
+
+  // informations add remove functions
+  const addInformations = () => {
+    const newInformations = [...informations, information];
+    setInformations(newInformations);
+    setInformation("");
+  };
+  const removeInformation = (index) => {
+    const updatedInformations = [...informations];
+    updatedInformations.splice(index, 1);
+    setInformations(updatedInformations);
+  };
+  // conditions add remove functions
+  const addConditions = () => {
+    const newConditions = [...conditions, condition];
+    setConditions(newConditions);
+    setCondition("");
+  };
+  const removeCondition = (index) => {
+    const updatedConditions = [...conditions];
+    updatedConditions.splice(index, 1);
+    setConditions(updatedConditions);
+  };
+  // conditions add remove functions
+  const addTreatments = () => {
+    const newTreatments = [...treatments, treatment];
+    setTreatments(newTreatments);
+    setTreatment("");
+  };
+  const removeTreatment = (index) => {
+    const updatedTreatments = [...treatments];
+    updatedTreatments.splice(index, 1);
+    setTreatments(updatedTreatments);
+  };
 
   //get parent package
   useEffect(() => {
@@ -39,6 +95,7 @@ export default function AddPackages() {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
+
     if (selectedParentImage === "No file chosen") {
       setLoader(false);
       toast.error("Select Package Image");
@@ -56,7 +113,6 @@ export default function AddPackages() {
         .then((data) => {
           setLoader(false);
           e.target.reset();
-          // selectedParentImage("No file chosen");
           toast.success("Package Added Successfully!");
         })
         .catch((e) => console.error(e));
@@ -67,8 +123,13 @@ export default function AddPackages() {
     setChildLoader(true);
     e.preventDefault();
     const title = e.target.title.value;
-    const description = e.target.desc.value;
     const price = e.target.price.value;
+    const description = e.target.description.value;
+    const location = e.target.location.value;
+    const shift1 = e.target.shift1.value;
+    const shift2 = e.target.shift2.value;
+    const postData ={selectedChildImage, title, price, description, location, shift1, shift2, informations, conditions, treatments};
+    console.log(postData);
     if (selectedChildImage === "No file chosen") {
       setChildLoader(false);
       toast.error("Select Child Package Image");
@@ -79,6 +140,13 @@ export default function AddPackages() {
       formData.append("price", price);
       formData.append("description", description);
       formData.append("parent_id", parentId);
+      formData.append("price", price);
+      formData.append("location", location);
+      formData.append("shift1", shift1);
+      formData.append("shift2", shift2);
+      formData.append("conditions", informations);
+      formData.append("inclusions", conditions);
+      formData.append("exclusions", treatments);
 
       fetch("https://api.bumrungraddiscover.com/api/create/sub/package", {
         method: "POST",
@@ -89,7 +157,6 @@ export default function AddPackages() {
           // console.log(data);
           setChildLoader(false);
           e.target.reset();
-          // selectedChildImage("No file chosen");
           toast.success("Child Package Added Successfully!");
         })
         .catch((e) => console.error(e));
@@ -205,8 +272,205 @@ export default function AddPackages() {
                   </div>
                   <Input label="Enter Title" name="title" required />
                   <Input label="Enter Price" name="price" required />
+                  <Input label="Enter Location" name="location" required />
+                  <Input label="Enter First Shift" name="shift1" required />
+                  <Input label="Enter Second Shift" name="shift2" required />
                 </div>
-                <Textarea label="Enter Description" name="desc" required />
+                <div className="grid gap-4 md:grid-cols-2">
+                  {/* multiple Conditions */}
+                  <div className="flex items-center gap-5">
+                    <div className="relative flex w-full">
+                      <Input
+                        value={information}
+                        type="text"
+                        label="Terms & Conditions"
+                        onChange={(e) => setInformation(e.target.value)}
+                      />
+                      <Button
+                        size="sm"
+                        onClick={addInformations}
+                        className="!absolute right-1 top-1 rounded bg-blue"
+                        disabled={information === ""}
+                      >
+                        Add
+                      </Button>
+                    </div>
+                    <div className="relative">
+                      <Button
+                        onClick={handleOpen}
+                        size="sm"
+                        className="bg-white text-blue border border-blue"
+                      >
+                        View
+                      </Button>
+                      {informations.length > 0 && (
+                        <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+                      )}
+                      <Dialog open={open} handler={handleOpen}>
+                        <DialogHeader>Informations</DialogHeader>
+                        <DialogBody divider>
+                          {informations.length > 0 ? (
+                            <div className="flex flex-col gap-4">
+                              {informations.map((c, i) => (
+                                <div key={i} className="flex justify-between">
+                                  <p className="text-xl">{c}</p>
+                                  <AiOutlineDelete
+                                    onClick={() => removeInformation(i)}
+                                    className="text-red-500 text-3xl cursor-pointer"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="py-5 font-semibold text-red-500">
+                              Enter Something!
+                            </p>
+                          )}
+                        </DialogBody>
+                        <DialogFooter>
+                          <Button
+                            variant="text"
+                            color="red"
+                            size="sm"
+                            onClick={handleOpen}
+                            className="mr-1"
+                          >
+                            <span>Close</span>
+                          </Button>
+                        </DialogFooter>
+                      </Dialog>
+                    </div>
+                  </div>
+                  {/* multiple Inclusions */}
+                  <div className="flex items-center gap-5">
+                    <div className="relative flex w-full">
+                      <Input
+                        value={condition}
+                        type="text"
+                        label="Package Inclusions"
+                        onChange={(e) => setCondition(e.target.value)}
+                      />
+                      <Button
+                        size="sm"
+                        onClick={addConditions}
+                        className="!absolute right-1 top-1 rounded bg-blue"
+                        disabled={condition === ""}
+                      >
+                        Add
+                      </Button>
+                    </div>
+                    <div className="relative">
+                      <Button
+                        onClick={handleOpen2}
+                        size="sm"
+                        className="bg-white text-blue border border-blue"
+                      >
+                        View
+                      </Button>
+                      {conditions.length > 0 && (
+                        <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+                      )}
+                      <Dialog open={open2} handler={handleOpen2}>
+                        <DialogHeader>Conditions</DialogHeader>
+                        <DialogBody divider>
+                          {conditions.length > 0 ? (
+                            <div className="flex flex-col gap-4">
+                              {conditions.map((c, i) => (
+                                <div key={i} className="flex justify-between">
+                                  <p className="text-xl">{c}</p>
+                                  <AiOutlineDelete
+                                    onClick={() => removeCondition(i)}
+                                    className="text-red-500 text-3xl cursor-pointer"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="py-5 font-semibold text-red-500">
+                              Enter Something!
+                            </p>
+                          )}
+                        </DialogBody>
+                        <DialogFooter>
+                          <Button
+                            variant="text"
+                            color="red"
+                            size="sm"
+                            onClick={handleOpen2}
+                            className="mr-1"
+                          >
+                            <span>Close</span>
+                          </Button>
+                        </DialogFooter>
+                      </Dialog>
+                    </div>
+                  </div>
+                  {/* multiple Exclusions */}
+                  <div className="flex items-center gap-5">
+                    <div className="relative flex w-full">
+                      <Input
+                        value={treatment}
+                        type="text"
+                        label="Package Exclusions"
+                        onChange={(e) => setTreatment(e.target.value)}
+                      />
+                      <Button
+                        size="sm"
+                        onClick={addTreatments}
+                        className="!absolute right-1 top-1 rounded bg-blue"
+                        disabled={treatment === ""}
+                      >
+                        Add
+                      </Button>
+                    </div>
+                    <div className="relative">
+                      <Button
+                        onClick={handleOpen3}
+                        size="sm"
+                        className="bg-white text-blue border border-blue"
+                      >
+                        View
+                      </Button>
+                      {treatments.length > 0 && (
+                        <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+                      )}
+                      <Dialog open={open3} handler={handleOpen3}>
+                        <DialogHeader>Treatments</DialogHeader>
+                        <DialogBody divider>
+                          {treatments.length > 0 ? (
+                            <div className="flex flex-col gap-4">
+                              {treatments.map((c, i) => (
+                                <div key={i} className="flex justify-between">
+                                  <p className="text-xl">{c}</p>
+                                  <AiOutlineDelete
+                                    onClick={() => removeTreatment(i)}
+                                    className="text-red-500 text-3xl cursor-pointer"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="py-5 font-semibold text-red-500">
+                              Enter Something!
+                            </p>
+                          )}
+                        </DialogBody>
+                        <DialogFooter>
+                          <Button
+                            variant="text"
+                            color="red"
+                            size="sm"
+                            onClick={handleOpen3}
+                            className="mr-1"
+                          >
+                            <span>Close</span>
+                          </Button>
+                        </DialogFooter>
+                      </Dialog>
+                    </div>
+                  </div>
+                </div>
+                <Textarea label="Enter Description" name="description" required />
                 <Button
                   className="bg-blue w-fit flex items-center gap-1"
                   type="submit"
