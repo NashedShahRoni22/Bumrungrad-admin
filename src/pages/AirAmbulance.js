@@ -83,10 +83,10 @@ const AirAmbulance = () => {
                         href={oneAmbulance?.passport_copy}
                         target='blank'
                         rel='noopener noreferrer'
-                        className='flex w-fit items-center gap-2 px-4 py-2 shadow rounded bg-blue text-white '
+                        className='flex w-fit items-center gap-2 px-2 py-1 shadow rounded bg-blue text-white '
                       >
                         <BsFileEarmarkArrowDown className='text-xl' />
-                        Passport Copy
+                        Passport
                       </a>
                     </td>
                     <td className='p-4'>
