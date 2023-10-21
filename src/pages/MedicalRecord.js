@@ -114,7 +114,7 @@ const MedicalRecord = () => {
               <a
                 className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white '
                 href={medicalRecordModalData?.passport}
-              >
+             target='blank' >
                 <BsFileEarmarkArrowDown className='text-xl' /> Passport
               </a>
             </div>

@@ -110,7 +110,9 @@ const AirAmbulance = () => {
           </DialogHeader>
           <DialogBody>
             <div>
-              <h1>Entry Date : {airAmbulenceModalData?.entry_date}</h1>
+              <h1 className='font-semibold'>
+                Entry Date : {airAmbulenceModalData?.entry_date}
+              </h1>
               <p className='mt-2.5'>
                 {' '}
                 <span className='font-semibold'> Summary : </span> <br />
@@ -127,7 +129,7 @@ const AirAmbulance = () => {
               <a
                 className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white '
                 href={airAmbulenceModalData?.passport_copy}
-              >
+             target='blank' >
                 <BsFileEarmarkArrowDown className='text-xl' /> Passport
               </a>
             </div>

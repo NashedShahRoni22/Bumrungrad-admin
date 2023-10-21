@@ -9,6 +9,8 @@ import {
   DialogBody,
   DialogFooter,
 } from '@material-tailwind/react'
+import { AiFillEye } from 'react-icons/ai'
+import { BsFileEarmarkArrowDown } from 'react-icons/bs'
 
 const TeleMedicine = () => {
   const [loader, setLoader] = useState(true)
@@ -111,8 +113,9 @@ const TeleMedicine = () => {
                     <td className='p-4'>
                       <button
                         onClick={() => handleOpen(oneTelemedicine)}
-                        className='px-4 py-2 shadow rounded bg-blue text-white '
+                        className='px-4 py-2 shadow rounded bg-blue text-white flex items-center gap-2'
                       >
+                        <AiFillEye className='text-xl' />
                         View
                       </button>
                     </td>
@@ -122,27 +125,105 @@ const TeleMedicine = () => {
             </table>
           </Card>
         )}
-        <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>
-            <div>Tele Medicine</div>
+        <Dialog open={open} handler={handleOpen} size='lg'>
+          <DialogHeader className=''>
+            <p className=''>Tele Medicine</p>
           </DialogHeader>
           <DialogBody>
-            <div>
-              <h1>{teleMedicineModalData?.fullName}</h1>
+            <div className='overscroll-auto'>
+              <div className='grid grid-cols-2'>
+                <div className='mr-3'>
+                  <h1 className='text-xl mb-2.5 font-semibold text-blue'>
+                    Patient Details
+                  </h1>
+                  <hr />
+                  <h1 className='mt-2.5'>
+                    <span className='font-semibold'>Name : </span>{' '}
+                    {teleMedicineModalData?.fullName}
+                  </h1>
+                  <p className='mt-2.5'>
+                    <span className=' font-semibold '> Birth Date : </span>{' '}
+                    {teleMedicineModalData?.birthDate}
+                  </p>{' '}
+                  <p className='mt-2.5'>
+                    <span className=' font-semibold '> Passport Id : </span>{' '}
+                    {teleMedicineModalData?.passportId}
+                  </p>{' '}
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> Nationality : </span>{' '}
+                    {teleMedicineModalData?.nationality}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> Contact Details : </span>{' '}
+                    {teleMedicineModalData?.contactDetails}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> Residence : </span>{' '}
+                    {teleMedicineModalData?.residence}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> Interpreter : </span>{' '}
+                    {teleMedicineModalData?.interpreter}
+                  </p>
+                </div>
+                <div className='ml-3'>
+                  <h1 className='text-xl mb-2.5 font-semibold text-blue'>
+                    Other Iformatin
+                  </h1>{' '}
+                  <hr />
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'>HN Number : </span>
+                    {teleMedicineModalData?.hnNum}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> Preferred Doctor :</span>{' '}
+                    {teleMedicineModalData?.preferredDoctor}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> Preferred Date : </span>{' '}
+                    {teleMedicineModalData?.preferredDate}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'>
+                      Purpose Appointment :{' '}
+                    </span>
+                    {teleMedicineModalData?.purposeAppointment}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> PaymentType : </span>{' '}
+                    {teleMedicineModalData?.paymentType}
+                  </p>
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'> Specific Concern : </span>{' '}
+                    {teleMedicineModalData?.specificConcern}
+                  </p>
+                </div>
+              </div>
             </div>
           </DialogBody>
-          <DialogFooter>
-            <Button
-              variant='gradient'
-              color='black'
-              onClick={handleOpen}
-              className='mr-4'
-            >
-              <span>Close</span>
-            </Button>
-            <Button variant='gradient' color='red'>
-              <span>Delete</span>
-            </Button>
+          <DialogFooter className='flex justify-between'>
+            <div className=''>
+              <a
+                className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white font-light text-lg'
+                href={teleMedicineModalData?.investigationDocument}
+              target='blank'>
+                <BsFileEarmarkArrowDown className='text-xl' /> Investigation
+                Document
+              </a>
+            </div>
+            <div>
+              <Button
+                variant='gradient'
+                color='black'
+                onClick={handleOpen}
+                className='mr-4'
+              >
+                <span>Close</span>
+              </Button>
+              <Button variant='gradient' color='red'>
+                <span>Delete</span>
+              </Button>
+            </div>
           </DialogFooter>
         </Dialog>
       </div>
