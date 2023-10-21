@@ -2,9 +2,24 @@ import React, { useState, useEffect } from 'react'
 
 import { Card, Typography } from '@material-tailwind/react'
 import Loader from '../components/Loader'
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from '@material-tailwind/react'
 
 const TeleMedicine = () => {
   const [loader, setLoader] = useState(true)
+
+  const [open, setOpen] = React.useState(false)
+  const [teleMedicineModalData, setModalData] = useState({})
+  const handleOpen = (data) => {
+    setOpen(!open)
+    setModalData(data)
+  }
+
   const [teleMedicine, setTeleMedicine] = useState([])
   const TABLE_HEAD = [
     'Patient Name',
@@ -54,61 +69,82 @@ const TeleMedicine = () => {
                 </tr>
               </thead>
               <tbody>
-                {teleMedicine?.map(
-                  (
-                    { fullName, passportId, preferredDoctor, preferredDate },
-                    index
-                  ) => (
-                    <tr key={index} className='even:bg-blue-gray-50/50'>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {fullName}
-                        </Typography>
-                      </td>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {passportId}
-                        </Typography>
-                      </td>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {preferredDoctor}
-                        </Typography>
-                      </td>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {preferredDate}
-                        </Typography>
-                      </td>
+                {teleMedicine?.map((oneTelemedicine, index) => (
+                  <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTelemedicine?.fullName}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTelemedicine?.passportId}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTelemedicine?.preferredDoctor}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTelemedicine?.preferredDate}
+                      </Typography>
+                    </td>
 
-                      <td className='p-4'>
-                        <button className='px-4 py-2 shadow rounded bg-blue text-white '>
-                          View
-                        </button>
-                      </td>
-                    </tr>
-                  )
-                )}
+                    <td className='p-4'>
+                      <button
+                        onClick={() => handleOpen(oneTelemedicine)}
+                        className='px-4 py-2 shadow rounded bg-blue text-white '
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Card>
         )}
+        <Dialog open={open} handler={handleOpen}>
+          <DialogHeader>
+            <div>Tele Medicine</div>
+          </DialogHeader>
+          <DialogBody>
+            <div>
+              <h1>{teleMedicineModalData?.fullName}</h1>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant='gradient'
+              color='black'
+              onClick={handleOpen}
+              className='mr-4'
+            >
+              <span>Close</span>
+            </Button>
+            <Button variant='gradient' color='red'>
+              <span>Delete</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
       </div>
     </div>
   )

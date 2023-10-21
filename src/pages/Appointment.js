@@ -2,9 +2,27 @@ import React, { useState, useEffect } from 'react'
 
 import { Card, Typography } from '@material-tailwind/react'
 import Loader from '../components/Loader'
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from '@material-tailwind/react'
+
 const Appointment = () => {
   const [loader, setLoader] = useState(true)
+   const [open, setOpen] = React.useState(false)
+   const [appoinmentModalData, setModalData] = useState({})
+
+   const handleOpen = (data) => {
+     setOpen(!open)
+     setModalData(data)
+   }
   const [appointment, setAppointment] = useState([])
+
+
+
   const TABLE_HEAD = [
     'Patient Name',
     'Pataient Citizenship',
@@ -52,70 +70,86 @@ const Appointment = () => {
                 </tr>
               </thead>
               <tbody>
-                {appointment?.map(
-                  (
-                    {
-                      PataientFirstName,
-                      specialty,
-                      doctor,
-                      PataientCitizenship,
-                    },
-                    index
-                  ) => (
-                    <tr key={index} className='even:bg-blue-gray-50/50'>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {PataientFirstName}
-                        </Typography>
-                      </td>
+                {appointment?.map((appointments, index) => (
+                  <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {appointments?.PataientFirstName}
+                      </Typography>
+                    </td>
 
-                      <td className='p-4'>
-                        <Typography
-                          as='a'
-                          href='#'
-                          variant='small'
-                          color='blue-gray'
-                          className='font-medium'
-                        >
-                          {PataientCitizenship}
-                        </Typography>
-                      </td>
+                    <td className='p-4'>
+                      <Typography
+                        as='a'
+                        href='#'
+                        variant='small'
+                        color='blue-gray'
+                        className='font-medium'
+                      >
+                        {appointments?.PataientCitizenship}
+                      </Typography>
+                    </td>
 
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {doctor}
-                        </Typography>
-                      </td>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {specialty}
-                        </Typography>
-                      </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {appointments?.doctor}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {appointments?.specialty}
+                      </Typography>
+                    </td>
 
-                      <td className='p-4 flex'>
-                        <button className='px-4 py-2 shadow rounded bg-blue text-white '>
-                          View
-                        </button>
-                      </td>
-                    </tr>
-                  )
-                )}
+                    <td className='p-4 flex'>
+                      <button
+                        onClick={() => handleOpen(appointments)}
+                        className='px-4 py-2 shadow rounded bg-blue text-white '
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Card>
         )}
+        <Dialog open={open} handler={handleOpen}>
+          <DialogHeader>
+            <div>
+              <h1>{appoinmentModalData.PataientFirstName}</h1>
+            </div>
+          </DialogHeader>
+          <DialogBody>
+            <div></div>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant='gradient'
+              color='black'
+              onClick={handleOpen}
+              className='mr-4'
+            >
+              <span>Close</span>
+            </Button>
+            <Button variant='gradient' color='red'>
+              <span>Delete</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
       </div>
     </div>
   )

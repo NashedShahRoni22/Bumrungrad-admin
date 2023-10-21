@@ -2,10 +2,26 @@ import React, { useState, useEffect } from 'react'
 
 import { Card, Typography } from '@material-tailwind/react'
 import Loader from '../components/Loader'
-
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from '@material-tailwind/react'
+import { AiFillEye } from 'react-icons/ai'
+import { BsFileEarmarkArrowDown } from 'react-icons/bs'
 const AirAmbulance = () => {
   const [loader, setLoader] = useState(true)
+  const [open, setOpen] = React.useState(false)
+  const [airAmbulenceModalData, setModalData] = useState({})
+  const handleOpen = (data) => {
+    setOpen(!open)
+    setModalData(data)
+  }
+
   const [airAmbulance, setAirAmbulancet] = useState([])
+
   const TABLE_HEAD = ['Entry Date', 'Passport Copy', 'Action']
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/ambulance')
@@ -25,7 +41,7 @@ const AirAmbulance = () => {
           <Loader />
         ) : (
           <Card className='m-5 md:m-10 h-full overflow-scroll'>
-            <p className='p-5 text-xl font-semibold text-center'>
+            <p className='p-5 text-2xl text-blue font-semibold'>
               Air Ambulance: {airAmbulance?.length}
             </p>
             <table className='w-full min-w-max table-auto text-left'>
@@ -50,7 +66,7 @@ const AirAmbulance = () => {
                 </tr>
               </thead>
               <tbody>
-                {airAmbulance?.map(({ entry_date, passport_copy }, index) => (
+                {airAmbulance?.map((oneAmbulance, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
                     <td className='p-4'>
                       <Typography
@@ -58,23 +74,27 @@ const AirAmbulance = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {entry_date}
+                        {oneAmbulance?.entry_date}
                       </Typography>
                     </td>
 
                     <td className='p-4'>
                       <a
-                        href={passport_copy}
+                        href={oneAmbulance?.passport_copy}
                         target='blank'
                         rel='noopener noreferrer'
+                        className='flex w-fit items-center gap-2 px-4 py-2 shadow rounded bg-blue text-white '
                       >
-                        <button className='px-4 py-2 shadow rounded bg-primary text-white '>
-                          Passport Copy
-                        </button>
+                        <BsFileEarmarkArrowDown className='text-xl' />
+                        Passport Copy
                       </a>
                     </td>
                     <td className='p-4'>
-                      <button className='px-4 py-2 shadow rounded bg-blue text-white '>
+                      <button
+                        onClick={() => handleOpen(oneAmbulance)}
+                        className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white '
+                      >
+                        <AiFillEye className='text-xl' />
                         View
                       </button>
                     </td>
@@ -84,6 +104,48 @@ const AirAmbulance = () => {
             </table>
           </Card>
         )}
+        <Dialog open={open} handler={handleOpen}>
+          <DialogHeader>
+            <div>Airambulance</div>
+          </DialogHeader>
+          <DialogBody>
+            <div>
+              <h1>Entry Date : {airAmbulenceModalData?.entry_date}</h1>
+              <p className='mt-2.5'>
+                {' '}
+                <span className='font-semibold'> Summary : </span> <br />
+                {airAmbulenceModalData?.summary}
+              </p>
+              <p className='mt-2.5'>
+                {' '}
+                <span className='font-semibold'>Description :</span>
+                <br /> {airAmbulenceModalData?.description}
+              </p>
+            </div>
+
+            <div className='mt-2.5'>
+              <a
+                className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white '
+                href={airAmbulenceModalData?.passport_copy}
+              >
+                <BsFileEarmarkArrowDown className='text-xl' /> Passport
+              </a>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant='gradient'
+              color='black'
+              onClick={handleOpen}
+              className='mr-4'
+            >
+              <span>Close</span>
+            </Button>
+            <Button variant='gradient' color='red'>
+              <span>Delete</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
       </div>
     </div>
   )
