@@ -302,26 +302,26 @@ export default function AddDoctors() {
       .then((data) => {
         if (data.status === 404) {
           setErr(data.err);
-          toast.error(err.length);
           setLoader(false);
           console.log(data);
         } else {
           console.log(data);
           toast.success("Doctor Added Successfully!");
-          setName("");
-          setSchool("");
-          setSelectedDoctorImg("");
-          setCertificates([]);
-          setFellowships([]);
-          setInterests([]);
-          setExperiences([]);
-          setResearchs([]);
-          setArticles([]);
-          setSelectedSubSpecialities([]);
-          setparentSpecialityId("");
-          setSchedules([]);
-          setLangs([]);
-          setLoader(false);
+          // setName("");
+          // setSchool("");
+          // setSelectedDoctorImg("");
+          // setCertificates([]);
+          // setFellowships([]);
+          // setInterests([]);
+          // setExperiences([]);
+          // setResearchs([]);
+          // setArticles([]);
+          // setSelectedSubSpecialities([]);
+          // setparentSpecialityId("");
+          // setSchedules([]);
+          // setLangs([]);
+          // setLoader(false);
+          window.location.reload();
         }
       })
       .catch((e) => {

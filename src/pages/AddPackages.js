@@ -112,8 +112,8 @@ export default function AddPackages() {
         .then((data) => {
           setLoader(false)
           // console.log(data);
-          setSelectedParentImage("No file chosen");
           e.target.reset()
+          setSelectedParentImage("No file chosen");
           toast.success('Package Added Successfully!')
         })
         .catch((e) => console.error(e))
@@ -145,7 +145,12 @@ export default function AddPackages() {
     if (selectedChildImage === 'No file chosen') {
       setChildLoader(false)
       toast.error('Select Child Package Image')
-    } else {
+    } 
+    else if( parentId === ""){
+      setChildLoader(false)
+      toast.error('Please Select Parent Package')
+    }
+    else {
       const formData = new FormData()
       formData.append('cover_photo', selectedChildImage)
       formData.append('title', title)
@@ -165,14 +170,15 @@ export default function AddPackages() {
       })
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data);
-          setChildLoader(false);
+          console.log(data);
           e.target.reset();
-          setInformations([]);
-          setConditions([]);
-          setTreatments([]);
-          setSelectedChildImage("No file chosen");
           toast.success('Child Package Added Successfully!')
+          // setChildLoader(false);
+          // setInformations([]);
+          // setConditions([]);
+          // setTreatments([]);
+          // setSelectedChildImage("No file chosen");
+          window.location.reload();
         })
         .catch((e) => console.error(e))
     }
@@ -271,6 +277,10 @@ export default function AddPackages() {
                       : selectedChildImage}
                   </label>
                 </div>
+
+                <p className='text-red-500'>
+                  *Please Select Parent Package
+                </p>
                 <div className='grid gap-4 md:grid-cols-2'>
                   <div className='w-full'>
                     <Select
