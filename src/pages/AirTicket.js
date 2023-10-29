@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 import { Card, Typography } from '@material-tailwind/react'
 import Loader from '../components/Loader'
-
+import { AiFillEye } from 'react-icons/ai'
+import { Button } from '@material-tailwind/react'
 const AirTicket = () => {
   const [loader, setLoader] = useState(true)
   const [airTicket, setAirTicket] = useState([])
@@ -11,7 +12,14 @@ const AirTicket = () => {
     'Destination Country',
     'Passport Copy',
     'Booking Date',
+    'Action'
   ]
+  const handaleDeleteAirTicekt = (oneTicket) => {
+    const newAirticketData = airTicket.filter(
+      (airpickup) => airpickup.id !== oneTicket.id
+    )
+    setAirTicket(newAirticketData)
+  } 
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/ticket')
       .then((res) => res.json())
@@ -29,7 +37,7 @@ const AirTicket = () => {
           <Loader />
         ) : (
           <Card className='m-5 md:m-10 h-full overflow-scroll'>
-            <p className='p-5 text-xl font-semibold text-center'>
+            <p className='p-5 text-xl font-semibold '>
               Ait Ticket: {airTicket?.length}
             </p>
             <table className='w-full min-w-max table-auto text-left'>
@@ -52,46 +60,60 @@ const AirTicket = () => {
                 </tr>
               </thead>
               <tbody>
-                {airTicket?.map(
-                  ({ country, destination, booking_date, doc }, index) => (
-                    <tr key={index} className='even:bg-blue-gray-50/50'>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {country}
-                        </Typography>
-                      </td>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {destination}
-                        </Typography>
-                      </td>
-                      <td className='p-4'>
-                        <a href={doc} target='blank' rel='noopener noreferrer'>
-                          <button className='px-4 py-2 shadow rounded bg-primary text-white '>
-                            Passport Copy
-                          </button>
-                        </a>
-                      </td>
-                      <td className='p-4'>
-                        <Typography
-                          variant='small'
-                          color='blue-gray'
-                          className='font-normal'
-                        >
-                          {booking_date}
-                        </Typography>
-                      </td>
-                    </tr>
-                  )
-                )}
+                {airTicket?.map((oneTicket, index) => (
+                  <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTicket?.country}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTicket?.destination}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <a
+                        href={oneTicket?.doc}
+                        target='blank'
+                        rel='noopener noreferrer'
+                      >
+                        <button className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white '>
+                          <AiFillEye className='text-xl' />
+                          Passport
+                        </button>
+                      </a>
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTicket?.booking_date}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <Button
+                        onClick={() => {
+                          handaleDeleteAirTicekt(oneTicket)
+                        }}
+                        variant='gradient'
+                        color='red'
+                      >
+                        <span>Delete</span>
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Card>

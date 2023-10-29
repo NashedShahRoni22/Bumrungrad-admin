@@ -15,6 +15,7 @@ import AirTicket from './pages/AirTicket'
 import TeleMedicine from './pages/TeleMedicine'
 import AirPickUp from './pages/AirPickUp'
 import MedicalRecord from './pages/MedicalRecord'
+import SeeQuery from './pages/SeeQuery'
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: '/home/medicalRecord',
         element: <MedicalRecord />,
+      },
+      {
+        path: '/home/seeQuery',
+        element: <SeeQuery />,
       },
     ],
   },

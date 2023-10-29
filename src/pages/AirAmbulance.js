@@ -21,6 +21,14 @@ const AirAmbulance = () => {
 
   const [airAmbulance, setAirAmbulancet] = useState([])
 
+  // Delete Data...
+  const handaleDeleteAirAmbulance = (airAmbulanceData) => {
+    const newAirAmbulance = airAmbulance.filter(
+      (oneAmbulance) => oneAmbulance.id !== airAmbulanceData.id
+    )
+    setAirAmbulancet(newAirAmbulance)
+  }
+
   const TABLE_HEAD = ['Entry Date', 'Passport Copy', 'Action']
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/ambulance')
@@ -82,10 +90,10 @@ const AirAmbulance = () => {
                         href={oneAmbulance?.passport_copy}
                         target='blank'
                         rel='noopener noreferrer'
-                        className='flex w-fit items-center gap-2 px-4 py-2 shadow rounded bg-blue text-white '
+                        className='flex w-fit items-center gap-2 px-2 py-1 shadow rounded bg-blue text-white '
                       >
                         <BsFileEarmarkArrowDown className='text-xl' />
-                        Passport Copy
+                        Passport
                       </a>
                     </td>
                     <td className='p-4'>
@@ -128,7 +136,8 @@ const AirAmbulance = () => {
               <a
                 className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white '
                 href={airAmbulenceModalData?.passport_copy}
-             target='blank' >
+                target='blank'
+              >
                 <BsFileEarmarkArrowDown className='text-xl' /> Passport
               </a>
             </div>
@@ -142,7 +151,14 @@ const AirAmbulance = () => {
             >
               <span>Close</span>
             </Button>
-            <Button variant='gradient' color='red'>
+            <Button
+              onClick={() => {
+                handaleDeleteAirAmbulance(airAmbulenceModalData)
+                handleOpen()
+              }}
+              variant='gradient'
+              color='red'
+            >
               <span>Delete</span>
             </Button>
           </DialogFooter>

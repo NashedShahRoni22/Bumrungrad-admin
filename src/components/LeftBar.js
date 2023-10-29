@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Typography,
   List,
@@ -7,7 +7,8 @@ import {
   Accordion,
   AccordionHeader,
   AccordionBody,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react'
+
 import {
   PresentationChartBarIcon,
   PowerIcon,
@@ -17,19 +18,27 @@ import {
   CalendarDaysIcon,
   PlusIcon,
   ListBulletIcon,
-} from "@heroicons/react/24/solid";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { BiSolidAmbulance } from "react-icons/bi";
-import { AiOutlineOrderedList, AiOutlineFile } from "react-icons/ai";
-import { BsFillTelephoneForwardFill } from "react-icons/bs";
-import { MdAirplaneTicket, MdWheelchairPickup } from "react-icons/md";
-import { Link } from "react-router-dom";
+} from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
+import { BiSolidAmbulance } from 'react-icons/bi'
+import { AiOutlineOrderedList, AiOutlineFile } from 'react-icons/ai'
+import {
+  BsFillTelephoneForwardFill,
+  BsQuestionOctagonFill,
+} from 'react-icons/bs'
+import { MdAirplaneTicket, MdWheelchairPickup } from 'react-icons/md'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function LeftBar() {
-  const [open, setOpen] = React.useState(0);
+  const navigate = useNavigate()
+  const [open, setOpen] = React.useState(0)
   const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
+    setOpen(open === value ? 0 : value)
+  }
+
+  const handaleLogOut = () => {
+    navigate('/')
+  }
 
   return (
     <div className='h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4'>
@@ -242,13 +251,23 @@ export function LeftBar() {
             Medical Record
           </ListItem>
         </Link>
-
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className='h-5 w-5' />
-          </ListItemPrefix>
-          Log Out
-        </ListItem>
+        <Link to='/home/seeQuery'>
+          {' '}
+          <ListItem>
+            <ListItemPrefix>
+              <BsQuestionOctagonFill className='h-5 w-5' />
+            </ListItemPrefix>
+            Client Query
+          </ListItem>
+        </Link>
+        <button onClick={handaleLogOut}>
+          <ListItem>
+            <ListItemPrefix>
+              <PowerIcon className='h-5 w-5' />
+            </ListItemPrefix>
+            Log Out
+          </ListItem>
+        </button>
       </List>
     </div>
   )

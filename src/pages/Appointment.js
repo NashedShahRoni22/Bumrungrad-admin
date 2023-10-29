@@ -20,7 +20,13 @@ const Appointment = () => {
     setModalData(data)
   }
   const [appointment, setAppointment] = useState([])
-
+  // Delete Data...
+  const handaleDeleteAppointment = (appointmentData) => {
+    const newAppointmentData = appointment.filter(
+      (appointments) => appointments.id !== appointmentData.id
+    )
+    setAppointment(newAppointmentData)
+  }
   const TABLE_HEAD = [
     'Patient Name',
     'Pataient Citizenship',
@@ -44,7 +50,7 @@ const Appointment = () => {
           <Loader />
         ) : (
           <Card className='m-5 md:m-10 h-full overflow-scroll'>
-            <p className='p-5 text-xl font-semibold text-center'>
+            <p className='p-5 text-xl font-semibold'>
               Appointment : {appointment?.length}
             </p>
             <table className='w-full min-w-max table-auto text-left'>
@@ -283,7 +289,7 @@ const Appointment = () => {
                   href={appoinmentModalData?.medicalReport1}
                   target='blank'
                 >
-                  <BsFileEarmarkArrowDown className='text-xl' /> Report1
+                  <BsFileEarmarkArrowDown className='text-xl' /> Report 1
                 </a>
               )}
               {appoinmentModalData?.medicalReport2 && (
@@ -292,7 +298,7 @@ const Appointment = () => {
                   href={appoinmentModalData?.medicalReport1}
                   target='blank'
                 >
-                  <BsFileEarmarkArrowDown className='text-xl' /> Report2
+                  <BsFileEarmarkArrowDown className='text-xl' /> Report 2
                 </a>
               )}
               {appoinmentModalData?.medicalReport3 && (
@@ -301,7 +307,7 @@ const Appointment = () => {
                   href={appoinmentModalData?.medicalReport1}
                   target='blank'
                 >
-                  <BsFileEarmarkArrowDown className='text-xl' /> Report3
+                  <BsFileEarmarkArrowDown className='text-xl' /> Report 3
                 </a>
               )}
             </div>
@@ -314,7 +320,14 @@ const Appointment = () => {
               >
                 <span>Close</span>
               </Button>
-              <Button variant='gradient' color='red'>
+              <Button
+                onClick={() => {
+                  handaleDeleteAppointment(appoinmentModalData)
+                  handleOpen()
+                }}
+                variant='gradient'
+                color='red'
+              >
                 <span>Delete</span>
               </Button>
             </div>
