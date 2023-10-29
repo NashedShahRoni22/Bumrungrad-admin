@@ -111,7 +111,8 @@ export default function AddPackages() {
         .then((res) => res.json())
         .then((data) => {
           setLoader(false)
-          console.log(data)
+          // console.log(data);
+          setSelectedParentImage("No file chosen");
           e.target.reset()
           toast.success('Package Added Successfully!')
         })
@@ -164,9 +165,13 @@ export default function AddPackages() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
-          setChildLoader(false)
-          e.target.reset()
+          // console.log(data);
+          setChildLoader(false);
+          e.target.reset();
+          setInformations([]);
+          setConditions([]);
+          setTreatments([]);
+          setSelectedChildImage("No file chosen");
           toast.success('Child Package Added Successfully!')
         })
         .catch((e) => console.error(e))

@@ -50,7 +50,7 @@ const Appointment = () => {
           <Loader />
         ) : (
           <Card className='m-5 md:m-10 h-full overflow-scroll'>
-            <p className='p-5 text-xl font-semibold'>
+            <p className='p-5 text-xl font-semibold text-blue'>
               Appointment : {appointment?.length}
             </p>
             <table className='w-full min-w-max table-auto text-left'>
