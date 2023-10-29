@@ -19,7 +19,12 @@ const MedicalRecord = () => {
     setOpen(!open)
     setModalData(data)
   }
-
+  const handaleDeleteMedicineRecord = (medicileRecordData) => {
+    const newMedicineRecord = medicalRecord.filter(
+      (oneMedicalRecord) => oneMedicalRecord.id !== medicileRecordData.id
+    )
+    setMedicalRecord(newMedicineRecord)
+  }
   const TABLE_HEAD = ['HN Number', 'Passport Copy', 'Action']
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/medical/report')
@@ -114,7 +119,8 @@ const MedicalRecord = () => {
               <a
                 className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white '
                 href={medicalRecordModalData?.passport}
-             target='blank' >
+                target='blank'
+              >
                 <BsFileEarmarkArrowDown className='text-xl' /> Passport
               </a>
             </div>
@@ -128,7 +134,14 @@ const MedicalRecord = () => {
             >
               <span>Close</span>
             </Button>
-            <Button variant='gradient' color='red'>
+            <Button
+              onClick={() => {
+                handaleDeleteMedicineRecord(medicalRecordModalData)
+                handleOpen()
+              }}
+              variant='gradient'
+              color='red'
+            >
               <span>Delete</span>
             </Button>
           </DialogFooter>

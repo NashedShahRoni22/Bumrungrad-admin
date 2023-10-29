@@ -14,15 +14,21 @@ import { BsFileEarmarkArrowDown } from 'react-icons/bs'
 
 const TeleMedicine = () => {
   const [loader, setLoader] = useState(true)
-
   const [open, setOpen] = React.useState(false)
   const [teleMedicineModalData, setModalData] = useState({})
+  const [teleMedicine, setTeleMedicine] = useState([])
   const handleOpen = (data) => {
     setOpen(!open)
     setModalData(data)
   }
 
-  const [teleMedicine, setTeleMedicine] = useState([])
+  const handaleDeleteTeleMedicine = (telemedicineData) => {
+    const newteleMedicine = teleMedicine.filter(
+      (oneTelemedicine) => oneTelemedicine.id !== telemedicineData.id
+    )
+    setTeleMedicine(newteleMedicine)
+  }
+
   const TABLE_HEAD = [
     'Patient Name',
     'Passport Number',
@@ -48,7 +54,7 @@ const TeleMedicine = () => {
           <Loader />
         ) : (
           <Card className='m-5 md:m-10 h-full overflow-scroll'>
-            <p className='p-5 text-xl font-semibold text-center'>
+            <p className='p-5 text-xl font-semibold'>
               Tele Medicine: {teleMedicine?.length}
             </p>
             <table className='w-full min-w-max table-auto text-left'>
@@ -206,7 +212,8 @@ const TeleMedicine = () => {
               <a
                 className='flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white font-light text-lg'
                 href={teleMedicineModalData?.investigationDocument}
-              target='blank'>
+                target='blank'
+              >
                 <BsFileEarmarkArrowDown className='text-xl' /> Investigation
                 Document
               </a>
@@ -220,7 +227,14 @@ const TeleMedicine = () => {
               >
                 <span>Close</span>
               </Button>
-              <Button variant='gradient' color='red'>
+              <Button
+                onClick={() => {
+                  handaleDeleteTeleMedicine(teleMedicineModalData)
+                  handleOpen()
+                }}
+                variant='gradient'
+                color='red'
+              >
                 <span>Delete</span>
               </Button>
             </div>

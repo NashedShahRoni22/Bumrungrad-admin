@@ -8,6 +8,7 @@ import {
   DialogFooter,
 } from '@material-tailwind/react'
 import { AiFillEye } from 'react-icons/ai'
+import { toast } from 'react-toastify'
 
 const DoctorsList = () => {
   const [loader, setLoader] = useState(false)
@@ -17,6 +18,7 @@ const DoctorsList = () => {
     setOpen(!open)
     setModalData(data)
   }
+
   const TABLE_HEAD = [
     'Name',
     'Speciality',
@@ -25,6 +27,31 @@ const DoctorsList = () => {
     'Action',
   ]
   const [doctors, setDoctors] = useState([])
+
+  // Deletedata
+
+  const handaleDeleteData = (modaldata) => {
+    // const newTableData = doctors.filter((doctor) => doctor.id !== modaldata.id)
+    // setDoctors(newTableData)
+
+    // fetch(
+    //   `https://api.bumrungraddiscover.com/api/search/doctor/${modaldata.id}`,
+    //   {
+    //     method: 'DELETE',
+    //   }
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data)
+    //     if (data.status === 200) {
+    //       const newTableData = doctors.filter(
+    //         (doctor) => doctor.id !== modaldata.id
+    //       )
+    //       setDoctors(newTableData)
+    //     }
+    //   })
+  }
+
   useEffect(() => {
     setLoader(true)
     fetch('https://api.bumrungraddiscover.com/api/get/doctors')
@@ -40,7 +67,7 @@ const DoctorsList = () => {
         <Loader />
       ) : (
         <Card className='m-5 md:m-10 h-full overflow-scroll'>
-          <p className='p-5 text-xl font-semibold text-center'>
+          <p className='p-5 text-xl font-semibold'>
             Total Doctors {doctors?.length}
           </p>
           <table className='w-full min-w-max table-auto text-left'>
@@ -124,7 +151,7 @@ const DoctorsList = () => {
         open={open}
         handler={handleOpen}
         size='xl'
-        className='h-[42rem] overflow-scroll'
+        className='h-[95vh] overflow-scroll'
       >
         <DialogBody>
           <section>
@@ -396,7 +423,14 @@ const DoctorsList = () => {
           >
             <span>Cancel</span>
           </Button>
-          <button className='px-4 py-2 shadow rounded bg-red-500 text-white '>
+          <button
+            // onClick={() => }
+            onClick={() => {
+              handaleDeleteData(modalData)
+              handleOpen()
+            }}
+            className='px-4 py-2 shadow rounded bg-red-500 text-white '
+          >
             Delete
           </button>
         </DialogFooter>
