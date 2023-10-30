@@ -20,10 +20,20 @@ const MedicalRecord = () => {
     setModalData(data)
   }
   const handaleDeleteMedicineRecord = (medicileRecordData) => {
-    const newMedicineRecord = medicalRecord.filter(
-      (oneMedicalRecord) => oneMedicalRecord.id !== medicileRecordData.id
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/medicalreports/${medicileRecordData.id}`
     )
-    setMedicalRecord(newMedicineRecord)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newMedicineRecord = medicalRecord.filter(
+            (oneMedicalRecord) => oneMedicalRecord.id !== medicileRecordData.id
+          )
+
+          setMedicalRecord(newMedicineRecord)
+        }
+      })
   }
   const TABLE_HEAD = ['HN Number', 'Passport Copy', 'Action']
   useEffect(() => {

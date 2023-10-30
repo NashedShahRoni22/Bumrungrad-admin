@@ -23,10 +23,20 @@ const TeleMedicine = () => {
   }
 
   const handaleDeleteTeleMedicine = (telemedicineData) => {
-    const newteleMedicine = teleMedicine.filter(
-      (oneTelemedicine) => oneTelemedicine.id !== telemedicineData.id
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/tele_medicines/${telemedicineData.id}`
     )
-    setTeleMedicine(newteleMedicine)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newteleMedicine = teleMedicine.filter(
+            (oneTelemedicine) => oneTelemedicine.id !== telemedicineData.id
+          )
+
+          setTeleMedicine(newteleMedicine)
+        }
+      })
   }
 
   const TABLE_HEAD = [

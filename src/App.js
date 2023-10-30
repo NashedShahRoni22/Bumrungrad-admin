@@ -16,6 +16,8 @@ import TeleMedicine from './pages/TeleMedicine'
 import AirPickUp from './pages/AirPickUp'
 import MedicalRecord from './pages/MedicalRecord'
 import SeeQuery from './pages/SeeQuery'
+import CenterList from './pages/CenterList'
+import CheakUp from './pages/CheakUp'
 
 const router = createBrowserRouter([
   {
@@ -85,6 +87,14 @@ const router = createBrowserRouter([
       {
         path: '/home/seeQuery',
         element: <SeeQuery />,
+      },
+      {
+        path: '/home/centers-list',
+        element: <CenterList />,
+      },
+      {
+        path: '/home/check-up',
+        element: <CheakUp />,
       },
     ],
   },

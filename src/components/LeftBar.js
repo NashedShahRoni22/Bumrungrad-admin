@@ -22,6 +22,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { BiSolidAmbulance } from 'react-icons/bi'
 import { AiOutlineOrderedList, AiOutlineFile } from 'react-icons/ai'
+import { FaHandHoldingMedical } from 'react-icons/fa'
 import {
   BsFillTelephoneForwardFill,
   BsQuestionOctagonFill,
@@ -41,7 +42,7 @@ export function LeftBar() {
   }
 
   return (
-    <div className='h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4'>
+    <div className='h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 overflow-auto'>
       <List>
         <Link to='/home'>
           <ListItem>
@@ -183,12 +184,14 @@ export function LeftBar() {
                   Add Centers
                 </ListItem>
               </Link>
-              <ListItem>
-                <ListItemPrefix>
-                  <ListBulletIcon strokeWidth={3} className='h-5 w-5' />
-                </ListItemPrefix>
-                Centers List
-              </ListItem>
+              <Link to='/home/centers-list'>
+                <ListItem>
+                  <ListItemPrefix>
+                    <ListBulletIcon strokeWidth={3} className='h-5 w-5' />
+                  </ListItemPrefix>
+                  Centers List
+                </ListItem>
+              </Link>
             </List>
           </AccordionBody>
         </Accordion>
@@ -258,6 +261,15 @@ export function LeftBar() {
               <BsQuestionOctagonFill className='h-5 w-5' />
             </ListItemPrefix>
             Client Query
+          </ListItem>
+        </Link>
+        <Link to='/home/check-up'>
+          {' '}
+          <ListItem>
+            <ListItemPrefix>
+              <FaHandHoldingMedical className='h-5 w-5' />
+            </ListItemPrefix>
+            Check Up
           </ListItem>
         </Link>
         <button onClick={handaleLogOut}>

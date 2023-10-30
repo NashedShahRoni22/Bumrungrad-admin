@@ -19,10 +19,20 @@ const MedicineOrder = () => {
     setModalData(data)
   }
   const handaleDeleteMedicine = (medicineData) => {
-    const newMedicine = orderMedicine.filter(
-      (medicine) => medicine.id !== medicineData.id
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/order_medicines/${medicineData.id}`
     )
-    setOrderMedicine(newMedicine)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newMedicine = orderMedicine.filter(
+            (medicine) => medicine.id !== medicineData.id
+          )
+
+          setOrderMedicine(newMedicine)
+        }
+      })
   }
   const TABLE_HEAD = [
     'Name',
@@ -133,10 +143,7 @@ const MedicineOrder = () => {
                     </td>
                     <td>
                       <Button
-                        onClick={() => {
-                          handaleDeleteMedicine(orderMedicineData)
-                          handleOpen()
-                        }}
+                        onClick={() => handaleDeleteMedicine(medicine)}
                         variant='gradient'
                         color='red'
                       >
