@@ -30,25 +30,19 @@ const DoctorsList = () => {
   // Deletedata
 
   const handaleDeleteData = (modaldata) => {
-    // const newTableData = doctors.filter((doctor) => doctor.id !== modaldata.id)
-    // setDoctors(newTableData)
-
-    // fetch(
-    //   `https://api.bumrungraddiscover.com/api/search/doctor/${modaldata.id}`,
-    //   {
-    //     method: 'DELETE',
-    //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data)
-    //     if (data.status === 200) {
-    //       const newTableData = doctors.filter(
-    //         (doctor) => doctor.id !== modaldata.id
-    //       )
-    //       setDoctors(newTableData)
-    //     }
-    //   })
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/doctors/${modaldata.id}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newTableData = doctors.filter(
+            (doctor) => doctor.id !== modaldata.id
+          )
+          setDoctors(newTableData)
+        }
+      })
   }
 
   useEffect(() => {

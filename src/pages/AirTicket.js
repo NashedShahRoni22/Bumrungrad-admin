@@ -12,14 +12,24 @@ const AirTicket = () => {
     'Destination Country',
     'Passport Copy',
     'Booking Date',
-    'Action'
+    'Action',
   ]
   const handaleDeleteAirTicekt = (oneTicket) => {
-    const newAirticketData = airTicket.filter(
-      (airpickup) => airpickup.id !== oneTicket.id
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/air_tickets/${oneTicket.id}`
     )
-    setAirTicket(newAirticketData)
-  } 
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newAirticketData = airTicket.filter(
+            (airpickup) => airpickup.id !== oneTicket.id
+          )
+
+          setAirTicket(newAirticketData)
+        }
+      })
+  }
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/ticket')
       .then((res) => res.json())

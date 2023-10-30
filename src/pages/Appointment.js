@@ -22,10 +22,20 @@ const Appointment = () => {
   const [appointment, setAppointment] = useState([])
   // Delete Data...
   const handaleDeleteAppointment = (appointmentData) => {
-    const newAppointmentData = appointment.filter(
-      (appointments) => appointments.id !== appointmentData.id
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/doctorappoinments/${appointmentData.id}`
     )
-    setAppointment(newAppointmentData)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newAppointmentData = appointment.filter(
+            (appointments) => appointments.id !== appointmentData.id
+          )
+
+          setAppointment(newAppointmentData)
+        }
+      })
   }
   const TABLE_HEAD = [
     'Patient Name',
@@ -42,7 +52,7 @@ const Appointment = () => {
         setLoader(false)
       })
   }, [])
-  console.log(appointment)
+  //console.log(appointment)
   return (
     <div>
       <div>

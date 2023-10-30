@@ -14,11 +14,21 @@ const AirPickUp = () => {
   ]
 
   const handaleDeleteAirPickUp = (pickUp) => {
-    const newpickUpData = airPickup.filter(
-      (airpickup) => airpickup.id !== pickUp.id
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/air_pickups/${pickUp.id}`
     )
-    setAirPickup(newpickUpData)
-  } 
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, 1)
+        if (data.status === 200) {
+          const newpickUpData = airPickup.filter(
+            (airpickup) => airpickup.id !== pickUp.id
+          )
+
+          setAirPickup(newpickUpData)
+        }
+      })
+  }
 
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/pickup')
@@ -60,7 +70,7 @@ const AirPickUp = () => {
                 </tr>
               </thead>
               <tbody>
-                {airPickup?.map(( pickUp , index) => (
+                {airPickup?.map((pickUp, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
                     <td className='p-4'>
                       <a
