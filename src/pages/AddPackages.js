@@ -50,7 +50,7 @@ export default function AddPackages() {
 
   // informations add remove functions
   const addInformations = () => {
-    const newInformations = [...informations, information]
+    const newInformations = [...informations, {information}]
     setInformations(newInformations)
     setInformation('')
   }
@@ -61,7 +61,7 @@ export default function AddPackages() {
   }
   // conditions add remove functions
   const addConditions = () => {
-    const newConditions = [...conditions, condition]
+    const newConditions = [...conditions, {condition}]
     setConditions(newConditions)
     setCondition('')
   }
@@ -72,7 +72,7 @@ export default function AddPackages() {
   }
   // conditions add remove functions
   const addTreatments = () => {
-    const newTreatments = [...treatments, treatment]
+    const newTreatments = [...treatments, {treatment}]
     setTreatments(newTreatments)
     setTreatment('')
   }
@@ -166,9 +166,9 @@ export default function AddPackages() {
       formData.append('location', location)
       formData.append('shift1', shift1)
       formData.append('shift2', shift2)
-      formData.append('conditions', informations)
-      formData.append('inclusions', conditions)
-      formData.append('exclusions', treatments)
+      formData.append('conditions', JSON.stringify(informations))
+      formData.append('inclusions', JSON.stringify(conditions))
+      formData.append('exclusions', JSON.stringify(treatments))
 
       fetch('https://api.bumrungraddiscover.com/api/create/sub/package', {
         method: 'POST',
@@ -179,12 +179,11 @@ export default function AddPackages() {
           console.log(data);
           e.target.reset();
           toast.success('Child Package Added Successfully!')
-          // setChildLoader(false);
-          // setInformations([]);
-          // setConditions([]);
-          // setTreatments([]);
-          // setSelectedChildImage("No file chosen");
-          window.location.reload();
+          setChildLoader(false);
+          setInformations([]);
+          setConditions([]);
+          setTreatments([]);
+          setSelectedChildImage("No file chosen");
         })
         .catch((e) => console.error(e))
     }
@@ -344,7 +343,7 @@ export default function AddPackages() {
                             <div className='flex flex-col gap-4'>
                               {informations.map((c, i) => (
                                 <div key={i} className='flex justify-between'>
-                                  <p className='text-xl'>{c}</p>
+                                  <p className='text-xl'>{c.information}</p>
                                   <AiOutlineDelete
                                     onClick={() => removeInformation(i)}
                                     className='text-red-500 text-3xl cursor-pointer'
@@ -408,7 +407,7 @@ export default function AddPackages() {
                             <div className='flex flex-col gap-4'>
                               {conditions.map((c, i) => (
                                 <div key={i} className='flex justify-between'>
-                                  <p className='text-xl'>{c}</p>
+                                  <p className='text-xl'>{c.condition}</p>
                                   <AiOutlineDelete
                                     onClick={() => removeCondition(i)}
                                     className='text-red-500 text-3xl cursor-pointer'
@@ -472,7 +471,7 @@ export default function AddPackages() {
                             <div className='flex flex-col gap-4'>
                               {treatments.map((c, i) => (
                                 <div key={i} className='flex justify-between'>
-                                  <p className='text-xl'>{c}</p>
+                                  <p className='text-xl'>{c.treatment}</p>
                                   <AiOutlineDelete
                                     onClick={() => removeTreatment(i)}
                                     className='text-red-500 text-3xl cursor-pointer'

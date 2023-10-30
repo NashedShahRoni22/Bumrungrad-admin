@@ -35,10 +35,10 @@ export default function AddCenters() {
 
   // informations add remove functions
   const addInformations = () => {
-    const newInformations = [...informations, information]
-    setInformations(newInformations)
-    setInformation('')
-  }
+    const newInformations = [...informations, { information }];
+    setInformations(newInformations);
+    setInformation("");
+  };
   const removeInformation = (index) => {
     const updatedInformations = [...informations]
     updatedInformations.splice(index, 1)
@@ -46,10 +46,10 @@ export default function AddCenters() {
   }
   // conditions add remove functions
   const addConditions = () => {
-    const newConditions = [...conditions, condition]
-    setConditions(newConditions)
-    setCondition('')
-  }
+    const newConditions = [...conditions, { condition }];
+    setConditions(newConditions);
+    setCondition("");
+  };
   const removeCondition = (index) => {
     const updatedConditions = [...conditions]
     updatedConditions.splice(index, 1)
@@ -57,10 +57,10 @@ export default function AddCenters() {
   }
   // conditions add remove functions
   const addTreatments = () => {
-    const newTreatments = [...treatments, treatment]
-    setTreatments(newTreatments)
-    setTreatment('')
-  }
+    const newTreatments = [...treatments, { treatment }];
+    setTreatments(newTreatments);
+    setTreatment("");
+  };
   const removeTreatment = (index) => {
     const updatedTreatments = [...treatments]
     updatedTreatments.splice(index, 1)
@@ -82,8 +82,8 @@ export default function AddCenters() {
       informations,
       conditions,
       treatments,
-    }
-    console.log(postData)
+    };
+    console.log(postData);
     if (
       selectedCenterImg === '' ||
       name === '' ||
@@ -104,14 +104,14 @@ export default function AddCenters() {
         toast.error('Center Description')
       }
     } else {
-      const formData = new FormData()
-      formData.append('cover_photo', selectedCenterImg)
-      formData.append('name', name)
-      formData.append('location', location)
-      formData.append('description', description)
-      formData.append('informations', informations)
-      formData.append('conditions', conditions)
-      formData.append('treatments', treatments)
+      const formData = new FormData();
+      formData.append("cover_photo", selectedCenterImg);
+      formData.append("name", name);
+      formData.append("location", location);
+      formData.append("description", description);
+      formData.append("informations", JSON.stringify(informations));
+      formData.append("conditions", JSON.stringify(conditions));
+      formData.append("treatments", JSON.stringify(treatments));
 
       fetch('https://api.bumrungraddiscover.com/api/add/center', {
         method: 'POST',
@@ -194,8 +194,8 @@ export default function AddCenters() {
                   {informations.length > 0 ? (
                     <div className='flex flex-col gap-4'>
                       {informations.map((c, i) => (
-                        <div key={i} className='flex justify-between'>
-                          <p className='text-xl'>{c}</p>
+                        <div key={i} className="flex justify-between">
+                          <p className="text-xl">{c.information}</p>
                           <AiOutlineDelete
                             onClick={() => removeInformation(i)}
                             className='text-red-500 text-3xl cursor-pointer'
@@ -258,8 +258,8 @@ export default function AddCenters() {
                   {conditions.length > 0 ? (
                     <div className='flex flex-col gap-4'>
                       {conditions.map((c, i) => (
-                        <div key={i} className='flex justify-between'>
-                          <p className='text-xl'>{c}</p>
+                        <div key={i} className="flex justify-between">
+                          <p className="text-xl">{c.condition}</p>
                           <AiOutlineDelete
                             onClick={() => removeCondition(i)}
                             className='text-red-500 text-3xl cursor-pointer'
@@ -322,8 +322,8 @@ export default function AddCenters() {
                   {treatments.length > 0 ? (
                     <div className='flex flex-col gap-4'>
                       {treatments.map((c, i) => (
-                        <div key={i} className='flex justify-between'>
-                          <p className='text-xl'>{c}</p>
+                        <div key={i} className="flex justify-between">
+                          <p className="text-xl">{c.treatment}</p>
                           <AiOutlineDelete
                             onClick={() => removeTreatment(i)}
                             className='text-red-500 text-3xl cursor-pointer'
