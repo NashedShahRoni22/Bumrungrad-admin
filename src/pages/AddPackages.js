@@ -86,7 +86,13 @@ export default function AddPackages() {
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/package')
       .then((res) => res.json())
-      .then((data) => setParentPackages(data.data))
+      .then((data) => {
+        if (data.status === 404) {
+          console.log(data);
+        } else {
+          setParentPackages(data?.data);
+        }
+      })
   }, [])
   //  add parent package
   const handleAddParentPackage = (e) => {
@@ -299,7 +305,7 @@ export default function AddPackages() {
                   <Input label='Enter Price' name='price' required />
                   <Input label='Enter Location' name='location' required />
                   <Input label='Enter First Shift' name='shift1' required />
-                  <Input label='Enter Second Shift' name='shift2' required />
+                  <Input label='Enter Second Shift' name='shift2' />
                 </div>
                 <div className='grid gap-4 md:grid-cols-2'>
                   {/* multiple Conditions */}
