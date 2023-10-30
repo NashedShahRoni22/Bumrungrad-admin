@@ -22,10 +22,22 @@ const SeeQuery = () => {
     setModalData(data)
   }
 
-   const handaleDeleteQuery = (oneQuery) => {
-     const newQueryData = allQuery.filter((query) => query.id !== oneQuery.id)
-     setAllQuery(newQueryData)
-   }
+  const handaleDeleteQuery = (oneQuery) => {
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/questions/
+${oneQuery.id}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newQueryData = allQuery.filter(
+            (query) => query.id !== oneQuery.id
+          )
+          setAllQuery(newQueryData)
+        }
+      })
+  }
 
   const TABLE_HEAD = [
     'Doctor Name',
