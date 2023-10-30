@@ -22,10 +22,20 @@ const CheakUp = () => {
   }
 
   const handaleDeleteQuery = (oneCheakUp) => {
-    const newQueryData = checkUp.filter(
-      (checkup) => checkup.id !== oneCheakUp.id
+    fetch(
+      `https://api.bumrungraddiscover.com/api/delete/health_check_ups/
+${oneCheakUp.id}`
     )
-    setCheckUp(newQueryData)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === 200) {
+          const newQueryData = checkUp.filter(
+            (checkup) => checkup.id !== oneCheakUp.id
+          )
+          setCheckUp(newQueryData)
+        }
+      })
   }
 
   const TABLE_HEAD = [
