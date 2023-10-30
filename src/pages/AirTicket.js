@@ -37,8 +37,7 @@ const AirTicket = () => {
         setAirTicket(data.data)
         setLoader(false)
       })
-  }, [])
-  console.log(airTicket)
+  }, []);
   return (
     <div>
       {' '}
@@ -47,8 +46,8 @@ const AirTicket = () => {
           <Loader />
         ) : (
           <Card className='m-5 md:m-10 h-full overflow-scroll'>
-            <p className='p-5 text-xl font-semibold '>
-              Ait Ticket: {airTicket?.length}
+            <p className='p-5 text-xl font-semibold text-blue'>
+              Ait Ticket Request: {airTicket?.length}
             </p>
             <table className='w-full min-w-max table-auto text-left'>
               <thead>

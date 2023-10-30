@@ -8,7 +8,6 @@ import {
   DialogFooter,
 } from '@material-tailwind/react'
 import { AiFillEye } from 'react-icons/ai'
-import { toast } from 'react-toastify'
 
 const DoctorsList = () => {
   const [loader, setLoader] = useState(false)
@@ -61,8 +60,8 @@ const DoctorsList = () => {
         <Loader />
       ) : (
         <Card className='m-5 md:m-10 h-full overflow-scroll'>
-          <p className='p-5 text-xl font-semibold'>
-            Total Doctors {doctors?.length}
+          <p className='p-5 text-xl font-semibold text-blue'>
+            Total Doctors: {doctors?.length}
           </p>
           <table className='w-full min-w-max table-auto text-left'>
             <thead>

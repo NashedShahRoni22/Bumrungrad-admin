@@ -108,6 +108,7 @@ export default function AddDoctors() {
   const [enterTime, setEnterTime] = useState("");
   const [exitTime, setExitTime] = useState("");
   const [time, setTime] = useState("");
+
   const [schedules, setSchedules] = useState([]);
   const [langs, setLangs] = useState([]);
 
@@ -253,9 +254,8 @@ export default function AddDoctors() {
 
   const handleAddDoctor = (e) => {
     setLoader(true);
+    console.log("Function Called");
     e.preventDefault();
-    // const name = e.target.name.value;
-    // const school = e.target.school.value;
     const postData = {
       image: selectedDoctorImg,
       name: name,
@@ -302,13 +302,26 @@ export default function AddDoctors() {
       .then((data) => {
         if (data.status === 404) {
           setErr(data.err);
-          toast.error(err.length);
           setLoader(false);
           console.log(data);
         } else {
           console.log(data);
           toast.success("Doctor Added Successfully!");
-          setLoader(false);
+          // setName("");
+          // setSchool("");
+          // setSelectedDoctorImg("");
+          // setCertificates([]);
+          // setFellowships([]);
+          // setInterests([]);
+          // setExperiences([]);
+          // setResearchs([]);
+          // setArticles([]);
+          // setSelectedSubSpecialities([]);
+          // setparentSpecialityId("");
+          // setSchedules([]);
+          // setLangs([]);
+          // setLoader(false);
+          window.location.reload();
         }
       })
       .catch((e) => {
@@ -318,9 +331,7 @@ export default function AddDoctors() {
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
-      <form
-        action=""
-        onSubmit={handleAddDoctor}
+      <div
         className="flex flex-col gap-4 bg-white rounded-xl shadow-xl p-5"
       >
         <p className="text-2xl font-semibold">Add Doctor</p>
@@ -1126,11 +1137,11 @@ export default function AddDoctors() {
             selectedSubSpecialities.length === 0
           }
           className="bg-blue flex items-center w-fit gap-1"
-          type="submit"
+          onClick={handleAddDoctor}
         >
           Submit {loader && <Spinner className="h-4 w-4" color="white" />}
         </Button>
-      </form>
+      </div>
     </div>
   );
 }

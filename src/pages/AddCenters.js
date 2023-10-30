@@ -125,6 +125,7 @@ export default function AddCenters() {
           setInformations([]);
           setConditions([]);
           setTreatments([]);
+          setSelectedCenterImg("");
           toast.success("Child Package Added Successfully!");
         })
         .catch((e) => console.error(e));
