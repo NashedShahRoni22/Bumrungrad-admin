@@ -23,20 +23,23 @@ const SeeQuery = () => {
   }
 
   const handaleDeleteQuery = (oneQuery) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/questions/
-${oneQuery.id}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newQueryData = allQuery.filter(
-            (query) => query.id !== oneQuery.id
-          )
-          setAllQuery(newQueryData)
-        }
-      })
+    const aggre = window.confirm(`You Want to Delete, ${oneQuery?.doctorName}.`)
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/questions/${oneQuery.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newQueryData = allQuery.filter(
+              (query) => query.id !== oneQuery.id
+            )
+            alert('Query Deleted Successfully')
+            setAllQuery(newQueryData)
+          }
+        })
+    }
   }
 
   const TABLE_HEAD = [

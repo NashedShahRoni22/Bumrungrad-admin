@@ -23,20 +23,25 @@ const TeleMedicine = () => {
   }
 
   const handaleDeleteTeleMedicine = (telemedicineData) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/tele_medicines/${telemedicineData.id}`
+    const aggre = window.confirm(
+      `You Want to Delete, ${telemedicineData.fullName}.`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newteleMedicine = teleMedicine.filter(
-            (oneTelemedicine) => oneTelemedicine.id !== telemedicineData.id
-          )
-
-          setTeleMedicine(newteleMedicine)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/tele_medicines/${telemedicineData.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newteleMedicine = teleMedicine.filter(
+              (oneTelemedicine) => oneTelemedicine.id !== telemedicineData.id
+            )
+            alert('Tele Medicine Deleted Successfully')
+            setTeleMedicine(newteleMedicine)
+          }
+        })
+    }
   }
 
   const TABLE_HEAD = [

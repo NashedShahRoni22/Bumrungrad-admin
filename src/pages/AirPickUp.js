@@ -14,20 +14,25 @@ const AirPickUp = () => {
   ]
 
   const handaleDeleteAirPickUp = (pickUp) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/air_pickups/${pickUp.id}`
+    const aggre = window.confirm(
+      `You Want to Delete, ${pickUp?.passenger} Number of Passenger.`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, 1)
-        if (data.status === 200) {
-          const newpickUpData = airPickup.filter(
-            (airpickup) => airpickup.id !== pickUp.id
-          )
-
-          setAirPickup(newpickUpData)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/air_pickups/${pickUp.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data, 1)
+          if (data.status === 200) {
+            const newpickUpData = airPickup.filter(
+              (airpickup) => airpickup.id !== pickUp.id
+            )
+            alert('Air Pickup Deleted Successfully')
+            setAirPickup(newpickUpData)
+          }
+        })
+    }
   }
 
   useEffect(() => {

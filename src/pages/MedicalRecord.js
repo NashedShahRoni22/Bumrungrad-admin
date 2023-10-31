@@ -20,20 +20,26 @@ const MedicalRecord = () => {
     setModalData(data)
   }
   const handaleDeleteMedicineRecord = (medicileRecordData) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/medicalreports/${medicileRecordData.id}`
+    const aggre = window.confirm(
+      `You Want to Delete, ${medicileRecordData?.hnNum}.`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newMedicineRecord = medicalRecord.filter(
-            (oneMedicalRecord) => oneMedicalRecord.id !== medicileRecordData.id
-          )
-
-          setMedicalRecord(newMedicineRecord)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/medicalreports/${medicileRecordData.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newMedicineRecord = medicalRecord.filter(
+              (oneMedicalRecord) =>
+                oneMedicalRecord.id !== medicileRecordData.id
+            )
+            alert('Medical Record Deleted Successfully')
+            setMedicalRecord(newMedicineRecord)
+          }
+        })
+    }
   }
   const TABLE_HEAD = ['HN Number', 'Passport Copy', 'Action']
   useEffect(() => {

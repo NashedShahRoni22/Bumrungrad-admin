@@ -22,20 +22,25 @@ const CheakUp = () => {
   }
 
   const handaleDeleteQuery = (oneCheakUp) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/health_check_ups/
-${oneCheakUp.id}`
+    const aggre = window.confirm(
+      `You Want to Delete, ${oneCheakUp?.healtePackage}.`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newQueryData = checkUp.filter(
-            (checkup) => checkup.id !== oneCheakUp.id
-          )
-          setCheckUp(newQueryData)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/health_check_ups/${oneCheakUp.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newQueryData = checkUp.filter(
+              (checkup) => checkup.id !== oneCheakUp.id
+            )
+            alert('Cheakup Deleted Successfully')
+            setCheckUp(newQueryData)
+          }
+        })
+    }
   }
 
   const TABLE_HEAD = [

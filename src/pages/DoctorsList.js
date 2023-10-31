@@ -26,23 +26,30 @@ const DoctorsList = () => {
     'Action',
   ]
   const [doctors, setDoctors] = useState([])
+  console.log(doctors);
 
   // Deletedata
 
   const handaleDeleteData = (modaldata) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/doctors/${modaldata.id}`
+    const aggre = window.confirm(
+      `You Want to Delete, ${modaldata?.name}.`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newTableData = doctors.filter(
-            (doctor) => doctor.id !== modaldata.id
-          )
-          setDoctors(newTableData)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/doctors/${modaldata.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newTableData = doctors.filter(
+              (doctor) => doctor.id !== modaldata.id
+            )
+            alert('Doctor Deleted Successfully')
+            setDoctors(newTableData)
+          }
+        })
+    }
   }
 
   useEffect(() => {
@@ -154,7 +161,7 @@ const DoctorsList = () => {
                 {/* left side  */}
                 <div className='flex justify-center lg:items-center'>
                   <img
-                    src={modalData?.image}
+                    src={modalData?.cover_photo}
                     alt=''
                     className='h-[120px] w-[120px] rounded-full'
                   />

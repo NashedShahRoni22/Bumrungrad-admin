@@ -22,20 +22,25 @@ const Appointment = () => {
   const [appointment, setAppointment] = useState([])
   // Delete Data...
   const handaleDeleteAppointment = (appointmentData) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/doctorappoinments/${appointmentData.id}`
+    const aggre = window.confirm(
+      `You Want to Delete, ${appointmentData?.PataientFirstName}.`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newAppointmentData = appointment.filter(
-            (appointments) => appointments.id !== appointmentData.id
-          )
-
-          setAppointment(newAppointmentData)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/doctorappoinments/${appointmentData.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newAppointmentData = appointment.filter(
+              (appointments) => appointments.id !== appointmentData.id
+            )
+            alert('Appointment Deleted Successfully')
+            setAppointment(newAppointmentData)
+          }
+        })
+    }
   }
   const TABLE_HEAD = [
     'Patient Name',
