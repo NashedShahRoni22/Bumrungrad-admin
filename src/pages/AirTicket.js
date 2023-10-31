@@ -15,20 +15,25 @@ const AirTicket = () => {
     'Action',
   ]
   const handaleDeleteAirTicekt = (oneTicket) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/air_tickets/${oneTicket.id}`
+    const aggre = window.confirm(
+      `You Want to Delete, ${oneTicket?.country}.`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newAirticketData = airTicket.filter(
-            (airpickup) => airpickup.id !== oneTicket.id
-          )
-
-          setAirTicket(newAirticketData)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/air_tickets/${oneTicket.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newAirticketData = airTicket.filter(
+              (airpickup) => airpickup.id !== oneTicket.id
+            )
+            alert('AirTicket Deleted Successfully')
+            setAirTicket(newAirticketData)
+          }
+        })
+    }
   }
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/ticket')
@@ -37,7 +42,7 @@ const AirTicket = () => {
         setAirTicket(data.data)
         setLoader(false)
       })
-  }, []);
+  }, [])
   return (
     <div>
       {' '}

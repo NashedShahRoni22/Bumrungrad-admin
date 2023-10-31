@@ -13,17 +13,29 @@ const CenterList = () => {
   const [open, setOpen] = React.useState(false)
   const [loader, setLoader] = useState(true)
   const [center, setCenter] = useState([])
+  const [centerinfo, setModalData] = useState({})
 
   const handleOpen = (data) => {
     setOpen(!open)
-    //setModalData(data)
+    setModalData(data)
   }
-  // const handaleDeleteQuery = (oneCheakUp) => {
-  //   const newQueryData = checkUp.filter(
-  //     (checkup) => checkup.id !== oneCheakUp.id
-  //   )
-  //   setCheckUp(newQueryData)
-  // }
+  const handaleDeleteCenter = (centerinfo) => {
+    const aggre = window.confirm(`You Want to Delete, ${centerinfo?.name}.`)
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/centers/${centerinfo.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newQueryData = center.filter((c) => c.id !== centerinfo.id)
+            alert('Center Deleted Successfully')
+            setCenter(newQueryData)
+          }
+        })
+    }
+  }
 
   const TABLE_HEAD = ['Image', 'Name', 'Location', 'Action']
   useEffect(() => {
@@ -90,7 +102,7 @@ const CenterList = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {oneCenter?.location}
+                        {oneCenter?.location.slice(0, 25)}
                       </Typography>
                     </td>
                     <td className='p-4'>
@@ -108,11 +120,73 @@ const CenterList = () => {
             </table>
           </Card>
         )}
-        <Dialog open={open} handler={handleOpen} size='lg'>
+        <Dialog
+          open={open}
+          handler={handleOpen}
+          size='lg'
+          className='overflow-auto h-[90%]'
+        >
           <DialogHeader className=''>
-            <p className=''>Center List</p>
+            <p className=''>{centerinfo?.name}</p>
           </DialogHeader>
-          <DialogBody></DialogBody>
+          <DialogBody>
+            <p className='mt-2.5'>
+              <span className='font-semibold'>Location : </span>
+              {centerinfo?.location}
+            </p>
+            <p className='mt-2.5 text-[16px]'>
+              <span className='font-semibold'>Description : </span>
+              {centerinfo?.description}
+            </p>
+            <div>
+              {centerinfo?.informations?.length > 0 && (
+                <>
+                  <p className='mt-4'>
+                    <span className='font-semibold'>Information: </span>
+                  </p>
+                  {centerinfo?.informations?.map((info, i) => (
+                    <ul key={i} className='mt-2'>
+                      <li className='list-disc ml-4 text-[16px]'>
+                        {info.information}
+                      </li>
+                    </ul>
+                  ))}
+                </>
+              )}
+            </div>
+            <div>
+              {centerinfo?.conditions?.length > 0 && (
+                <>
+                  <p className='mt-4'>
+                    <span className='font-semibold'>Condition: </span>
+                  </p>
+                  {centerinfo?.conditions?.map((con, i) => (
+                    <ul key={i} className='mt-2'>
+                      <li className='list-disc ml-4 text-[16px]'>
+                        {con.condition}
+                      </li>
+                    </ul>
+                  ))}
+                </>
+              )}
+            </div>
+            <div>
+              {centerinfo?.treatments?.length > 0 && (
+                <>
+                  <p className='mt-4'>
+                    <span className='font-semibold'>Treatment: </span>
+                  </p>
+                  {centerinfo?.treatments?.map((treat, i) => (
+                    <ul key={i} className='mt-2'>
+                      <li className='list-disc ml-4 text-[16px]'>
+                        {treat.treatment}
+                      </li>
+                    </ul>
+                  ))}
+                </>
+              )}
+            </div>
+          </DialogBody>
           <DialogFooter>
             <div>
               <Button
@@ -124,10 +198,10 @@ const CenterList = () => {
                 <span>Close</span>
               </Button>
               <Button
-                // onClick={() => {
-                //   handaleDelete()
-                //   handleOpen()
-                // }}
+                onClick={() => {
+                  handaleDeleteCenter(centerinfo)
+                  handleOpen()
+                }}
                 variant='gradient'
                 color='red'
               >

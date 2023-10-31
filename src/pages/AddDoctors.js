@@ -253,10 +253,10 @@ export default function AddDoctors() {
 
   const handleAddDoctor = (e) => {
     setLoader(true)
-    console.log('Function Called')
+
     e.preventDefault()
     const postData = {
-      image: selectedDoctorImg,
+      cover_photo: selectedDoctorImg,
       name: name,
       lang: langs,
       school: name,
@@ -273,7 +273,7 @@ export default function AddDoctors() {
     console.log(postData)
     const formData = new FormData()
     // file upload
-    formData.append('image', selectedDoctorImg)
+    formData.append('cover_photo', selectedDoctorImg)
     // single strings
     formData.append('name', name)
     formData.append('school', school)

@@ -23,22 +23,26 @@ const AirAmbulance = () => {
 
   // Delete Data...
   const handaleDeleteAirAmbulance = (airAmbulanceData) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/air_ambulances/${airAmbulanceData.id}`
+    const aggre = window.confirm(
+      `You Want to Delete This, ${airAmbulanceData?.entry_date} Date .`
     )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newAirAmbulance = airAmbulance.filter(
-            (oneAmbulance) => oneAmbulance.id !== airAmbulanceData.id
-          )
-
-          setAirAmbulancet(newAirAmbulance)
-        }
-      })
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/air_ambulances/${airAmbulanceData.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newAirAmbulance = airAmbulance.filter(
+              (oneAmbulance) => oneAmbulance.id !== airAmbulanceData.id
+            )
+            alert('Air Ambulance Deleted Successfully')
+            setAirAmbulancet(newAirAmbulance)
+          }
+        })
+    }
   }
-
   const TABLE_HEAD = ['Entry Date', 'Passport Copy', 'Action']
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/ambulance')

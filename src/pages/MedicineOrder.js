@@ -18,21 +18,24 @@ const MedicineOrder = () => {
     setOpen(!open)
     setModalData(data)
   }
-  const handaleDeleteMedicine = (medicineData) => {
-    fetch(
-      `https://api.bumrungraddiscover.com/api/delete/order_medicines/${medicineData.id}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.status === 200) {
-          const newMedicine = orderMedicine.filter(
-            (medicine) => medicine.id !== medicineData.id
-          )
-
-          setOrderMedicine(newMedicine)
-        }
-      })
+  const handaleDeleteMedicine = (medicineData, index) => {
+    const aggre = window.confirm(`You Want to Delete, ${medicineData?.name}.`)
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/order_medicines/${medicineData.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          if (data.status === 200) {
+            const newMedicine = orderMedicine.filter(
+              (medicine) => medicine.id !== medicineData.id
+            )
+            alert('Medicine Order Deleted Successfully')
+            setOrderMedicine(newMedicine)
+          }
+        })
+    }
   }
   const TABLE_HEAD = [
     'Name',
