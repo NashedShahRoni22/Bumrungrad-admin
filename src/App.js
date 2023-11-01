@@ -20,6 +20,7 @@ import CenterList from './pages/CenterList'
 import CheakUp from './pages/CheakUp'
 import ChildPackage from './pages/ChildPackage'
 import ChildPackageDetails from './pages/ChildPackageDetails'
+import Users from './pages/Users'
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,10 @@ const router = createBrowserRouter([
       {
         path: '/home/childPackage_details/:id',
         element: <ChildPackageDetails />,
+      },
+      {
+        path: '/home/users',
+        element: <Users />,
       },
     ],
   },

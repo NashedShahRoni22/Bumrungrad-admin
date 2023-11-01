@@ -20,8 +20,8 @@ import {
   ListBulletIcon,
 } from '@heroicons/react/24/solid'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
-import { BiSolidAmbulance } from 'react-icons/bi'
-import { AiOutlineOrderedList, AiOutlineFile } from 'react-icons/ai'
+import { BiSolidAmbulance, BiSolidUserDetail } from 'react-icons/bi'
+import { AiOutlineOrderedList, AiFillProfile } from 'react-icons/ai'
 import { FaHandHoldingMedical } from 'react-icons/fa'
 import {
   BsFillTelephoneForwardFill,
@@ -50,6 +50,14 @@ export function LeftBar() {
               <PresentationChartBarIcon className='h-5 w-5' />
             </ListItemPrefix>
             Dashboard
+          </ListItem>
+        </Link>
+        <Link to='/home/users'>
+          <ListItem>
+            <ListItemPrefix>
+              <BiSolidUserDetail className='h-5 w-5' />
+            </ListItemPrefix>
+            User
           </ListItem>
         </Link>
         <Accordion
@@ -249,7 +257,7 @@ export function LeftBar() {
           {' '}
           <ListItem>
             <ListItemPrefix>
-              <AiOutlineFile className='h-5 w-5' />
+              <AiFillProfile className='h-5 w-5' />
             </ListItemPrefix>
             Medical Record
           </ListItem>

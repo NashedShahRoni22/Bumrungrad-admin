@@ -38,7 +38,7 @@ export default function GetPackages() {
       })
   }, [])
   return (
-    <div className='mx-5 my-5 md:container md:mx-auto p-10 bg-white rounded-xl shadow-xl'>
+    <div className='mx-5 my-5 md:container md:mx-auto p-10 bg-white rounded-xl'>
       {loader ? (
         <Loader />
       ) : (
@@ -47,7 +47,7 @@ export default function GetPackages() {
             Total Packages: {packages?.length}
           </p>
           <hr className='my-5' />
-          <div className='my-10 grid grid-cols-2 lg:grid-cols-4 gap-4'>
+          <div className='my-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
             {packages?.map((p, i) => (
               <div
                 key={i}
@@ -65,7 +65,7 @@ export default function GetPackages() {
                     className='text-center bg-blue text-white p-2.5 w-1/2 '
                     to={`/home/package_details/${p.id}`}
                   >
-                    <span className='capitalize'>View</span>
+                    <span className='capitalize'>See Packages</span>
                   </Link>
                   <button
                     onClick={() => handaleDeletePackage(p)}

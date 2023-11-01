@@ -23,7 +23,7 @@ const AirPickUp = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data, 1)
+          console.log(data)
           if (data.status === 200) {
             const newpickUpData = airPickup.filter(
               (airpickup) => airpickup.id !== pickUp.id
@@ -43,7 +43,6 @@ const AirPickUp = () => {
         setLoader(false)
       })
   }, [])
-  console.log(airPickup)
   return (
     <div>
       {' '}

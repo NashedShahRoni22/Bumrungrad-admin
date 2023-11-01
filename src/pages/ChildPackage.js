@@ -46,7 +46,7 @@ const ChildPackage = () => {
           {childPackage?.length > 0 ? (
             <>
               <h2 className='md:ml-8 text-xl font-semibold md:text-2xl lg:text-3xl capitalize text-blue'>
-                our packages
+                our sub packages
               </h2>
               <div className='md:ml-8 my-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {' '}
@@ -69,7 +69,7 @@ const ChildPackage = () => {
                         className='group bg-blue text-white p-2.5 w-1/2 flex justify-center gap-2 '
                       >
                         {/* <RemoveRedEyeIcon /> */}
-                        <span className='capitalize'>View Packages</span>
+                        <span className='capitalize'>View Package</span>
                       </Link>
                       <button
                         onClick={() => handaleDeleteChild(cp)}
