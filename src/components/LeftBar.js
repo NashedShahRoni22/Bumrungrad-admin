@@ -42,7 +42,7 @@ export function LeftBar() {
   }
 
   return (
-    <div className='h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 overflow-auto'>
+    <div className='h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 overflow-y-auto'>
       <List>
         <Link to='/home'>
           <ListItem>

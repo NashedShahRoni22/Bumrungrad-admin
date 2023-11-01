@@ -26,7 +26,9 @@ export function DrawerBar({ open, closeDrawer }) {
             </svg>
           </IconButton>
         </div>
-        <LeftBar />
+        <div>
+          <LeftBar />
+        </div>
       </Drawer>
     </React.Fragment>
   )
