@@ -19,7 +19,7 @@ export default function Main() {
         className='overscroll-auto  bg-deep-orange-400'
       />
       <section className='lg:flex'>
-        <div className='hidden lg:block h-full'>
+        <div className='hidden lg:block h-full sticky top-14'>
           <LeftBar />
         </div>
         <div className='lg:flex-1 min-h-screen'>

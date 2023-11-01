@@ -18,6 +18,8 @@ import MedicalRecord from './pages/MedicalRecord'
 import SeeQuery from './pages/SeeQuery'
 import CenterList from './pages/CenterList'
 import CheakUp from './pages/CheakUp'
+import ChildPackage from './pages/ChildPackage'
+import ChildPackageDetails from './pages/ChildPackageDetails'
 
 const router = createBrowserRouter([
   {
@@ -95,6 +97,14 @@ const router = createBrowserRouter([
       {
         path: '/home/check-up',
         element: <CheakUp />,
+      },
+      {
+        path: '/home/package_details/:id',
+        element: <ChildPackage />,
+      },
+      {
+        path: '/home/childPackage_details/:id',
+        element: <ChildPackageDetails />,
       },
     ],
   },
