@@ -26,14 +26,12 @@ const DoctorsList = () => {
     'Action',
   ]
   const [doctors, setDoctors] = useState([])
-  console.log(doctors);
+  console.log(doctors)
 
   // Deletedata
 
   const handaleDeleteData = (modaldata) => {
-    const aggre = window.confirm(
-      `You Want to Delete, ${modaldata?.name}.`
-    )
+    const aggre = window.confirm(`You Want to Delete, ${modaldata?.name}.`)
     if (aggre) {
       fetch(
         `https://api.bumrungraddiscover.com/api/delete/doctors/${modaldata.id}`
@@ -159,7 +157,7 @@ const DoctorsList = () => {
             <div className='flex flex-col lg:flex-row gap-5 p-5'>
               <div className='lg:w-1/2 flex flex-col lg:flex-row gap-5 lg:gap-10'>
                 {/* left side  */}
-                <div className='flex justify-center lg:items-center'>
+                <div className=''>
                   <img
                     src={modalData?.cover_photo}
                     alt=''

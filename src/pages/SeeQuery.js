@@ -163,10 +163,10 @@ const SeeQuery = () => {
                   <span className='font-semibold'>Treatment Interest : </span>
                   {oneQuery?.treatmentInterest}
                 </p>
-                <p className='mt-2.5'>
+                {/* <p className='mt-2.5'>
                   <span className='font-semibold'>Bumrungrad Office : </span>
                   {oneQuery?.bumRungradOffice}
-                </p>
+                </p> */}
               </div>
               <div>
                 <h5 className='text-lg font-semibold'>Patient Information</h5>
