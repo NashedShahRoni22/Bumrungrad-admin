@@ -425,11 +425,11 @@ export default function AddDoctors() {
                 </DialogFooter>
               </Dialog>
             </div>
-            {selectedSubSpecialities.length === 0 && (
+            {/* {selectedSubSpecialities.length === 0 && (
               <p className='capitalize text-red-400 font-semibold text-sm'>
                 *required
               </p>
-            )}
+            )} */}
           </div>
           <div>
             <Input
@@ -1138,8 +1138,7 @@ export default function AddDoctors() {
             selectedDoctorImg === '' ||
             gender === '' ||
             langs === '' ||
-            parentSpecialityId === '' ||
-            selectedSubSpecialities.length === 0
+            parentSpecialityId === ''
           }
           className='bg-blue flex items-center w-fit gap-1'
           onClick={handleAddDoctor}
