@@ -13,23 +13,16 @@ const DoctorsList = () => {
   const [loader, setLoader] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = useState({});
+  // console.log(modalData);
   const handleOpen = (data) => {
     setOpen(!open);
     setModalData(data);
   };
 
-  const TABLE_HEAD = [
-    "Name",
-    "Speciality",
-    "Sub Speciality",
-    "Gender",
-    "Action",
-  ];
+  const TABLE_HEAD = ["Name", "Speciality", "Gender", "Action"];
   const [doctors, setDoctors] = useState([]);
-  console.log(doctors);
 
   // Deletedata
-
   const handaleDeleteData = (modaldata) => {
     const aggre = window.confirm(`You Want to Delete, ${modaldata?.name}.`);
     if (aggre) {
@@ -112,15 +105,6 @@ const DoctorsList = () => {
                   </td>
                   <td className="p-4">
                     <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {doctor?.sub_specialty?.sub_specialty0}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
                       as="a"
                       href="#"
                       variant="small"
@@ -174,27 +158,27 @@ const DoctorsList = () => {
                       <p className="font-semibold mt-5 text-xl md:text-2xl lg:text-3xl capitalize">
                         Expertise
                       </p>
-                      {/* <Divider className="!my-2.5" /> */}
                       <p className="text-lg">{modalData?.specialty}</p>
                     </div>
-                    <div>
-                      <p className="font-semibold mt-5 text-xl md:text-2xl lg:text-3xl capitalize">
-                        Specialty
-                      </p>
-                      {/* <Divider className="!my-2.5" /> */}
-                      <ul className="">
-                        {modalData?.sub_specialty?.map((ss, i) => (
-                          <li key={i} className="text-lg">
-                            {ss}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {modalData?.sub_specialty?.length > 0 && (
+                      <div>
+                        <p className="font-semibold mt-5 text-xl md:text-2xl lg:text-3xl capitalize">
+                          Specialty
+                        </p>
+                        <ul className="">
+                          {modalData?.sub_specialty?.map((ss, i) => (
+                            <li key={i} className="text-lg">
+                              {ss}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
                     <div>
                       <p className="font-semibold mt-5 text-xl md:text-2xl lg:text-3xl capitalize">
                         Language
                       </p>
-                      {/* <Divider className="!my-2.5" /> */}
                       <ul className="">
                         {modalData?.lang?.map((ss, i) => (
                           <li key={i} className="text-lg">
@@ -208,123 +192,125 @@ const DoctorsList = () => {
               </div>
 
               {/* left side  */}
-              <div className="lg:w-1/2">
-                <p className="mb-5 text-xl md:text-2xl text-blue font-semibold">
-                  Schedules:
-                </p>
-                <Card className="h-full w-full overflow-scroll">
-                  <table className="w-full min-w-max table-auto text-left">
-                    <thead>
-                      <tr>
-                        <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            Day
-                          </Typography>
-                        </th>
-                        <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            Arrival
-                          </Typography>
-                        </th>
-                        <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            Leave
-                          </Typography>
-                        </th>
-                        <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            Shift
-                          </Typography>
-                        </th>
-                        <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            Location
-                          </Typography>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {modalData?.day?.map((day, i) => {
-                        const isLast = i === day.length - 1;
-                        const classes = isLast
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50";
-                        return (
-                          <tr key={i}>
-                            <td className={classes}>
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {day}
-                              </Typography>
-                            </td>
-                            <td className={classes}>
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {modalData?.arrival?.[i]}
-                              </Typography>
-                            </td>
-                            <td className={classes}>
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {modalData?.leave?.[i]}
-                              </Typography>
-                            </td>
-                            <td className={classes}>
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {modalData?.shift?.[i]}
-                              </Typography>
-                            </td>
-                            <td className={classes}>
-                              <Typography
-                                as="a"
-                                href="#"
-                                variant="small"
-                                color="blue-gray"
-                                className="font-medium"
-                              >
-                                {modalData?.location?.[i]}
-                              </Typography>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </Card>
-              </div>
+              {modalData?.day?.length > 0 && (
+                <div className="lg:w-1/2">
+                  <p className="mb-5 text-xl md:text-2xl text-blue font-semibold">
+                    Schedules:
+                  </p>
+                  <Card className="h-full w-full overflow-scroll">
+                    <table className="w-full min-w-max table-auto text-left">
+                      <thead>
+                        <tr>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Day
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Arrival
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Leave
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Shift
+                            </Typography>
+                          </th>
+                          <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              Location
+                            </Typography>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {modalData?.day?.map((day, i) => {
+                          const isLast = i === day.length - 1;
+                          const classes = isLast
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50";
+                          return (
+                            <tr key={i}>
+                              <td className={classes}>
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {day}
+                                </Typography>
+                              </td>
+                              <td className={classes}>
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {modalData?.arrival?.[i]}
+                                </Typography>
+                              </td>
+                              <td className={classes}>
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {modalData?.leave?.[i]}
+                                </Typography>
+                              </td>
+                              <td className={classes}>
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal"
+                                >
+                                  {modalData?.shift?.[i]}
+                                </Typography>
+                              </td>
+                              <td className={classes}>
+                                <Typography
+                                  as="a"
+                                  href="#"
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-medium"
+                                >
+                                  {modalData?.location?.[i]}
+                                </Typography>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </Card>
+                </div>
+              )}
             </div>
 
             {/* qualifications  */}
@@ -334,9 +320,18 @@ const DoctorsList = () => {
                   <p className="text-xl md:text-2xl text-blue font-semibold">
                     Medical School:
                   </p>
-                  <p className="mt-2.5 text-xl md:mt-5">
-                    - {modalData?.school}
-                  </p>
+
+                  {modalData?.schools?.length > 0 && (
+                    <ul className="mt-2.5 md:mt-5">
+                      {modalData?.schools?.map((ms, i) => (
+                        <li key={i} className="text-xl">
+                          {ms?.school}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {modalData?.school && <p className="text-xl mt-2.5 md:mt-5">{modalData?.school}</p>}
                 </div>
                 {modalData?.certificates?.length !== 0 && (
                   <div className="">
@@ -346,13 +341,13 @@ const DoctorsList = () => {
                     <ul className="mt-2.5 md:mt-5">
                       {modalData?.certificates?.map((dc, i) => (
                         <li key={i} className="text-xl">
-                          - {dc?.certificate}
+                          {dc?.certificate}
                         </li>
                       ))}
                     </ul>
                   </div>
                 )}
-                {modalData?.trainings?.length !== 0 && (
+                {modalData?.trainings?.length > 0 && (
                   <div className="">
                     <p className="text-xl md:text-2xl text-blue font-semibold">
                       Trainings:
@@ -360,7 +355,7 @@ const DoctorsList = () => {
                     <ul className="mt-2.5 md:mt-5">
                       {modalData?.trainings?.map((dc, i) => (
                         <li key={i} className="text-xl">
-                          - {dc?.training}
+                          {dc?.training}
                         </li>
                       ))}
                     </ul>
@@ -374,7 +369,7 @@ const DoctorsList = () => {
                     <ul className="mt-2.5 md:mt-5">
                       {modalData?.interests?.map((dc, i) => (
                         <li key={i} className="text-xl">
-                          - {dc?.Interest}
+                          {dc?.Interest}
                         </li>
                       ))}
                     </ul>
@@ -388,7 +383,7 @@ const DoctorsList = () => {
                     <ul className="mt-2.5 md:mt-5">
                       {modalData?.experiences?.map((dc, i) => (
                         <li key={i} className="text-xl">
-                          - {dc?.experience}
+                          {dc?.experience}
                         </li>
                       ))}
                     </ul>
@@ -402,7 +397,7 @@ const DoctorsList = () => {
                     <ul className="mt-2.5 md:mt-5">
                       {modalData?.researches?.map((dc, i) => (
                         <li key={i} className="text-xl">
-                          - {dc?.research}
+                          {dc?.research}
                         </li>
                       ))}
                     </ul>
@@ -416,7 +411,7 @@ const DoctorsList = () => {
                     <ul className="mt-2.5 md:mt-5">
                       {modalData?.article?.map((dc, i) => (
                         <li key={i} className="text-xl">
-                          - {dc?.article}
+                          {dc?.article}
                         </li>
                       ))}
                     </ul>
@@ -436,7 +431,6 @@ const DoctorsList = () => {
             <span>Cancel</span>
           </Button>
           <button
-            // onClick={() => }
             onClick={() => {
               handaleDeleteData(modalData);
               handleOpen();
