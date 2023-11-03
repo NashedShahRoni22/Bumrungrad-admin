@@ -21,6 +21,7 @@ export default function AddSpeciality() {
   const [speciality, setSpeciality] = useState("");
   const [specialties, setSpecialities] = useState([]);
   const [subSpecialties, setSubSpecialities] = useState([]);
+  console.log(subSpecialties);
   const [parentSpecialityId, setparentSpecialityId] = useState("");
   const [activeTab, setActiveTab] = React.useState("Expertise");
 
@@ -48,6 +49,24 @@ export default function AddSpeciality() {
         }
       })
       .catch((e) => console.error(e));
+  };
+  //delete speciality
+  const handaleDeletespeciality = (d) => {
+    const aggre = window.confirm(`You Want to Delete, ${d?.name}.`);
+    if (aggre) {
+      fetch(`https://api.bumrungraddiscover.com/api/delete/specialties/${d.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.status === 200) {
+            const newTableData = specialties.filter(
+              (doctor) => doctor.id !== d.id
+            );
+            alert("Speciality Deleted Successfully");
+            setSpecialities(newTableData);
+          }
+        });
+    }
   };
   //add sub speacility
   const addSubSpeciality = (e) => {
@@ -95,8 +114,6 @@ export default function AddSpeciality() {
       });
   }, [loading]);
 
-  
-
   //get sub speacilities
   useEffect(() => {
     setLoader(true);
@@ -107,6 +124,27 @@ export default function AddSpeciality() {
         setLoader(false);
       });
   }, [loading2]);
+
+  //delete speciality
+  const handaleDeleteSubspeciality = (d) => {
+    const aggre = window.confirm(`You Want to Delete, ${d?.sub_specialty}.`);
+    if (aggre) {
+      fetch(
+        `https://api.bumrungraddiscover.com/api/delete/sub_specialties/${d.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.status === 200) {
+            const newTableData = subSpecialties.filter(
+              (doctor) => doctor.id !== d.id
+            );
+            alert("Sub Speciality Deleted Successfully");
+            setSubSpecialities(newTableData);
+          }
+        });
+    }
+  };
 
   return (
     <div className="p-5 mx-5 md:container md:mx-auto">
@@ -169,7 +207,11 @@ export default function AddSpeciality() {
                         key={speciality.id}
                       >
                         <span>{speciality.name}</span>
-                        <AiOutlineDelete className="text-2xl text-red-500" />
+                        <button
+                          onClick={() => handaleDeletespeciality(speciality)}
+                        >
+                          <AiOutlineDelete className="text-2xl text-red-500" />
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -221,7 +263,11 @@ export default function AddSpeciality() {
                         <span className="uppercase">
                           {speciality.sub_specialty}
                         </span>
-                        <AiOutlineDelete className="text-2xl text-red-500" />
+                        <button
+                          onClick={() => handaleDeleteSubspeciality(speciality)}
+                        >
+                          <AiOutlineDelete className="text-2xl text-red-500" />
+                        </button>
                       </li>
                     ))}
                   </ul>

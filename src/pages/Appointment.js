@@ -14,6 +14,7 @@ const Appointment = () => {
   const [loader, setLoader] = useState(true);
   const [open, setOpen] = React.useState(false);
   const [appoinmentModalData, setModalData] = useState({});
+  console.log(appoinmentModalData);
 
   const handleOpen = (data) => {
     setOpen(!open);
@@ -198,38 +199,51 @@ const Appointment = () => {
                 Appointment Information
               </h5>
               <hr className="my-2.5" />
-              <div className="mt-2.5 grid grid-cols-4">
+              <div className="mt-2.5 grid grid-cols-3">
                 <p className="">
-                  <span className="font-semibold">First Date 1: </span>
+                  <span className="font-semibold">First Date: </span>
                   <br />
                   {appoinmentModalData?.selectedDate}
                 </p>
 
                 <p className="">
-                  <span className="font-semibold">First Shift 1: </span>
+                  <span className="font-semibold">First Shift: </span>
                   <br />
                   {appoinmentModalData?.shift}
                 </p>
-
                 <p className="">
-                  <span className="font-semibold">Second Date 2: </span>
+                  <span className="font-semibold">First Shift Time: </span>
+                  <br />
+                  {appoinmentModalData?.firstSiftTime}
+                </p>
+              </div>
+              <div className="mt-2.5 grid grid-cols-3">
+                <p className="">
+                  <span className="font-semibold">Second Date: </span>
                   <br />
                   {appoinmentModalData?.selectedDate2}
                 </p>
 
                 <p className="">
-                  <span className="font-semibold">Second Shift 2 : </span>
+                  <span className="font-semibold">Second Shift: </span>
                   <br />
                   {appoinmentModalData?.shift2}
                 </p>
-                <div className="mt-2.5">
-                  {appoinmentModalData?.medicalDesc && (
-                    <p>
-                      <span className="font-semibold">Medical Desc : </span>
-                      {appoinmentModalData?.medicalDesc}
-                    </p>
-                  )}
-                </div>
+
+                <p className="">
+                  <span className="font-semibold">Second Shift Time: </span>
+                  <br />
+                  {appoinmentModalData?.SecondSiftTime}
+                </p>
+              </div>
+
+              <div className="mt-2.5">
+                {appoinmentModalData?.medicalDesc && (
+                  <p>
+                    <span className="font-semibold">Medical Desc : </span>
+                    {appoinmentModalData?.medicalDesc}
+                  </p>
+                )}
               </div>
               <h5 className="text-lg mt-5 font-semibold">
                 Patient Information
@@ -312,44 +326,79 @@ const Appointment = () => {
                 </div>
               )}
             </div>
-          </DialogBody>
-          <DialogFooter className="flex justify-between">
-            <div className="flex">
-              <a
-                className="flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white font-light text-lg"
-                href={appoinmentModalData?.passport}
-                target="blank"
-              >
-                <BsFileEarmarkArrowDown className="text-xl" /> Passport
-              </a>
+            <hr className="mt-2.5" />
+            <h5 className="text-lg my-2.5 font-semibold">Uploaded Documents</h5>
+            <ul className="list-disc px-5">
+              {appoinmentModalData?.passport && (
+                <li>
+                  <a
+                    className="flex w-fit gap-2 items-center px-2 py-1"
+                    href={appoinmentModalData?.passport}
+                    target="blank"
+                  >
+                    <BsFileEarmarkArrowDown className="text-xl" /> Passport
+                  </a>
+                </li>
+              )}
+
               {appoinmentModalData?.medicalReport1 && (
-                <a
-                  className="flex w-fit gap-2 items-center px-2 mx-3 py-1 shadow rounded bg-blue text-white font-light text-lg"
-                  href={appoinmentModalData?.medicalReport1}
-                  target="blank"
-                >
-                  <BsFileEarmarkArrowDown className="text-xl" /> Report 1
-                </a>
+                <li>
+                  <a
+                    className="flex w-fit gap-2 items-center px-2 py-1"
+                    href={appoinmentModalData?.medicalReport1}
+                    target="blank"
+                  >
+                    <BsFileEarmarkArrowDown className="text-xl" /> Report 1
+                  </a>
+                </li>
               )}
               {appoinmentModalData?.medicalReport2 && (
-                <a
-                  className="flex w-fit gap-2 items-center px-2 mx-3 py-1 shadow rounded bg-blue text-white font-light text-lg"
-                  href={appoinmentModalData?.medicalReport1}
-                  target="blank"
-                >
-                  <BsFileEarmarkArrowDown className="text-xl" /> Report 2
-                </a>
+                <li>
+                  <a
+                    className="flex w-fit gap-2 items-center px-2 py-1"
+                    href={appoinmentModalData?.medicalReport1}
+                    target="blank"
+                  >
+                    <BsFileEarmarkArrowDown className="text-xl" /> Report 2
+                  </a>
+                </li>
               )}
               {appoinmentModalData?.medicalReport3 && (
-                <a
-                  className="flex w-fit gap-2 items-center px-2 mx-3 py-1 shadow rounded bg-blue text-white font-light text-lg"
-                  href={appoinmentModalData?.medicalReport1}
-                  target="blank"
-                >
-                  <BsFileEarmarkArrowDown className="text-xl" /> Report 3
-                </a>
+                <li>
+                  <a
+                    className="flex w-fit gap-2 items-center px-2 py-1"
+                    href={appoinmentModalData?.medicalReport1}
+                    target="blank"
+                  >
+                    <BsFileEarmarkArrowDown className="text-xl" /> Report 3
+                  </a>
+                </li>
               )}
-            </div>
+              {appoinmentModalData?.driveLink1 && (
+                <li>
+                  <a
+                    className="flex w-fit gap-2 items-center px-2 py-1"
+                    href={appoinmentModalData?.driveLink1}
+                    target="blank"
+                  >
+                    <BsFileEarmarkArrowDown className="text-xl" /> Drive 1
+                  </a>
+                </li>
+              )}
+              {appoinmentModalData?.driveLink2 && (
+                <li>
+                  <a
+                    className="flex w-fit gap-2 items-center px-2 py-1"
+                    href={appoinmentModalData?.driveLink2}
+                    target="blank"
+                  >
+                    <BsFileEarmarkArrowDown className="text-xl" /> Drive 2
+                  </a>
+                </li>
+              )}
+            </ul>
+          </DialogBody>
+          <DialogFooter className="flex justify-end">
             <div>
               <Button
                 variant="gradient"

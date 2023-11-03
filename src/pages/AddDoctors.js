@@ -100,6 +100,7 @@ export default function AddDoctors() {
     'Arabic',
     'Chinese',
     'Dutch',
+    'Teo Chew',
     'French',
     'German',
     'Hindi',
