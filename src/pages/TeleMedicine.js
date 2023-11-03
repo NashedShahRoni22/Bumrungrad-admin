@@ -45,6 +45,7 @@ const TeleMedicine = () => {
   }
 
   const TABLE_HEAD = [
+    'Request ID',
     'Patient Name',
     'Passport Number',
     'Doctor Name',
@@ -94,6 +95,9 @@ const TeleMedicine = () => {
               <tbody>
                 {teleMedicine?.map((oneTelemedicine, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>
+                      {index+1}
+                    </td>
                     <td className='p-4'>
                       <Typography
                         variant='small'

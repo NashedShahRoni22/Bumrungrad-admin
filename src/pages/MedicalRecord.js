@@ -41,7 +41,7 @@ const MedicalRecord = () => {
         })
     }
   }
-  const TABLE_HEAD = ['HN Number', 'Passport Copy', 'Action']
+  const TABLE_HEAD = ['Request ID','HN Number', 'Passport Copy', 'Action']
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/medical/report')
       .then((res) => res.json())
@@ -85,6 +85,9 @@ const MedicalRecord = () => {
               <tbody>
                 {medicalRecord?.map((oneMedicalRecord, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className="p-4">
+                      {index+1}
+                    </td>
                     <td className='p-4'>
                       <Typography
                         variant='small'

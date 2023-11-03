@@ -43,6 +43,7 @@ const SeeQuery = () => {
   }
 
   const TABLE_HEAD = [
+    'Request ID',
     'Doctor Name',
     'Patient Name',
     'Email',
@@ -90,6 +91,9 @@ const SeeQuery = () => {
               <tbody>
                 {allQuery?.map((query, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className="p-4">
+                      {index+1}
+                    </td>
                     <td className='p-4'>
                       <Typography
                         variant='small'

@@ -38,9 +38,10 @@ const MedicineOrder = () => {
     }
   }
   const TABLE_HEAD = [
+    "Request ID",
     'Name',
     'Phone Number',
-    'Address',
+    'Email',
     'Prescriotion Picture',
     'Medicine List',
     'Clear Order',
@@ -87,6 +88,9 @@ const MedicineOrder = () => {
                 {orderMedicine?.map((medicine, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
                     <td className='p-4'>
+                      {index+1}
+                    </td>
+                    <td className='p-4'>
                       <Typography
                         variant='small'
                         color='blue-gray'
@@ -110,7 +114,8 @@ const MedicineOrder = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {medicine?.address}
+                        {/* {medicine?.address} */}
+                        User Email
                       </Typography>
                     </td>
 

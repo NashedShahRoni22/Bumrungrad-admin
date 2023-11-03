@@ -8,6 +8,7 @@ const AirTicket = () => {
   const [loader, setLoader] = useState(true)
   const [airTicket, setAirTicket] = useState([])
   const TABLE_HEAD = [
+    'Request ID',
     'From Country',
     'Destination Country',
     'Passport Copy',
@@ -76,6 +77,7 @@ const AirTicket = () => {
               <tbody>
                 {airTicket?.map((oneTicket, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>{index+1}</td>
                     <td className='p-4'>
                       <Typography
                         variant='small'

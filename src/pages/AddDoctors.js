@@ -37,12 +37,17 @@ export default function AddDoctors() {
   const handleOpen8 = () => setOpen8(!open8)
   const [open9, setOpen9] = React.useState(false)
   const handleOpen9 = () => setOpen9(!open9)
+  const [open10, setOpen10] = React.useState(false)
+  const handleOpen10 = () => setOpen10(!open10)
 
   //states of datas
   const [selectedDoctorImg, setSelectedDoctorImg] = useState('')
 
   const [certificate, setCertificate] = useState('')
   const [certificates, setCertificates] = useState([])
+
+  const [training, setTraining] = useState('')
+  const [trainings, setTrainings] = useState([])
 
   const [fellowship, setFellowship] = useState('')
   const [fellowships, setFellowships] = useState([])
@@ -64,6 +69,7 @@ export default function AddDoctors() {
 
   const [parentSpecialityId, setparentSpecialityId] = useState('')
   const [selectedSubSpecialities, setSelectedSubSpecialities] = useState([])
+  
   const handleSubSpecialityChange = (value) => {
     // Check if the value is not empty and not already selected
     if (value && !selectedSubSpecialities.includes(value)) {
@@ -153,6 +159,18 @@ export default function AddDoctors() {
     const updatedCertificates = [...certificates]
     updatedCertificates.splice(index, 1)
     setCertificates(updatedCertificates)
+  }
+
+  // certificates add remove functions
+  const addTrainings = () => {
+    const newTrainings = [...trainings, { training }]
+    setTrainings(newTrainings)
+    setTraining('')
+  }
+  const removeTraining = (index) => {
+    const updatedTrainings = [...trainings]
+    updatedTrainings.splice(index, 1)
+    setTrainings(updatedTrainings)
   }
 
   // certificates add remove functions
@@ -263,6 +281,7 @@ export default function AddDoctors() {
       parentSpeciality: parentSpecialityId,
       subSpecialities: selectedSubSpecialities,
       certificates: certificates,
+      trainings: trainings,
       fellowships: fellowships,
       interests: interests,
       experiences: experiences,
@@ -286,6 +305,7 @@ export default function AddDoctors() {
     //array of objects
     formData.append('article', JSON.stringify(articles))
     formData.append('certificates', JSON.stringify(certificates))
+    formData.append('trainings', JSON.stringify(trainings))
     formData.append('fellowships', JSON.stringify(fellowships))
     formData.append('interests', JSON.stringify(interests))
     formData.append('experiences', JSON.stringify(experiences))
@@ -305,20 +325,6 @@ export default function AddDoctors() {
         } else {
           console.log(data)
           toast.success('Doctor Added Successfully!')
-          // setName("");
-          // setSchool("");
-          // setSelectedDoctorImg("");
-          // setCertificates([]);
-          // setFellowships([]);
-          // setInterests([]);
-          // setExperiences([]);
-          // setResearchs([]);
-          // setArticles([]);
-          // setSelectedSubSpecialities([]);
-          // setparentSpecialityId("");
-          // setSchedules([]);
-          // setLangs([]);
-          // setLoader(false);
           window.location.reload()
         }
       })
@@ -592,6 +598,72 @@ export default function AddDoctors() {
                   color='red'
                   size='sm'
                   onClick={handleOpen}
+                  className='mr-1'
+                >
+                  <span>Close</span>
+                </Button>
+              </DialogFooter>
+            </Dialog>
+          </div>
+        </div>
+        {/* trainings */}
+        <div className='flex items-center gap-5'>
+          <div className='relative flex w-full'>
+            <Input
+              value={training}
+              type='text'
+              label='Trainings'
+              onChange={(e) => setTraining(e.target.value)}
+            />
+            <Button
+              size='sm'
+              onClick={addTrainings}
+              className='!absolute right-1 top-1 rounded bg-blue'
+              disabled={training === ''}
+            >
+              Add
+            </Button>
+          </div>
+          <div className='relative'>
+            <Button
+              onClick={handleOpen10}
+              size='sm'
+              className='bg-white text-blue border border-blue'
+            >
+              View
+            </Button>
+            {trainings.length > 0 && (
+              <div className='h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl'></div>
+            )}
+            <Dialog open={open10} handler={handleOpen10}>
+              <DialogHeader>Trainings</DialogHeader>
+              <DialogBody divider>
+                {trainings.length > 0 ? (
+                  <div className='flex flex-col gap-4'>
+                    {trainings.map((c, i) => (
+                      <div key={i} className='flex justify-between'>
+                        <p className='text-xl'>
+                          {i + 1}. {c.training}
+                        </p>
+                        <AiOutlineDelete
+                          onClick={() => removeTraining(i)}
+                          className='text-red-500 text-3xl cursor-pointer'
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className='py-5 font-semibold text-red-500'>
+                    Enter Something!
+                  </p>
+                )}
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant='text'
+                  color='red'
+                  size='sm'
+                  onClick={handleOpen10}
                   className='mr-1'
                 >
                   <span>Close</span>

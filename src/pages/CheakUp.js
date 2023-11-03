@@ -44,6 +44,7 @@ const CheakUp = () => {
   }
 
   const TABLE_HEAD = [
+    "Request ID",
     'Health Package',
     'Prefferd Doctor',
     'Appoinment Date',
@@ -66,8 +67,8 @@ const CheakUp = () => {
           <Loader />
         ) : (
           <Card className='m-5 md:m-10 h-full overflow-scroll'>
-            <p className='p-5 text-xl font-semibold'>
-              Cheak Up: {checkUp?.length}
+            <p className='p-5 text-xl font-semibold text-blue'>
+              Health Cheak Up Request: {checkUp?.length}
             </p>
             <table className='w-full min-w-max table-auto text-left'>
               <thead>
@@ -91,6 +92,9 @@ const CheakUp = () => {
               <tbody>
                 {checkUp?.map((oneCheakUp, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className="p-4">
+                      {index+1}
+                    </td>
                     <td className='p-4'>
                       <Typography
                         variant='small'
