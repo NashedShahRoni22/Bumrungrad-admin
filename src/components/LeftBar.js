@@ -23,6 +23,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { BiSolidAmbulance, BiSolidUserDetail } from 'react-icons/bi'
 import { AiOutlineOrderedList, AiFillProfile } from 'react-icons/ai'
 import { FaHandHoldingMedical } from 'react-icons/fa'
+import { TbRibbonHealth } from 'react-icons/tb'
 import {
   BsFillTelephoneForwardFill,
   BsQuestionOctagonFill,
@@ -278,6 +279,15 @@ export function LeftBar() {
               <FaHandHoldingMedical className='h-5 w-5' />
             </ListItemPrefix>
             Check Up
+          </ListItem>
+        </Link>
+        <Link to='/home/health-Package'>
+          {' '}
+          <ListItem>
+            <ListItemPrefix>
+              <TbRibbonHealth className='h-5 w-5' />
+            </ListItemPrefix>
+            Health Package
           </ListItem>
         </Link>
         <button onClick={handaleLogOut}>
