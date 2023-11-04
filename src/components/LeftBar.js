@@ -58,7 +58,7 @@ export function LeftBar() {
             <ListItemPrefix>
               <BiSolidUserDetail className='h-5 w-5' />
             </ListItemPrefix>
-            User
+            Patient
           </ListItem>
         </Link>
         <Accordion

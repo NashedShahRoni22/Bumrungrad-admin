@@ -7,6 +7,7 @@ const AirPickUp = () => {
   const [loader, setLoader] = useState(true)
   const [airPickup, setAirPickup] = useState([])
   const TABLE_HEAD = [
+    'Request ID',
     'Patient  Appointment File',
     'Air Ticket File',
     'Number of Passenger',
@@ -76,6 +77,9 @@ const AirPickUp = () => {
               <tbody>
                 {airPickup?.map((pickUp, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>
+                      {index+1}
+                    </td>
                     <td className='p-4'>
                       <a
                         href={pickUp?.appointment}

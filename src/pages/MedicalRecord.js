@@ -13,6 +13,7 @@ import { BsFileEarmarkArrowDown } from 'react-icons/bs'
 const MedicalRecord = () => {
   const [loader, setLoader] = useState(true)
   const [medicalRecord, setMedicalRecord] = useState([])
+  console.log(medicalRecord);
   const [open, setOpen] = React.useState(false)
   const [medicalRecordModalData, setModalData] = useState({})
   const handleOpen = (data) => {
@@ -41,7 +42,7 @@ const MedicalRecord = () => {
         })
     }
   }
-  const TABLE_HEAD = ['HN Number', 'Passport Copy', 'Action']
+  const TABLE_HEAD = ['Request ID',"Name", 'HN Number', 'Passport Copy', 'Action']
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/medical/report')
       .then((res) => res.json())
@@ -85,6 +86,18 @@ const MedicalRecord = () => {
               <tbody>
                 {medicalRecord?.map((oneMedicalRecord, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className="p-4">
+                      {index+1}
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneMedicalRecord?.name}
+                      </Typography>
+                    </td>
                     <td className='p-4'>
                       <Typography
                         variant='small'
@@ -123,6 +136,10 @@ const MedicalRecord = () => {
         <Dialog open={open} handler={handleOpen}>
           <DialogBody>
             <p className='text-xl font-semibold text-blue'>Medical Record</p>
+            <p className='mt-5'>
+              <span className='font-semibold'>Name:</span>{' '}
+              {medicalRecordModalData?.name}
+            </p>
             <p className='mt-5'>
               <span className='font-semibold'>HN Number:</span>{' '}
               {medicalRecordModalData?.hnNum}

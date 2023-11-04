@@ -7,11 +7,14 @@ import { Button } from '@material-tailwind/react'
 const AirTicket = () => {
   const [loader, setLoader] = useState(true)
   const [airTicket, setAirTicket] = useState([])
+  console.log(airTicket);
   const TABLE_HEAD = [
+    'Request ID',
     'From Country',
     'Destination Country',
-    'Passport Copy',
     'Booking Date',
+    'Return Date',
+    'Passport Copy',
     'Action',
   ]
   const handaleDeleteAirTicekt = (oneTicket) => {
@@ -76,6 +79,7 @@ const AirTicket = () => {
               <tbody>
                 {airTicket?.map((oneTicket, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>{index+1}</td>
                     <td className='p-4'>
                       <Typography
                         variant='small'
@@ -94,6 +98,25 @@ const AirTicket = () => {
                         {oneTicket?.destination}
                       </Typography>
                     </td>
+                    
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTicket?.booking_date}
+                      </Typography>
+                    </td>
+                    <td className='p-4'>
+                      <Typography
+                        variant='small'
+                        color='blue-gray'
+                        className='font-normal'
+                      >
+                        {oneTicket?.return_date}
+                      </Typography>
+                    </td>
                     <td className='p-4'>
                       <a
                         href={oneTicket?.doc}
@@ -105,15 +128,6 @@ const AirTicket = () => {
                           Passport
                         </button>
                       </a>
-                    </td>
-                    <td className='p-4'>
-                      <Typography
-                        variant='small'
-                        color='blue-gray'
-                        className='font-normal'
-                      >
-                        {oneTicket?.booking_date}
-                      </Typography>
                     </td>
                     <td className='p-4'>
                       <Button

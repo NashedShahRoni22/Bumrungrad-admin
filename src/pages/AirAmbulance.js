@@ -43,7 +43,7 @@ const AirAmbulance = () => {
         })
     }
   }
-  const TABLE_HEAD = ['Entry Date', 'Passport Copy', 'Action']
+  const TABLE_HEAD = ["Request ID",'Entry Date', 'Passport Copy', 'Action']
   useEffect(() => {
     fetch('https://api.bumrungraddiscover.com/api/get/air/ambulance')
       .then((res) => res.json())
@@ -89,6 +89,10 @@ const AirAmbulance = () => {
               <tbody>
                 {airAmbulance?.map((oneAmbulance, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
+                    <td className='p-4'>
+                      {index+1}
+                    </td>
+                    
                     <td className='p-4'>
                       <Typography
                         variant='small'
