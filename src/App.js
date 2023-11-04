@@ -21,6 +21,7 @@ import CheakUp from './pages/CheakUp'
 import ChildPackage from './pages/ChildPackage'
 import ChildPackageDetails from './pages/ChildPackageDetails'
 import Users from './pages/Users'
+import HealthPackage from './pages/HealthPackage'
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: '/home/childPackage_details/:id',
         element: <ChildPackageDetails />,
+      },
+      {
+        path: '/home/health-Package',
+        element: <HealthPackage />,
       },
       {
         path: '/home/users',
