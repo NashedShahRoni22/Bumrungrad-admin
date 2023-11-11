@@ -21,6 +21,7 @@ import {
 } from '@heroicons/react/24/solid'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { BiSolidAmbulance, BiSolidUserDetail } from 'react-icons/bi'
+import { FaPassport } from 'react-icons/fa'
 import { AiOutlineOrderedList, AiFillProfile } from 'react-icons/ai'
 import { FaHandHoldingMedical } from 'react-icons/fa'
 import { TbRibbonHealth } from 'react-icons/tb'
@@ -235,6 +236,14 @@ export function LeftBar() {
               <BsFillTelephoneForwardFill className='h-5 w-5' />
             </ListItemPrefix>
             Tele Medicine
+          </ListItem>
+        </Link>
+        <Link to='/home/visa_processing'>
+          <ListItem>
+            <ListItemPrefix>
+              <FaPassport className='h-5 w-5' />
+            </ListItemPrefix>
+            Visa Processing
           </ListItem>
         </Link>
         <Link to='/home/airTicket'>
