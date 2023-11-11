@@ -22,6 +22,7 @@ import ChildPackage from './pages/ChildPackage'
 import ChildPackageDetails from './pages/ChildPackageDetails'
 import Users from './pages/Users'
 import HealthPackage from './pages/HealthPackage'
+import VisaProcessing from './pages/VisaProcessing'
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: '/home/users',
         element: <Users />,
+      },
+      {
+        path: '/home/visa_processing',
+        element: <VisaProcessing />,
       },
     ],
   },

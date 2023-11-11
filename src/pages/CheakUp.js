@@ -44,9 +44,9 @@ const CheakUp = () => {
   }
 
   const TABLE_HEAD = [
-    "Request ID",
+    'Request ID',
     'Health Package',
-    'Prefferd Doctor',
+    'Petaient Name',
     'Appoinment Date',
     'Appoinment Time',
     'Action',
@@ -92,9 +92,7 @@ const CheakUp = () => {
               <tbody>
                 {checkUp?.map((oneCheakUp, index) => (
                   <tr key={index} className='even:bg-blue-gray-50/50'>
-                    <td className="p-4">
-                      {index+1}
-                    </td>
+                    <td className='p-4'>{index + 1}</td>
                     <td className='p-4'>
                       <Typography
                         variant='small'
@@ -110,7 +108,7 @@ const CheakUp = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {oneCheakUp?.prefferdDoctor}
+                        {oneCheakUp?.patientName}
                       </Typography>
                     </td>
                     <td className='p-4'>
@@ -161,9 +159,22 @@ const CheakUp = () => {
                   {onecheckUp?.patientName}
                 </p>
                 <p className='mt-2.5'>
-                  <span className='font-semibold'>HN Number : </span>
+                  <span className='font-semibold'> HN Number : </span>
                   {onecheckUp?.HnNumber}
                 </p>
+                {onecheckUp.prefferdDoctor && (
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'>Prefferd Doctor: </span>
+                    {onecheckUp.prefferdDoctor}
+                  </p>
+                )}
+                {onecheckUp.specialty && (
+                  <p className='mt-2.5'>
+                    <span className='font-semibold'>Specialty : </span>
+                    {onecheckUp.specialty}
+                  </p>
+                )}
+
                 <p className='mt-2.5'>
                   <span className='font-semibold'>Medical Concern : </span>
                   {onecheckUp?.medicalConcern}
