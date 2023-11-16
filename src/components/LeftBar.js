@@ -29,6 +29,8 @@ import {
   BsFillTelephoneForwardFill,
   BsQuestionOctagonFill,
 } from 'react-icons/bs'
+import { ImBlogger2 } from 'react-icons/im'
+import { GiNewspaper } from 'react-icons/gi'
 import { MdAirplaneTicket, MdWheelchairPickup } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -205,6 +207,22 @@ export function LeftBar() {
             </List>
           </AccordionBody>
         </Accordion>
+        <Link to='/home/add-news'>
+          <ListItem>
+            <ListItemPrefix>
+              <GiNewspaper className='h-5 w-5' />
+            </ListItemPrefix>
+            News
+          </ListItem>
+        </Link>
+        <Link to='/home/add-blogs'>
+          <ListItem>
+            <ListItemPrefix>
+              <ImBlogger2 className='h-5 w-5' />
+            </ListItemPrefix>
+            Blogs
+          </ListItem>
+        </Link>
         <Link to='/home/add-appointMent'>
           <ListItem>
             <ListItemPrefix>
