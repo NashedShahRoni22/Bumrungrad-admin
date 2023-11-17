@@ -23,6 +23,10 @@ import ChildPackageDetails from './pages/ChildPackageDetails'
 import Users from './pages/Users'
 import HealthPackage from './pages/HealthPackage'
 import VisaProcessing from './pages/VisaProcessing'
+import AddNews from './pages/AddNews'
+import AddBlogs from './pages/AddBlogs'
+import OneBlogs from './pages/OneBlogs'
+import OneNews from './pages/OneNews'
 
 const router = createBrowserRouter([
   {
@@ -120,6 +124,22 @@ const router = createBrowserRouter([
       {
         path: '/home/visa_processing',
         element: <VisaProcessing />,
+      },
+      {
+        path: '/home/add-news',
+        element: <AddNews />,
+      },
+      {
+        path: '/home/add-blogs',
+        element: <AddBlogs />,
+      },
+      {
+        path: '/home/one-blogs/:id',
+        element: <OneBlogs />,
+      },
+      {
+        path: '/home/one-News/:id',
+        element: <OneNews />,
       },
     ],
   },

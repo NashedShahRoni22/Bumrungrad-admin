@@ -96,7 +96,7 @@ const Appointment = () => {
     <div>
       <Card className='m-5 md:m-10 h-full overflow-scroll'>
         <p className='p-5 text-xl font-semibold text-blue'>
-          {/* Appointment : {appointment?.length} */}
+           Appointment : {appointments?.data?.length} 
         </p>
         <table className='w-full min-w-max table-auto text-left'>
           <thead>

@@ -156,6 +156,9 @@ export default function AddCenters() {
             {selectedCenterImg.name ? selectedCenterImg.name : 'No File Chosen'}
           </label>
         </div>
+        <p className='text-red-400 text-sm mt-2.5'>
+          Image Ratio - 1200*628. Image size not more than 500kb
+        </p>
         <div className='grid gap-4 lg:grid-cols-2 my-4'>
           <Input label='Enter Name' name='name' />
           <Input label='Enter Location' name='location' />
