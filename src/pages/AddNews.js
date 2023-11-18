@@ -116,30 +116,32 @@ const AddNews = () => {
                 {allNews?.map((d, i) => (
                   <div
                     key={i}
-                    className='shadow rounded hover:shadow-xl duration-300 ease-linear'
+                    className='relative shadow rounded hover:shadow-xl duration-300 ease-linear flex flex-col justify-between'
                   >
-                    <img src={d?.newsImage} alt='' className='' />
-                    <div className='p-4'>
-                      <h5 className='font-semibold text-blue text-lg'>
-                        {d?.newsTitle}
-                      </h5>
-                      <h5 className='my-3'>
-                        {d?.newsDescription?.slice(0, 160)} ...
-                      </h5>
-                      <div className='flex justify-between'>
-                        <Link to={`/home/one-News/${d?.id}`}>
-                          <button className='border border-blue bg-blue hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'>
-                            Read More
-                          </button>
-                        </Link>
-
-                        <button
-                          onClick={() => handaleDeleteBlock(d)}
-                          className='border border-red-400 bg-red-400 hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'
-                        >
-                          Delete
-                        </button>
+                    <div>
+                      <img src={d?.newsImage} alt='' className='' />
+                      <div className='p-4'>
+                        <h5 className='my-2.5 font-semibold text-blue text-lg'>
+                          {d?.newsTitle}
+                        </h5>
+                        <p className='my-3'>
+                          {d?.newsDescription?.slice(0, 160)} ...
+                        </p>
                       </div>
+                    </div>
+                    <div className='flex gap-4 justify-between p-4'>
+                      <Link to={`/home/one-News/${d?.id}`}>
+                        <button className='border border-blue bg-blue hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'>
+                          Read More
+                        </button>
+                      </Link>
+
+                      <button
+                        onClick={() => handaleDeleteBlock(d)}
+                        className='border border-red-400 bg-red-400 hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}
