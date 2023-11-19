@@ -19,16 +19,16 @@ const OneNews = () => {
       {loader ? (
         <Loader />
       ) : (
-        <div>
-          <div className='md:h-96 flex justify-center'>
+        <div className='flex flex-col gap-8 lg:flex-row'>
+          <div className='lg:w-1/2'>
             <img
               src={oneNews?.newsImage}
               alt=''
               srcset=''
-              className='h-[100%]'
+              className='lg:h-[40vh]'
             />
           </div>
-          <div className='mt-10'>
+          <div className=''>
             <h5 className='font-semibold text-blue text-xl'>
               {oneNews?.newsTitle}
             </h5>
