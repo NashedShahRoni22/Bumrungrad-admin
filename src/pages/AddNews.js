@@ -1,4 +1,4 @@
-import { Button, Input } from '@material-tailwind/react'
+import { Button, Input, Textarea } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
@@ -51,7 +51,7 @@ const AddNews = () => {
 
   //Delete...
 
-  const handaleDeleteBlock = (oneNews) => {
+  const handaleDeleteNews = (oneNews) => {
     const aggre = window.confirm(`You Want to Delete, ${oneNews?.newsTitle}.`)
     if (aggre) {
       fetch(`https://api.bumrungraddiscover.com/api/delete/news/${oneNews.id}`)
@@ -97,7 +97,7 @@ const AddNews = () => {
         </p>
         <div className='my-4 flex flex-col gap-y-4'>
           <Input required label='News Title' name='name' />
-          <Input required label='News Description' name='descriptiion' />
+          <Textarea required label='News Description' name='descriptiion' />
         </div>
         <Button className='bg-blue' type='submit'>
           {loader1 ? 'Loading...' : 'Add News'}
@@ -116,28 +116,27 @@ const AddNews = () => {
                 {allNews?.map((d, i) => (
                   <div
                     key={i}
-                    className='relative shadow rounded hover:shadow-xl duration-300 ease-linear flex flex-col justify-between'
+                    className='shadow rounded hover:shadow-xl duration-300 ease-linear flex flex-col justify-between'
                   >
-                    <div>
-                      <img src={d?.newsImage} alt='' className='' />
-                      <div className='p-4'>
-                        <h5 className='my-2.5 font-semibold text-blue text-lg'>
-                          {d?.newsTitle}
-                        </h5>
-                        <p className='my-3'>
-                          {d?.newsDescription?.slice(0, 160)} ...
-                        </p>
-                      </div>
+                    <img src={d.newsImage} alt='' className='' />
+                    <div className='p-4'>
+                      {' '}
+                      <h5 className='font-semibold text-blue text-lg'>
+                        {d.newsTitle}
+                      </h5>
+                      <p className='my-3 text-justify'>
+                        {d.newsDescription?.slice(0, 160)} ...
+                      </p>
                     </div>
-                    <div className='flex gap-4 justify-between p-4'>
+                    <div className='p-4 flex justify-between'>
+                      {' '}
                       <Link to={`/home/one-News/${d?.id}`}>
                         <button className='border border-blue bg-blue hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'>
                           Read More
                         </button>
                       </Link>
-
                       <button
-                        onClick={() => handaleDeleteBlock(d)}
+                        onClick={() => handaleDeleteNews(d)}
                         className='border border-red-400 bg-red-400 hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'
                       >
                         Delete

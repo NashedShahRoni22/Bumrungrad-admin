@@ -19,7 +19,7 @@ const OneBlogs = () => {
       {loader ? (
         <Loader />
       ) : (
-        <div>
+        <div className='flex flex-col gap-8 lg:flex-row'>
           <div className='md:h-96 flex justify-center'>
             <img
               src={oneBlog?.blogImage}
