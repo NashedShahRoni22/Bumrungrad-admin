@@ -288,23 +288,23 @@ export default function AddDoctors() {
     setLoader(true)
 
     e.preventDefault()
-    // const postData = {
-    //   cover_photo: selectedDoctorImg,
-    //   name: name,
-    //   lang: langs,
-    //   school: schools,
-    //   parentSpeciality: parentSpecialityId,
-    //   subSpecialities: selectedSubSpecialities,
-    //   certificates: certificates,
-    //   trainings: trainings,
-    //   fellowships: fellowships,
-    //   interests: interests,
-    //   experiences: experiences,
-    //   researches: researchs,
-    //   articles: articles,
-    //   schedules: schedules,
-    // }
-    // console.log(postData);
+    const postData = {
+      cover_photo: selectedDoctorImg,
+      name: name,
+      lang: langs,
+      school: schools,
+      parentSpeciality: parentSpecialityId,
+      subSpecialities: selectedSubSpecialities,
+      certificates: certificates,
+      trainings: trainings,
+      fellowships: fellowships,
+      interests: interests,
+      experiences: experiences,
+      researches: researchs,
+      articles: articles,
+      schedules: schedules,
+    }
+    console.log(postData)
     const formData = new FormData()
     // file upload
     formData.append('cover_photo', selectedDoctorImg)
@@ -371,7 +371,7 @@ export default function AddDoctors() {
           </label>
         </div>
         <p className='text-red-400 text-sm mt-2.5'>
-          Image Ratio - 1200*628. Image size not more than 500kb
+          Image Ratio - 400*300. Image size not more than 500kb
         </p>
         <div className='grid gap-4 md:grid-cols-2'>
           <div className='w-full'>
@@ -1106,7 +1106,14 @@ export default function AddDoctors() {
             {schedules.length > 0 && (
               <div className='h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl'></div>
             )}
-            <Dialog open={open6} handler={handleOpen6}>
+            <Dialog
+              open={open6}
+              handler={handleOpen6}
+              className='h-[570px] overflow-y-scroll'
+              size='lg'
+              
+             
+            >
               <DialogHeader>Doctor Schedules</DialogHeader>
               <DialogBody divider>
                 {schedules.length > 0 ? (
