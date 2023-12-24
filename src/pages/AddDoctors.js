@@ -109,6 +109,11 @@ export default function AddDoctors() {
     'Japanese',
     'Spanish',
     'Urdo',
+    'Mandarin',
+    'Punjab',
+    'Hokkin',
+    'Hainan',
+    'Cantonese',
   ]
   //docotrs schedule
   const [selectedDay, setSelectedDay] = useState('')
@@ -1111,8 +1116,6 @@ export default function AddDoctors() {
               handler={handleOpen6}
               className='h-[570px] overflow-y-scroll'
               size='lg'
-              
-             
             >
               <DialogHeader>Doctor Schedules</DialogHeader>
               <DialogBody divider>
