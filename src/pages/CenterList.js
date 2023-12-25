@@ -102,7 +102,7 @@ const CenterList = () => {
                         color='blue-gray'
                         className='font-normal'
                       >
-                        {oneCenter?.location.slice(0, 25)}
+                        {oneCenter?.location?.slice(0, 25)}
                       </Typography>
                     </td>
                     <td className='p-4'>
