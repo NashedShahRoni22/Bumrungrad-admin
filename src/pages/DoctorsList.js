@@ -393,7 +393,7 @@ const DoctorsList = () => {
                     </ul>
                   </div>
                 )}
-                {modalData?.experiences?.length !== 0 && (
+                {modalData?.fellowships?.length !== 0 && (
                   <div className=''>
                     <p className='text-xl md:text-2xl text-blue font-semibold'>
                       Fellowships:
