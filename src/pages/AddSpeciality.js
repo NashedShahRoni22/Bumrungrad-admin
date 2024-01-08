@@ -15,7 +15,6 @@ import {
 } from "@material-tailwind/react";
 
 export default function AddSpeciality() {
-  const [loader, setLoader] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [speciality, setSpeciality] = useState("");
@@ -101,13 +100,11 @@ export default function AddSpeciality() {
 
   //get speacilities
   useEffect(() => {
-    setLoader(true);
     fetch("https://api.bumrungraddiscover.com/api/get/specialty")
       .then((res) => res.json())
       .then((data) => {
         if (data?.response?.status === 200) {
           setSpecialities(data?.response?.data);
-          setLoader(false);
         } else {
           console.log(data);
         }
@@ -116,12 +113,10 @@ export default function AddSpeciality() {
 
   //get sub speacilities
   useEffect(() => {
-    setLoader(true);
     fetch("https://api.bumrungraddiscover.com/api/get/sub/specialty")
       .then((res) => res.json())
       .then((data) => {
         setSubSpecialities(data?.response?.data);
-        setLoader(false);
       });
   }, [loading2]);
 
