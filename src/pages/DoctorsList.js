@@ -393,6 +393,20 @@ const DoctorsList = () => {
                     </ul>
                   </div>
                 )}
+                {modalData?.experiences?.length !== 0 && (
+                  <div className=''>
+                    <p className='text-xl md:text-2xl text-blue font-semibold'>
+                      Fellowships:
+                    </p>
+                    <ul className='mt-2.5 md:mt-5'>
+                      {modalData?.fellowships?.map((dc, i) => (
+                        <li key={i} className='text-xl'>
+                          {dc?.fellowship}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 {modalData?.researches?.length !== 0 && (
                   <div className=''>
                     <p className='text-xl md:text-2xl text-blue font-semibold'>
