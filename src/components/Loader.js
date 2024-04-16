@@ -7,7 +7,7 @@ export default function Loader() {
       <SyncLoader
         color={'#28266F'}
         loading={true}
-        size={30}
+        size={20}
         aria-label='Loading Spinner'
         data-testid='loader'
       />

@@ -27,6 +27,7 @@ import AddNews from './pages/AddNews'
 import AddBlogs from './pages/AddBlogs'
 import OneBlogs from './pages/OneBlogs'
 import OneNews from './pages/OneNews'
+import CenterUpdate from './pages/CenterUpdate'
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: '/home/centers-list',
         element: <CenterList />,
+      },
+      {
+        path: '/home/update-center/:slug/:id',
+        element: <CenterUpdate />,
       },
       {
         path: '/home/check-up',

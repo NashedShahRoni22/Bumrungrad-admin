@@ -126,7 +126,7 @@ export default function AddCenters() {
           setConditions([])
           setTreatments([])
           setSelectedCenterImg('')
-          toast.success(' Clinic/Centers added successfully!')
+          toast.success('Clinic/Centers added successfully!')
         })
         .catch((e) => console.error(e))
     }
@@ -135,7 +135,7 @@ export default function AddCenters() {
     <div className='mx-5 md:container md:mx-auto py-10'>
       <form
         onSubmit={handleAddClinics}
-        className='bg-white shadow-xl rounded-xl p-5'
+        className=''
       >
         <p className='text-2xl font-semibold'>Add Center</p>
         <hr className='my-5' />
