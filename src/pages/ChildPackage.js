@@ -4,7 +4,7 @@ import Loader from '../components/Loader'
 
 const ChildPackage = () => {
   const [loader, setLoader] = useState()
-  const { id } = useParams()
+  const { slug, id } = useParams()
   const [childPackage, setChildPackage] = useState([])
   //delete
 
@@ -27,7 +27,7 @@ const ChildPackage = () => {
   }
   useEffect(() => {
     setLoader(true)
-    fetch(`https://api.bumrungraddiscover.com/api/get/sub/packages/${id}`)
+    fetch(`https://api.bumrungraddiscover.com/api/get/sub/packages/${slug}/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -45,9 +45,10 @@ const ChildPackage = () => {
         <div>
           {childPackage?.length > 0 ? (
             <>
-              <h2 className='md:ml-8 text-xl font-semibold md:text-2xl lg:text-3xl capitalize text-blue'>
-                our sub packages
+              <h2 className='md:ml-8 text-xl font-semibold md:text-2xl capitalize text-blue'>
+                Total sub packages: {childPackage.length}
               </h2>
+              <hr className="my-5" />
               <div className='md:ml-8 my-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {' '}
                 {childPackage.map((cp, i) => (
@@ -55,7 +56,7 @@ const ChildPackage = () => {
                     key={i}
                     className='flex flex-col justify-between gap-2 shadow'
                   >
-                    <img src={cp?.cover_photo} alt='' />
+                    <img src={cp?.cover_photo} alt='' loading='lazy' />
                     <div className='p-2.5'>
                       <p className='font-semibold text-blue md:text-xl'>
                         {cp?.title}
@@ -65,11 +66,12 @@ const ChildPackage = () => {
                     <div className='flex'>
                       {' '}
                       <Link
-                        to={`/home/childPackage_details/${cp.id}`}
-                        className='group bg-blue text-white p-2.5 w-1/2 flex justify-center gap-2 '
+                        to={`/home/childPackage_details/${cp.slug}/${cp.id}`}
+                        className='group bg-blue text-white p-2.5 w-1/2 flex justify-center gap-2'
+                        target='_blank'
                       >
                         {/* <RemoveRedEyeIcon /> */}
-                        <span className='capitalize'>View Package</span>
+                        <span className='capitalize'>Update</span>
                       </Link>
                       <button
                         onClick={() => handaleDeleteChild(cp)}

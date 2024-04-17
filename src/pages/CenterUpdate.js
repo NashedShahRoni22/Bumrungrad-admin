@@ -104,88 +104,67 @@ export default function CenterUpdate() {
       conditions,
       treatments,
     };
-    console.log(postData);
-    if (
-    //   selectedCenterImg === "" ||
-      name === "" ||
-      location === "" ||
-      description === ""
-    ) {
-      setPostLoader(false);
-      if (selectedCenterImg === "") {
-        toast.error("Select Center Image");
-      }
-      if (name === "") {
-        toast.error("Center Name is Required");
-      }
-      if (location === "") {
-        toast.error("Center Location is Required");
-      }
-      if (description === "") {
-        toast.error("Center Description");
-      }
-    } else {
-      const formData = new FormData();
-      formData.append("cover_photo", selectedCenterImg);
-      formData.append("name", name);
-      formData.append("location", location);
-      formData.append("description", description);
-      formData.append("informations", JSON.stringify(informations));
-      formData.append("conditions", JSON.stringify(conditions));
-      formData.append("treatments", JSON.stringify(treatments));
+    // console.log(postData);
+    const formData = new FormData();
+    formData.append("cover_photo", selectedCenterImg);
+    formData.append("name", name);
+    formData.append("location", location);
+    formData.append("description", description);
+    formData.append("informations", JSON.stringify(informations));
+    formData.append("conditions", JSON.stringify(conditions));
+    formData.append("treatments", JSON.stringify(treatments));
 
-      fetch(`https://api.bumrungraddiscover.com/api/update/center/${id}`, {
-        method: "POST",
-        body: formData,
+    fetch(`https://api.bumrungraddiscover.com/api/update/center/${id}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setPostLoader(false);
+        e.target.reset();
+        toast.success("Clinic/Centers updated successfully!");
+        navigate("/home/centers-list");
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setPostLoader(false);
-          e.target.reset();
-          setInformations([]);
-          setConditions([]);
-          setTreatments([]);
-          setSelectedCenterImg("");
-          toast.success(" Clinic/Centers updated successfully!");
-          navigate("/home/centers-list")
-        })
-        .catch((e) => console.error(e));
-    }
+      .catch((e) => console.error(e));
   };
   return (
     <div className="mx-5 md:container md:mx-auto py-10">
       {loader ? (
         <Loader />
       ) : (
-        <form
-          onSubmit={handleUpdateClinic}
-          className="bg-white p-5"
-        >
+        <form onSubmit={handleUpdateClinic} className="bg-white p-5">
           <p className="text-2xl font-semibold">Update Center</p>
           <hr className="my-5" />
-          <div className="flex flex-row items-center">
-            <input
-              type="file"
-              id="custom-input"
-              onChange={(e) => setSelectedCenterImg(e.target.files[0])}
-              hidden
-            />
-            <label
-              htmlFor="custom-input"
-              className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer"
-            >
-              Choose file
-            </label>
-            <label className="text-sm text-slate-500">
-              {selectedCenterImg.name
-                ? selectedCenterImg.name
-                : "No File Chosen"}
-            </label>
+          <div className="flex items-start gap-5">
+            <img src={center?.cover_photo} className="h-[250px]" alt="center_cover_photo" />
+
+            <div>
+              <div className="flex items-center">
+                <input
+                  type="file"
+                  id="custom-input"
+                  onChange={(e) => setSelectedCenterImg(e.target.files[0])}
+                  hidden
+                />
+                <label
+                  htmlFor="custom-input"
+                  className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer"
+                >
+                  Choose file
+                </label>
+                <label className="text-sm text-slate-500">
+                  {selectedCenterImg.name
+                    ? selectedCenterImg.name
+                    : "No File Chosen"}
+                </label>
+              </div>
+              <p className="text-red-400 text-sm mt-2.5">
+                Image Ratio - 1200*628. Image size not more than 500kb
+              </p>
+            </div>
           </div>
-          <p className="text-red-400 text-sm mt-2.5">
-            Image Ratio - 1200*628. Image size not more than 500kb
-          </p>
+
           <div className="grid gap-4 lg:grid-cols-2 my-4">
             <Input label="Enter Name" name="name" defaultValue={center?.name} />
             <Input
@@ -420,7 +399,12 @@ export default function CenterUpdate() {
             </div>
           </div>
           <div className="lg:w-1/2">
-            <Textarea defaultValue={center?.description} label="Enter Details" rows={8} name="description" />
+            <Textarea
+              defaultValue={center?.description}
+              label="Enter Details"
+              rows={8}
+              name="description"
+            />
           </div>
           <Button className="bg-blue" type="submit">
             {postLoader ? "Loading" : "Update Center"}

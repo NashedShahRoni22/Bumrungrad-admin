@@ -111,11 +111,11 @@ const router = createBrowserRouter([
         element: <CheakUp />,
       },
       {
-        path: '/home/package_details/:id',
+        path: '/home/package_details/:slug/:id',
         element: <ChildPackage />,
       },
       {
-        path: '/home/childPackage_details/:id',
+        path: '/home/childPackage_details/:slug/:id',
         element: <ChildPackageDetails />,
       },
       {

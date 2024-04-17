@@ -105,15 +105,23 @@ const CenterList = () => {
                         {oneCenter?.location?.slice(0, 25)}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    <td className="p-4 flex gap-2.5">
                       <Link
                         to={`/home/update-center/${oneCenter.slug}/${oneCenter.id}`}
                         // onClick={() => handleOpen(oneCenter)}
-                        className="px-2 py-1 shadow rounded-full bg-blue text-white flex items-center gap-2 w-fit"
+                        className="px-2 py-1 shadow rounded bg-blue text-white flex items-center gap-2 w-fit"
                       >
-                        <AiFillEye className="text-xl" />
+                        {/* <AiFillEye className="text-xl" /> */}
                         Update
                       </Link>
+                      <button
+                        onClick={() => {
+                          handaleDeleteCenter(oneCenter);
+                        }}
+                        className="px-2 py-1 shadow rounded bg-red-500 text-white flex items-center gap-2 w-fit"
+                      >
+                        <span>Delete</span>
+                      </button>
                     </td>
                   </tr>
                 ))}
