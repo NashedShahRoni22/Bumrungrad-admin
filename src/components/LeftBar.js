@@ -89,7 +89,7 @@ export function LeftBar() {
             </AccordionHeader>
           </ListItem>
           <AccordionBody className='py-1'>
-            <List className='p-0'>
+            <List className='p-0 ml-4 '>
               <Link to='/home/add-speciality'>
                 <ListItem>
                   <ListItemPrefix>
@@ -142,7 +142,7 @@ export function LeftBar() {
             </AccordionHeader>
           </ListItem>
           <AccordionBody className='py-1'>
-            <List className='p-0'>
+            <List className='p-0 ml-4'>
               <Link to='/home/add-packages'>
                 <ListItem>
                   <ListItemPrefix>
@@ -187,7 +187,7 @@ export function LeftBar() {
             </AccordionHeader>
           </ListItem>
           <AccordionBody className='py-1'>
-            <List className='p-0'>
+            <List className='p-0 ml-4'>
               <Link to='/home/add-centers'>
                 <ListItem>
                   <ListItemPrefix>
@@ -207,22 +207,68 @@ export function LeftBar() {
             </List>
           </AccordionBody>
         </Accordion>
+        <Accordion
+          open={open === 4}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 4 ? 'rotate-180' : ''
+              }`}
+            />
+          }
+        >
+          <ListItem className='p-0' selected={open === 4}>
+            <AccordionHeader
+              onClick={() => handleOpen(4)}
+              className='border-b-0 p-3'
+            >
+              <ListItemPrefix>
+                <ImBlogger2 className='h-5 w-5' />
+              </ListItemPrefix>
+              <Typography color='blue-gray' className='mr-auto font-normal'>
+                Manage Blogs
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          <AccordionBody className='py-1'>
+            <List className='p-0 ml-4'>
+              <Link to='/home/blogs-list'>
+                <ListItem>
+                  <ListItemPrefix>
+                    <ListBulletIcon className='h-5 w-5' />
+                  </ListItemPrefix>
+                  Blogs List
+                </ListItem>
+              </Link>
+              <Link to='/home/add-blogs'>
+                <ListItem>
+                  <ListItemPrefix>
+                    <PlusIcon className='h-5 w-5' />
+                  </ListItemPrefix>
+                  Add Blogs
+                </ListItem>
+              </Link>
+            </List>
+          </AccordionBody>
+        </Accordion>
         <Link to='/home/add-news'>
           <ListItem>
             <ListItemPrefix>
               <GiNewspaper className='h-5 w-5' />
             </ListItemPrefix>
-            News
+            Add News
           </ListItem>
         </Link>
-        <Link to='/home/add-blogs'>
+        <Link to='/home/news-list'>
           <ListItem>
             <ListItemPrefix>
-              <ImBlogger2 className='h-5 w-5' />
+              <GiNewspaper className='h-5 w-5' />
             </ListItemPrefix>
-            Blogs
+            News List
           </ListItem>
         </Link>
+
         <Link to='/home/add-appointMent'>
           <ListItem>
             <ListItemPrefix>

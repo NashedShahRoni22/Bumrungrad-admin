@@ -28,6 +28,8 @@ import AddBlogs from './pages/AddBlogs'
 import OneBlogs from './pages/OneBlogs'
 import OneNews from './pages/OneNews'
 import CenterUpdate from './pages/CenterUpdate'
+import NewsList from './pages/NewsList'
+import Blogslist from './pages/Blogslist'
 
 const router = createBrowserRouter([
   {
@@ -135,8 +137,16 @@ const router = createBrowserRouter([
         element: <AddNews />,
       },
       {
+        path: '/home/news-list',
+        element: <NewsList />,
+      },
+      {
         path: '/home/add-blogs',
         element: <AddBlogs />,
+      },
+      {
+        path: '/home/blogs-list',
+        element: <Blogslist />,
       },
       {
         path: '/home/one-blogs/:id',

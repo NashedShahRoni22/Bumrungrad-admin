@@ -1,32 +1,64 @@
 import { Button, Input, Textarea } from '@material-tailwind/react'
-import React, { useEffect } from 'react'
 import { useState } from 'react'
-import Loader from '../components/Loader'
-import { Link } from 'react-router-dom'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 const AddBlogs = () => {
   const [loader1, setLoader1] = useState(false)
-  const [loader, setLoader] = useState(true)
   const [blogImg, setBlogImg] = useState('')
-  const [allBlogs, setAllBlogs] = useState([])
 
-  //post....
+  //react quil....
+
+  const [editorValue, seteditorValue] = useState('')
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
+      ],
+      ['link', 'image', 'video', 'code-block'],
+      ['clean'],
+    ],
+  }
+
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+  ]
+
+  //post
   const handleAddBlogs = (e) => {
     setLoader1(true)
     e.preventDefault()
     const name = e.target.name.value
-    const descriptiion = e.target.descriptiion.value
+    const blogslogan = e.target.descriptiion.value
     const blogs = {
       blogImg,
       name,
-      descriptiion,
+      blogslogan,
+      editorValue,
     }
     console.log(blogs)
 
     const formData = new FormData()
     formData.append('blogImage', blogImg)
     formData.append('blogTitle', name)
-    formData.append('blogdescription', descriptiion)
+    formData.append('blogSlogan', blogslogan)
+    formData.append('blogDescription', editorValue) 
     //append data with keys
     fetch('https://api.bumrungraddiscover.com/api/add/blogs', {
       method: 'POST',
@@ -41,43 +73,19 @@ const AddBlogs = () => {
       .catch((e) => console.error(e))
   }
 
-  //get news ...../
-  useEffect(() => {
-    fetch('https://api.bumrungraddiscover.com/api/get/blogs')
-      .then((res) => res.json())
-      .then((data) => {
-        setAllBlogs(data.data)
-        setLoader(false)
-      })
-  }, [loader, loader1])
-
-  //delete...
-  const handaleDeleteBlogs = (oneBlogs) => {
-    const aggre = window.confirm(`You Want to Delete, ${oneBlogs?.blogTitle}.`)
-    if (aggre) {
-      fetch(
-        `https://api.bumrungraddiscover.com/api/delete/blogs/${oneBlogs.id}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          if (data.status === 200) {
-            const newBlogData = allBlogs.filter(
-              (blogs) => blogs.id !== oneBlogs.id
-            )
-            alert('Blog Deleted Successfully')
-            setAllBlogs(newBlogData)
-          }
-        })
-    }
-  }
   return (
     <div className='mx-5 md:container md:mx-auto py-10 px-5'>
       <form
         onSubmit={handleAddBlogs}
         className='bg-white shadow-xl rounded-xl p-5'
       >
-        <p className='text-2xl font-semibold'>Add Blogs</p>
+        <div className='flex justify-between'>
+          <p className='text-2xl font-semibold'>Add Blogs</p>
+          <Button className='bg-blue' type='submit'>
+            {loader1 ? 'Loading...' : 'Add Blogs'}
+          </Button>
+        </div>
+
         <hr className='my-5' />
         <div className='flex flex-row items-center'>
           <input
@@ -101,58 +109,23 @@ const AddBlogs = () => {
         </p>
         <div className='my-4 flex flex-col gap-y-4'>
           <Input required label='Blog Title' name='name' />
-          <Textarea required label='Blog Description' name='descriptiion' />
+          <Textarea required label='Blog Slogan' name='descriptiion' />
         </div>
-        <Button className='bg-blue' type='submit'>
-          {loader1 ? 'Loading...' : 'Add Blogs'}
-        </Button>
-      </form>
 
-      <div className='mt-10'>
-        <p className='text-2xl font-semibold'>Blogs List</p>
-        <hr className='my-5' />
-        {loader ? (
-          <Loader />
-        ) : (
-          <div>
-            <div className='p-5 md:p-10 my-5 md:container md:mx-auto'>
-              <div className='grid gap-5 md:grid-cols-2 lg:grid-cols-3 my-10'>
-                {allBlogs?.map((d, i) => (
-                  <div
-                    key={i}
-                    className='shadow rounded hover:shadow-xl duration-300 ease-linear flex flex-col justify-between'
-                  >
-                    <img src={d.blogImage} alt='' className='' />
-                    <div className='p-4'>
-                      {' '}
-                      <h5 className='font-semibold text-blue text-lg'>
-                        {d.blogTitle}
-                      </h5>
-                      <p className='my-3 text-justify'>
-                        {d.blogDescription?.slice(0, 160)} ...
-                      </p>
-                    </div>
-                    <div className='p-4 flex justify-between'>
-                      {' '}
-                      <Link to={`/home/one-blogs/${d?.id}`}>
-                        <button className='border border-blue bg-blue hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'>
-                          Read More
-                        </button>
-                      </Link>
-                      <button
-                        onClick={() => handaleDeleteBlogs(d)}
-                        className='border border-red-400 bg-red-400 hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+        <div className=''>
+          <label htmlFor='' className='text-red'>
+            <span className='font-semibold'>Long Description</span>
+          </label>
+          <ReactQuill
+            theme='snow'
+            modules={modules}
+            formats={formats}
+            value={editorValue}
+            onChange={seteditorValue}
+            className='my-2.5'
+          />
+        </div>
+      </form>
     </div>
   )
 }

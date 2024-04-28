@@ -36,6 +36,7 @@ const OneNews = () => {
           </div>
         </div>
       )}
+      
     </div>
   )
 }
