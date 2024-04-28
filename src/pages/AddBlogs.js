@@ -2,10 +2,12 @@ import { Button, Input, Textarea } from '@material-tailwind/react'
 import { useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { useNavigate } from 'react-router-dom'
 
 const AddBlogs = () => {
   const [loader1, setLoader1] = useState(false)
   const [blogImg, setBlogImg] = useState('')
+  const navigate = useNavigate()
 
   //react quil....
 
@@ -68,6 +70,7 @@ const AddBlogs = () => {
       .then((data) => {
         console.log(data)
         setLoader1(false)
+        navigate('/home/blogs-list')
         e.target.reset()
       })
       .catch((e) => console.error(e))

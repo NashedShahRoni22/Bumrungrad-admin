@@ -26,9 +26,9 @@ export default function Home() {
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
           {allData?.map((d, i) => (
             <Link to={d.link}>
-              <Card key={i} className='p-5 text-black shadow-blue hover:shadow-xl duration-300 ease-linear'>
-                <p className='text-4xl font-bold text-center text-blue'>{d.length}</p>
-                <p className='text-center font-semibold mt-2.5'>{d.name}</p>
+              <Card key={i} className='p-5 border-r-4 border-blue text-black shadow-blue hover:shadow-xl duration-300 ease-linear'>
+                <p className='text-4xl font-bold text-blue'>{d.length}</p>
+                <p className='font-semibold mt-2.5'>{d.name}</p>
               </Card>
             </Link>
           ))}
