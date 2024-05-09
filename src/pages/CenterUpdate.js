@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 
 export default function CenterUpdate() {
-  const { id, slug } = useParams();
+  const { slug } = useParams();
   const [loader, setLoader] = useState(false);
   const [postLoader, setPostLoader] = useState(false);
   const [center, setCenter] = useState({});
@@ -77,7 +77,7 @@ export default function CenterUpdate() {
   //get center
   useEffect(() => {
     setLoader(true);
-    fetch(`https://api.bumrungraddiscover.com/api/get/centers/${slug}/${id}`)
+    fetch(`https://api.bumrungraddiscover.com/api/get/centers/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         setCenter(data?.response?.data);
@@ -86,7 +86,7 @@ export default function CenterUpdate() {
         setTreatments(data?.response?.data?.treatments);
         setLoader(false);
       });
-  }, [id, slug]);
+  }, [slug]);
 
   //add clinic and centers
   const handleUpdateClinic = (e) => {
@@ -114,7 +114,7 @@ export default function CenterUpdate() {
     formData.append("conditions", JSON.stringify(conditions));
     formData.append("treatments", JSON.stringify(treatments));
 
-    fetch(`https://api.bumrungraddiscover.com/api/update/center/${id}`, {
+    fetch(`https://api.bumrungraddiscover.com/api/update/center`, {
       method: "POST",
       body: formData,
     })

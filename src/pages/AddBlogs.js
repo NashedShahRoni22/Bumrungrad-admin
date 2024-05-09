@@ -9,8 +9,7 @@ const AddBlogs = () => {
   const [blogImg, setBlogImg] = useState('')
   const navigate = useNavigate()
 
-  //react quil....
-
+  //react quil
   const [editorValue, seteditorValue] = useState('')
 
   const modules = {

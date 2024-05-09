@@ -107,7 +107,7 @@ const CenterList = () => {
                     </td>
                     <td className="p-4 flex gap-2.5">
                       <Link
-                        to={`/home/update-center/${oneCenter.slug}/${oneCenter.id}`}
+                        to={`/home/update-center/${oneCenter.slug}`}
                         // onClick={() => handleOpen(oneCenter)}
                         className="px-2 py-1 shadow rounded bg-blue text-white flex items-center gap-2 w-fit"
                       >

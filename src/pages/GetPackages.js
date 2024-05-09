@@ -112,7 +112,7 @@ export default function GetPackages() {
                 <div className="flex">
                   <Link
                     className="text-center bg-blue text-white p-1.5 w-full"
-                    to={`/home/package_details/${p.slug}/${p.id}`}
+                    to={`/home/package_details/${p.slug}`}
                     target="_blank"
                   >
                     View

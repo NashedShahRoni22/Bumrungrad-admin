@@ -105,7 +105,7 @@ const router = createBrowserRouter([
         element: <CenterList />,
       },
       {
-        path: '/home/update-center/:slug/:id',
+        path: '/home/update-center/:slug',
         element: <CenterUpdate />,
       },
       {
@@ -113,11 +113,11 @@ const router = createBrowserRouter([
         element: <CheakUp />,
       },
       {
-        path: '/home/package_details/:slug/:id',
+        path: '/home/package_details/:slug',
         element: <ChildPackage />,
       },
       {
-        path: '/home/childPackage_details/:slug/:id',
+        path: '/home/childPackage_details/:slug',
         element: <ChildPackageDetails />,
       },
       {
@@ -149,7 +149,7 @@ const router = createBrowserRouter([
         element: <Blogslist />,
       },
       {
-        path: '/home/one-blogs/:id',
+        path: '/home/one-blogs/:slug',
         element: <OneBlogs />,
       },
       {

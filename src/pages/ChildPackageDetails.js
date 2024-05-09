@@ -19,7 +19,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 const ChildPackageDetails = () => {
   const [loader, setLoader] = useState(false);
   const [childLoader, setChildLoader] = useState(false);
-  const { slug, id } = useParams();
+  const { slug } = useParams();
   const [childDetailsPackage, setChildDetailsPackage] = useState({});
   // console.log(childDetailsPackage);
 
@@ -95,7 +95,7 @@ const ChildPackageDetails = () => {
   useEffect(() => {
     setLoader(true);
     fetch(
-      `https://api.bumrungraddiscover.com/api/get/sub/package/${slug}/${id}`
+      `https://api.bumrungraddiscover.com/api/get/sub/package/${slug}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -110,7 +110,7 @@ const ChildPackageDetails = () => {
         }
         setLoader(false);
       });
-  }, [id]);
+  }, []);
 
   // add child packages
   const handleUpdateChildPackages = (e) => {
@@ -148,7 +148,7 @@ const ChildPackageDetails = () => {
     formData.append("inclusions", JSON.stringify(conditions));
     formData.append("exclusions", JSON.stringify(treatments));
 
-    fetch(`https://api.bumrungraddiscover.com/api/update/sub/package/${id}`, {
+    fetch(`https://api.bumrungraddiscover.com/api/update/sub/package/${slug}`, {
       method: "POST",
       body: formData,
     })

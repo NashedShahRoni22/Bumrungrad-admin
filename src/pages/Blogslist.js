@@ -60,7 +60,7 @@ const Blogslist = () => {
                 </div>
                 <div className='p-4 flex justify-between'>
                   {' '}
-                  <Link to={`/home/one-blogs/${d?.id}`}>
+                  <Link to={`/home/one-blogs/${d?.slug}`}>
                     <button className='border border-blue bg-blue hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear'>
                       Update
                     </button>

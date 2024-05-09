@@ -7,7 +7,7 @@ import 'react-quill/dist/quill.snow.css'
 import { useNavigate } from 'react-router-dom'
 
 const OneBlogs = () => {
-  const { id } = useParams()
+  const { slug } = useParams()
   const [loader, setLoader] = useState(true)
   const [oneBlog, setOneBlog] = useState({})
   const [preview, setPreview] = useState(false)
@@ -49,14 +49,14 @@ const OneBlogs = () => {
   ]
   // get data
   useEffect(() => {
-    fetch(`https://api.bumrungraddiscover.com/api/get/blogs/${id}`)
+    fetch(`https://api.bumrungraddiscover.com/api/get/blogs/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         setOneBlog(data.data)
         seteditorValue(data.data.blogDescription)
         setLoader(false)
       })
-  }, [id])
+  }, [slug])
 
   //update blog
   const handleUpdateBlogs = (e) => {
@@ -70,7 +70,7 @@ const OneBlogs = () => {
       blogslogan,
       editorValue,
     }
-    console.log(blogs)
+    // console.log(blogs)
 
     const formData = new FormData()
     formData.append('blogImage', blogImg)
@@ -79,7 +79,7 @@ const OneBlogs = () => {
     formData.append('blogDescription', editorValue)
     //append data with keys
     fetch(
-      `https://api.bumrungraddiscover.com/api/update/blogs/${oneBlog?.id}`,
+      `https://api.bumrungraddiscover.com/api/update/blogs/${oneBlog?.slug}`,
       {
         method: 'POST',
         body: formData,
