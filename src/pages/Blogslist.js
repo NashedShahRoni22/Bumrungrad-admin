@@ -54,9 +54,9 @@ const Blogslist = () => {
                   <h5 className='font-semibold text-blue text-lg'>
                     {d.blogTitle}
                   </h5>
-                  <p className='my-3 text-justify'>
+                  {/* <p className='my-3 text-justify'>
                     {d.blogSlogan?.slice(0, 160)}...{' '}
-                  </p>
+                  </p> */}
                 </div>
                 <div className='p-4 flex justify-between'>
                   {' '}

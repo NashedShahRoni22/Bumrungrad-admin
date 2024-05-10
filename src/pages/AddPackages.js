@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import {
   Tabs,
   TabsHeader,
@@ -17,16 +19,16 @@ import {
   DialogFooter,
 } from '@material-tailwind/react'
 import { toast } from 'react-toastify'
-import { AiOutlineDelete } from 'react-icons/ai'
+// import { AiOutlineDelete } from 'react-icons/ai'
 
 export default function AddPackages() {
   //dialogue
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(!open)
-  const [open2, setOpen2] = React.useState(false)
-  const handleOpen2 = () => setOpen2(!open2)
-  const [open3, setOpen3] = React.useState(false)
-  const handleOpen3 = () => setOpen3(!open3)
+  // const [open, setOpen] = React.useState(false)
+  //const handleOpen = () => setOpen(!open)
+  // const [open2, setOpen2] = React.useState(false)
+  //const handleOpen2 = () => setOpen2(!open2)
+  // const [open3, setOpen3] = React.useState(false)
+  //const handleOpen3 = () => setOpen3(!open3)
 
   const [loader, setLoader] = useState(false)
   const [childLoader, setChildLoader] = useState(false)
@@ -39,48 +41,80 @@ export default function AddPackages() {
     useState('No file chosen')
   const [selectedChildImage, setSelectedChildImage] = useState('No file chosen')
 
-  const [information, setInformation] = useState('')
+  //const [information, setInformation] = useState('')
   const [informations, setInformations] = useState([])
 
-  const [condition, setCondition] = useState('')
+  //const [condition, setCondition] = useState('')
   const [conditions, setConditions] = useState([])
 
-  const [treatment, setTreatment] = useState('')
+  //const [treatment, setTreatment] = useState('')
   const [treatments, setTreatments] = useState([])
 
   // informations add remove functions
-  const addInformations = () => {
-    const newInformations = [...informations, { information }]
-    setInformations(newInformations)
-    setInformation('')
+  // const addInformations = () => {
+  //   const newInformations = [...informations, { information }]
+  //   setInformations(newInformations)
+  //   setInformation('')
+  // }
+  // const removeInformation = (index) => {
+  //   const updatedInformations = [...informations]
+  //   updatedInformations.splice(index, 1)
+  //   setInformations(updatedInformations)
+  // }
+  // // conditions add remove functions
+  // const addConditions = () => {
+  //   const newConditions = [...conditions, { condition }]
+  //   setConditions(newConditions)
+  //   setCondition('')
+  // }
+  // const removeCondition = (index) => {
+  //   const updatedConditions = [...conditions]
+  //   updatedConditions.splice(index, 1)
+  //   setConditions(updatedConditions)
+  // }
+  // // conditions add remove functions
+  // const addTreatments = () => {
+  //   const newTreatments = [...treatments, { treatment }]
+  //   setTreatments(newTreatments)
+  //   setTreatment('')
+  // }
+  // const removeTreatment = (index) => {
+  //   const updatedTreatments = [...treatments]
+  //   updatedTreatments.splice(index, 1)
+  //   setTreatments(updatedTreatments)
+  // }
+
+  //react quil
+  const [editorValue, seteditorValue] = useState('')
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
+      ],
+      ['link', 'image', 'video', 'code-block'],
+      ['clean'],
+    ],
   }
-  const removeInformation = (index) => {
-    const updatedInformations = [...informations]
-    updatedInformations.splice(index, 1)
-    setInformations(updatedInformations)
-  }
-  // conditions add remove functions
-  const addConditions = () => {
-    const newConditions = [...conditions, { condition }]
-    setConditions(newConditions)
-    setCondition('')
-  }
-  const removeCondition = (index) => {
-    const updatedConditions = [...conditions]
-    updatedConditions.splice(index, 1)
-    setConditions(updatedConditions)
-  }
-  // conditions add remove functions
-  const addTreatments = () => {
-    const newTreatments = [...treatments, { treatment }]
-    setTreatments(newTreatments)
-    setTreatment('')
-  }
-  const removeTreatment = (index) => {
-    const updatedTreatments = [...treatments]
-    updatedTreatments.splice(index, 1)
-    setTreatments(updatedTreatments)
-  }
+
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+  ]
 
   //get parent package
   useEffect(() => {
@@ -131,7 +165,7 @@ export default function AddPackages() {
     e.preventDefault()
     const title = e.target.title.value
     const price = e.target.price.value
-    const description = e.target.description.value
+    //const description = e.target.description.value
     const location = e.target.location.value
     const shift1 = e.target.shift1.value
     const shift2 = e.target.shift2.value
@@ -139,13 +173,14 @@ export default function AddPackages() {
       selectedChildImage,
       title,
       price,
-      description,
+      //description,
       location,
       shift1,
       shift2,
       informations,
       conditions,
       treatments,
+      editorValue,
     }
     console.log(postData)
     if (selectedChildImage === 'No file chosen') {
@@ -159,14 +194,15 @@ export default function AddPackages() {
       formData.append('cover_photo', selectedChildImage)
       formData.append('title', title)
       formData.append('price', price)
-      formData.append('description', description)
+      // formData.append('description', description)
       formData.append('parent_id', parentId)
       formData.append('location', location)
       formData.append('shift1', shift1)
       formData.append('shift2', shift2)
-      formData.append('conditions', JSON.stringify(informations))
-      formData.append('inclusions', JSON.stringify(conditions))
-      formData.append('exclusions', JSON.stringify(treatments))
+      formData.append('content', editorValue)
+      //formData.append('conditions', JSON.stringify(informations))
+      //formData.append('inclusions', JSON.stringify(conditions))
+      //formData.append('exclusions', JSON.stringify(treatments))
 
       fetch('https://api.bumrungraddiscover.com/api/create/sub/package', {
         method: 'POST',
@@ -314,7 +350,7 @@ export default function AddPackages() {
                 </div>
                 <div className='grid gap-4 md:grid-cols-2'>
                   {/* multiple Conditions */}
-                  <div className='flex items-center gap-5'>
+                  {/* <div className='flex items-center gap-5'>
                     <div className='relative flex w-full'>
                       <Input
                         value={information}
@@ -376,9 +412,9 @@ export default function AddPackages() {
                         </DialogFooter>
                       </Dialog>
                     </div>
-                  </div>
+                  </div> */}
                   {/* multiple Inclusions */}
-                  <div className='flex items-center gap-5'>
+                  {/* <div className='flex items-center gap-5'>
                     <div className='relative flex w-full'>
                       <Input
                         value={condition}
@@ -440,9 +476,9 @@ export default function AddPackages() {
                         </DialogFooter>
                       </Dialog>
                     </div>
-                  </div>
+                  </div> */}
                   {/* multiple Exclusions */}
-                  <div className='flex items-center gap-5'>
+                  {/* <div className='flex items-center gap-5'>
                     <div className='relative flex w-full'>
                       <Input
                         value={treatment}
@@ -504,13 +540,22 @@ export default function AddPackages() {
                         </DialogFooter>
                       </Dialog>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
-                <Textarea
-                  label='Enter Description'
-                  name='description'
-                  required
-                />
+                <div className=''>
+                  <label htmlFor='' className='text-red'>
+                    <span className='font-semibold'>Long Description</span>
+                  </label>
+                  <ReactQuill
+                    theme='snow'
+                    modules={modules}
+                    formats={formats}
+                    value={editorValue}
+                    onChange={seteditorValue}
+                    className='my-2.5'
+                  />
+                </div>
+
                 <Button
                   className='bg-blue w-fit flex items-center gap-1'
                   type='submit'

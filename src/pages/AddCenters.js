@@ -7,65 +7,99 @@ import {
   Input,
   Textarea,
 } from '@material-tailwind/react'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import React, { useState } from 'react'
-import { AiOutlineDelete } from 'react-icons/ai'
+//import { AiOutlineDelete } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 
 export default function AddCenters() {
   const [loader, setLoader] = useState(false)
   //dialogue
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(!open)
-  const [open2, setOpen2] = React.useState(false)
-  const handleOpen2 = () => setOpen2(!open2)
-  const [open3, setOpen3] = React.useState(false)
-  const handleOpen3 = () => setOpen3(!open3)
+  //const [open, setOpen] = React.useState(false)
+  //const handleOpen = () => setOpen(!open)
+  //const [open2, setOpen2] = React.useState(false)
+  //const handleOpen2 = () => setOpen2(!open2)
+  //const [open3, setOpen3] = React.useState(false)
+  //const handleOpen3 = () => setOpen3(!open3)
 
   //data states
   const [selectedCenterImg, setSelectedCenterImg] = useState('')
 
-  const [information, setInformation] = useState('')
-  const [informations, setInformations] = useState([])
+  //const [information, setInformation] = useState('')
+  //const [informations, setInformations] = useState([])
 
-  const [condition, setCondition] = useState('')
-  const [conditions, setConditions] = useState([])
+  //const [condition, setCondition] = useState('')
+  //const [conditions, setConditions] = useState([])
 
-  const [treatment, setTreatment] = useState('')
-  const [treatments, setTreatments] = useState([])
+  //const [treatment, setTreatment] = useState('')
+  //const [treatments, setTreatments] = useState([])
 
   // informations add remove functions
-  const addInformations = () => {
-    const newInformations = [...informations, { information }]
-    setInformations(newInformations)
-    setInformation('')
+  // const addInformations = () => {
+  //   const newInformations = [...informations, { information }]
+  //   setInformations(newInformations)
+  //   setInformation('')
+  // }
+  // const removeInformation = (index) => {
+  //   const updatedInformations = [...informations]
+  //   updatedInformations.splice(index, 1)
+  //   setInformations(updatedInformations)
+  // }
+  // // conditions add remove functions
+  // const addConditions = () => {
+  //   const newConditions = [...conditions, { condition }]
+  //   setConditions(newConditions)
+  //   setCondition('')
+  // }
+  // const removeCondition = (index) => {
+  //   const updatedConditions = [...conditions]
+  //   updatedConditions.splice(index, 1)
+  //   setConditions(updatedConditions)
+  // }
+  // // conditions add remove functions
+  // const addTreatments = () => {
+  //   const newTreatments = [...treatments, { treatment }]
+  //   setTreatments(newTreatments)
+  //   setTreatment('')
+  // }
+  // const removeTreatment = (index) => {
+  //   const updatedTreatments = [...treatments]
+  //   updatedTreatments.splice(index, 1)
+  //   setTreatments(updatedTreatments)
+  // }
+
+  //react quil
+  const [editorValue, seteditorValue] = useState('')
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
+      ],
+      ['link', 'image', 'video', 'code-block'],
+      ['clean'],
+    ],
   }
-  const removeInformation = (index) => {
-    const updatedInformations = [...informations]
-    updatedInformations.splice(index, 1)
-    setInformations(updatedInformations)
-  }
-  // conditions add remove functions
-  const addConditions = () => {
-    const newConditions = [...conditions, { condition }]
-    setConditions(newConditions)
-    setCondition('')
-  }
-  const removeCondition = (index) => {
-    const updatedConditions = [...conditions]
-    updatedConditions.splice(index, 1)
-    setConditions(updatedConditions)
-  }
-  // conditions add remove functions
-  const addTreatments = () => {
-    const newTreatments = [...treatments, { treatment }]
-    setTreatments(newTreatments)
-    setTreatment('')
-  }
-  const removeTreatment = (index) => {
-    const updatedTreatments = [...treatments]
-    updatedTreatments.splice(index, 1)
-    setTreatments(updatedTreatments)
-  }
+
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+  ]
 
   //add clinic and centers
   const handleAddClinics = (e) => {
@@ -73,22 +107,22 @@ export default function AddCenters() {
     e.preventDefault()
     const name = e.target.name.value
     const location = e.target.location.value
-    const description = e.target.description.value
+    //const description = e.target.description.value
     const postData = {
       selectedCenterImg,
       name,
       location,
-      description,
-      informations,
-      conditions,
-      treatments,
+      //description,
+      editorValue,
+      //informations,
+      //conditions,
+      //treatments,
     }
     console.log(postData)
     if (
       selectedCenterImg === '' ||
       name === '' ||
-      location === '' ||
-      description === ''
+      location === '' 
     ) {
       setLoader(false)
       if (selectedCenterImg === '') {
@@ -100,18 +134,19 @@ export default function AddCenters() {
       if (location === '') {
         toast.error('Center Location is Required')
       }
-      if (description === '') {
-        toast.error('Center Description')
-      }
+      // if (description === '') {
+      //   toast.error('Center Description')
+      // }
     } else {
       const formData = new FormData()
       formData.append('cover_photo', selectedCenterImg)
       formData.append('name', name)
       formData.append('location', location)
-      formData.append('description', description)
-      formData.append('informations', JSON.stringify(informations))
-      formData.append('conditions', JSON.stringify(conditions))
-      formData.append('treatments', JSON.stringify(treatments))
+      formData.append('content', editorValue)
+      // formData.append('description', description)
+      // formData.append('informations', JSON.stringify(informations))
+      // formData.append('conditions', JSON.stringify(conditions))
+      // formData.append('treatments', JSON.stringify(treatments))
 
       fetch('https://api.bumrungraddiscover.com/api/add/center', {
         method: 'POST',
@@ -122,9 +157,9 @@ export default function AddCenters() {
           console.log(data)
           setLoader(false)
           e.target.reset()
-          setInformations([])
-          setConditions([])
-          setTreatments([])
+          //setInformations([])
+          //setConditions([])
+          //setTreatments([])
           setSelectedCenterImg('')
           toast.success('Clinic/Centers added successfully!')
         })
@@ -133,10 +168,7 @@ export default function AddCenters() {
   }
   return (
     <div className='mx-5 md:container md:mx-auto py-10'>
-      <form
-        onSubmit={handleAddClinics}
-        className=''
-      >
+      <form onSubmit={handleAddClinics} className=''>
         <p className='text-2xl font-semibold'>Add Center</p>
         <hr className='my-5' />
         <div className='flex flex-row items-center'>
@@ -163,7 +195,7 @@ export default function AddCenters() {
           <Input label='Enter Name' name='name' />
           <Input label='Enter Location' name='location' />
           {/* multiple information */}
-          <div className='flex items-center gap-5'>
+          {/* <div className='flex items-center gap-5'>
             <div className='relative flex w-full'>
               <Input
                 value={information}
@@ -236,9 +268,9 @@ export default function AddCenters() {
                 </DialogFooter>
               </Dialog>
             </div>
-          </div>
+          </div> */}
           {/* multiple condition */}
-          <div className='flex items-center gap-5'>
+          {/* <div className='flex items-center gap-5'>
             <div className='relative flex w-full'>
               <Input
                 value={condition}
@@ -311,9 +343,9 @@ export default function AddCenters() {
                 </DialogFooter>
               </Dialog>
             </div>
-          </div>
+          </div> */}
           {/* multiple treatment */}
-          <div className='flex items-center gap-5'>
+          {/* <div className='flex items-center gap-5'>
             <div className='relative flex w-full'>
               <Input
                 value={treatment}
@@ -386,10 +418,23 @@ export default function AddCenters() {
                 </DialogFooter>
               </Dialog>
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className='lg:w-1/2'>
+        {/* <div className='lg:w-1/2'>
           <Textarea label='Enter Details' name='description' />
+        </div> */}
+        <div className=''>
+          <label htmlFor='' className='text-red'>
+            <span className='font-semibold'>Long Description</span>
+          </label>
+          <ReactQuill
+            theme='snow'
+            modules={modules}
+            formats={formats}
+            value={editorValue}
+            onChange={seteditorValue}
+            className='my-2.5'
+          />
         </div>
         <Button className='bg-blue' type='submit'>
           {loader ? 'Loading' : 'Add Center'}
