@@ -122,7 +122,7 @@ const OneBlogs = () => {
               <img className='lg:w-1/2' src={oneBlog?.blogImage} alt='' />
               <div className='lg:w-1/2'>
                 <p>{oneBlog?.blogTitle}</p>
-                <p>{oneBlog?.blogSlogan}</p>
+                {/* <p>{oneBlog?.blogSlogan}</p> */}
               </div>
             </div>
           ) : (
@@ -158,13 +158,13 @@ const OneBlogs = () => {
                   label='Blog Title'
                   name='name'
                 />
-                <Textarea
+                {/* <Textarea
                   defaultValue={oneBlog?.blogSlogan}
                   required
                   label='Blog Slogan'
                   name='descriptiion'
                   rows={8}
-                />
+                /> */}
                 <ReactQuill
                   theme='snow'
                   modules={modules}

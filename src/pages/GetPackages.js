@@ -107,7 +107,7 @@ export default function GetPackages() {
                   <p className="font-semibold text-blue md:text-xl">
                     {p?.title}
                   </p>
-                  <p>{p?.description.slice(0, 160)}</p>
+                  <p>{p?.description?.slice(0, 160)}</p>
                 </div>
                 <div className="flex">
                   <Link

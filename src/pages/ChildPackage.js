@@ -48,7 +48,7 @@ const ChildPackage = () => {
               <h2 className='md:ml-8 text-xl font-semibold md:text-2xl capitalize text-blue'>
                 Total sub packages: {childPackage.length}
               </h2>
-              <hr className="my-5" />
+              <hr className='my-5' />
               <div className='md:ml-8 my-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {' '}
                 {childPackage.map((cp, i) => (
@@ -61,7 +61,7 @@ const ChildPackage = () => {
                       <p className='font-semibold text-blue md:text-xl'>
                         {cp?.title}
                       </p>
-                      <p>{cp?.description.slice(0, 200)}</p>
+                      <p>{cp?.description?.slice(0, 200)}</p>
                     </div>
                     <div className='flex'>
                       {' '}

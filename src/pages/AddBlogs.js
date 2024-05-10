@@ -1,4 +1,4 @@
-import { Button, Input, Textarea } from '@material-tailwind/react'
+import { Button, Input, } from '@material-tailwind/react'
 import { useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -58,7 +58,7 @@ const AddBlogs = () => {
     const formData = new FormData()
     formData.append('blogImage', blogImg)
     formData.append('blogTitle', name)
-    formData.append('blogSlogan', blogslogan)
+    //formData.append('blogSlogan', blogslogan)
     formData.append('blogDescription', editorValue) 
     //append data with keys
     fetch('https://api.bumrungraddiscover.com/api/add/blogs', {
@@ -111,7 +111,7 @@ const AddBlogs = () => {
         </p>
         <div className='my-4 flex flex-col gap-y-4'>
           <Input required label='Blog Title' name='name' />
-          <Textarea required label='Blog Slogan' name='descriptiion' />
+          {/* <Textarea required label='Blog Slogan' name='descriptiion' /> */}
         </div>
 
         <div className=''>
