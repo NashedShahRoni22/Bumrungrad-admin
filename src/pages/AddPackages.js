@@ -13,10 +13,6 @@ import {
   Option,
   Button,
   Spinner,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
 } from '@material-tailwind/react'
 import { toast } from 'react-toastify'
 // import { AiOutlineDelete } from 'react-icons/ai'
@@ -544,7 +540,7 @@ export default function AddPackages() {
                 </div>
                 <div className=''>
                   <label htmlFor='' className='text-red'>
-                    <span className='font-semibold'>Long Description</span>
+                    <span className='font-semibold'>Description</span>
                   </label>
                   <ReactQuill
                     theme='snow'

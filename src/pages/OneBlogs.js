@@ -10,6 +10,7 @@ const OneBlogs = () => {
   const { slug } = useParams()
   const [loader, setLoader] = useState(true)
   const [oneBlog, setOneBlog] = useState({})
+  // console.log(oneBlog);
   const [preview, setPreview] = useState(false)
   const [loader1, setLoader1] = useState(false)
   const [blogImg, setBlogImg] = useState('')
@@ -63,23 +64,23 @@ const OneBlogs = () => {
     setLoader1(true)
     e.preventDefault()
     const name = e.target.name.value
-    const blogslogan = e.target.descriptiion.value
+    // const blogslogan = e.target.descriptiion.value
     const blogs = {
       blogImg,
       name,
-      blogslogan,
+      // blogslogan,
       editorValue,
     }
-    // console.log(blogs)
+    console.log(blogs)
 
     const formData = new FormData()
     formData.append('blogImage', blogImg)
     formData.append('blogTitle', name)
-    formData.append('blogSlogan', blogslogan)
+    // formData.append('blogSlogan', blogslogan)
     formData.append('blogDescription', editorValue)
     //append data with keys
     fetch(
-      `https://api.bumrungraddiscover.com/api/update/blogs/${oneBlog?.slug}`,
+      `https://api.bumrungraddiscover.com/api/update/blogs/${oneBlog?.id}`,
       {
         method: 'POST',
         body: formData,

@@ -12,6 +12,7 @@ export default function CenterUpdate() {
   const [loader, setLoader] = useState(false)
   const [postLoader, setPostLoader] = useState(false)
   const [center, setCenter] = useState({})
+  console.log(center);
   const navigate = useNavigate()
 
   //dialogue
@@ -111,6 +112,7 @@ export default function CenterUpdate() {
         setInformations(data?.response?.data?.informations)
         setConditions(data?.response?.data?.conditions)
         setTreatments(data?.response?.data?.treatments)
+        seteditorValue(data?.response?.data?.content)
         setLoader(false)
       })
   }, [slug])
@@ -132,7 +134,7 @@ export default function CenterUpdate() {
       //treatments,
       editorValue,
     }
-    console.log(postData)
+    // console.log(postData)
     const formData = new FormData()
     formData.append('cover_photo', selectedCenterImg)
     formData.append('content', editorValue)
@@ -187,8 +189,8 @@ export default function CenterUpdate() {
                   Choose file
                 </label>
                 <label className='text-sm text-slate-500'>
-                  {selectedCenterImg.name
-                    ? selectedCenterImg.name
+                  {selectedCenterImg?.name
+                    ? selectedCenterImg?.name
                     : 'No File Chosen'}
                 </label>
               </div>
@@ -441,7 +443,7 @@ export default function CenterUpdate() {
           </div> */}
           <div className=''>
             <label htmlFor='' className='text-red'>
-              <span className='font-semibold'>Long Description</span>
+              <span className='font-semibold'>Description</span>
             </label>
             <ReactQuill
               theme='snow'

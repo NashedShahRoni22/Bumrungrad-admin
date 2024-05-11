@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import {
   Button,
-  
   Input,
   Option,
   Select,
@@ -16,10 +15,10 @@ import {
 //import { AiOutlineDelete } from "react-icons/ai";
 
 const ChildPackageDetails = () => {
-  const [loader, setLoader] = useState(false)
-  const [childLoader, setChildLoader] = useState(false)
-  const { slug } = useParams()
-  const [childDetailsPackage, setChildDetailsPackage] = useState({})
+  const [loader, setLoader] = useState(false);
+  const [childLoader, setChildLoader] = useState(false);
+  const { slug } = useParams();
+  const [childDetailsPackage, setChildDetailsPackage] = useState({});
   // console.log(childDetailsPackage);
 
   //dialogue
@@ -30,9 +29,11 @@ const ChildPackageDetails = () => {
   //const [open3, setOpen3] = React.useState(false);
   //const handleOpen3 = () => setOpen3(!open3);
 
-  const [parentPckages, setParentPackages] = useState([])
-  const [parentId, setParentId] = useState('')
-  const [selectedChildImage, setSelectedChildImage] = useState('No file chosen')
+  const [parentPckages, setParentPackages] = useState([]);
+  const [parentId, setParentId] = useState("");
+  const [selectedChildImage, setSelectedChildImage] =
+    useState("");
+    // console.log(selectedChildImage);
   // const [information, setInformation] = useState("");
   //const [informations, setInformations] = useState([])
 
@@ -77,79 +78,80 @@ const ChildPackageDetails = () => {
   // };
 
   //react quil
-  const [editorValue, seteditorValue] = useState('')
+  const [editorValue, seteditorValue] = useState("");
 
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ["bold", "italic", "underline", "strike", "blockquote"],
       [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
       ],
-      ['link', 'image', 'video', 'code-block'],
-      ['clean'],
+      ["link", "image", "video", "code-block"],
+      ["clean"],
     ],
-  }
+  };
 
   const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-  ]
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
 
   //get parent package
   useEffect(() => {
-    fetch('https://api.bumrungraddiscover.com/api/get/package')
+    fetch("https://api.bumrungraddiscover.com/api/get/package")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 404) {
-          console.log(data)
+          console.log(data);
         } else {
-          setParentPackages(data?.data)
+          setParentPackages(data?.data);
         }
-      })
-  }, [])
+      });
+  }, []);
 
   //get packages details
   useEffect(() => {
-    setLoader(true)
+    setLoader(true);
     fetch(`https://api.bumrungraddiscover.com/api/get/sub/package/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          setChildDetailsPackage(data?.data)
-          setParentId(data?.data?.parent_id)
-          setSelectedChildImage(data?.data?.cover_photo)
+          setChildDetailsPackage(data?.data);
+          setParentId(data?.data?.parent_id);
+          // setSelectedChildImage(data?.data?.cover_photo);
+          seteditorValue(data?.data?.content);
           //setInformations(data?.data?.conditions)
           //setConditions(data?.data?.inclusions)
           //setTreatments(data?.data?.exclusions)
-          setLoader(false)
+          setLoader(false);
         }
-        setLoader(false)
-      })
-  }, [slug])
+        setLoader(false);
+      });
+  }, [slug]);
 
   // add child packages
   const handleUpdateChildPackages = (e) => {
-    setChildLoader(true)
-    e.preventDefault()
-    const title = e.target.title.value
-    const price = e.target.price.value
+    setChildLoader(true);
+    e.preventDefault();
+    const title = e.target.title.value;
+    const price = e.target.price.value;
     //const description = e.target.description.value
-    const location = e.target.location.value
-    const shift1 = e.target.shift1.value
-    const shift2 = e.target.shift2.value
+    const location = e.target.location.value;
+    const shift1 = e.target.shift1.value;
+    const shift2 = e.target.shift2.value;
     const postData = {
       selectedChildImage,
       title,
@@ -162,18 +164,18 @@ const ChildPackageDetails = () => {
       //informations,
       //conditions,
       //treatments,
-    }
-     console.log(postData);
-    const formData = new FormData()
-    formData.append('cover_photo', selectedChildImage)
-    formData.append('title', title)
-    formData.append('price', price)
+    };
+    console.log(postData);
+    const formData = new FormData();
+    formData.append("cover_photo", selectedChildImage);
+    formData.append("title", title);
+    formData.append("price", price);
     //formData.append('description', description)
-    formData.append('parent_id', parentId)
-    formData.append('location', location)
-    formData.append('shift1', shift1)
-    formData.append('shift2', shift2)
-    formData.append('content', editorValue)
+    formData.append("parent_id", parentId);
+    formData.append("location", location);
+    formData.append("shift1", shift1);
+    formData.append("shift2", shift2);
+    formData.append("content", editorValue);
     // formData.append("conditions", JSON.stringify(informations));
     // formData.append("inclusions", JSON.stringify(conditions));
     // formData.append("exclusions", JSON.stringify(treatments));
@@ -181,62 +183,63 @@ const ChildPackageDetails = () => {
     fetch(
       `https://api.bumrungraddiscover.com/api/update/sub/package/${childDetailsPackage?.id}`,
       {
-        method: 'POST',
+        method: "POST",
         body: formData,
       }
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        e.target.reset()
-        toast.success('Child Package Updated Successfully!')
-        window.location.reload()
+        console.log(data);
+        e.target.reset();
+        toast.success("Child Package Updated Successfully!");
+        // window.location.reload()
+        setChildLoader(false);
       })
-      .catch((e) => console.error(e))
-  }
+      .catch((e) => console.error(e));
+  };
   return (
-    <section className='mx-5 md:container md:mx-auto py-10'>
+    <section className="mx-5 md:container md:mx-auto py-10">
       {loader ? (
         <Loader />
       ) : (
         <form
           onSubmit={handleUpdateChildPackages}
-          action=''
-          className='flex flex-col gap-5'
+          action=""
+          className="flex flex-col gap-5"
         >
-          <h5 className='text-xl font-semibold'>Update Child Package</h5>
+          <h5 className="text-xl font-semibold">Update Child Package</h5>
           <img
             src={childDetailsPackage?.cover_photo}
-            alt='child_package_cover_photo'
-            className='h-[200px] w-[300px]'
+            alt="child_package_cover_photo"
+            className="h-[200px] w-[300px]"
           />
-          <div className='flex flex-row items-center'>
+          <div className="flex flex-row items-center">
             <input
-              type='file'
-              id='child-input'
+              type="file"
+              id="child-input"
               onChange={(e) => setSelectedChildImage(e.target.files[0])}
               hidden
             />
             <label
-              htmlFor='child-input'
-              className='block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer'
+              htmlFor="child-input"
+              className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer"
             >
               Choose file
             </label>
             <label className='text-sm text-slate-500'>
-              {selectedChildImage.name
-                ? selectedChildImage.name
+              {selectedChildImage?.name
+                ? selectedChildImage?.name
                 : selectedChildImage}
             </label>
           </div>
-          <p className='text-red-400 text-sm'>
+          <p className="text-red-400 text-sm">
             Image Ratio - 1200*628. Image size not more than 500kb
           </p>
 
-          <div className='grid gap-4 md:grid-cols-2'>
-            <div className='w-full'>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="w-full">
               <Select
-                label='Select Parent Package'
+                label="Select Parent Package"
                 required
                 onChange={(value) => setParentId(value)}
               >
@@ -246,41 +249,41 @@ const ChildPackageDetails = () => {
                   </Option>
                 ))}
               </Select>
-              {parentId === '' && (
-                <p className='text-red-500 text-sm mt-1'>
+              {parentId === "" && (
+                <p className="text-red-500 text-sm mt-1">
                   *Select Parent Package
                 </p>
               )}
             </div>
             <Input
-              label='Enter Title'
-              name='title'
+              label="Enter Title"
+              name="title"
               required
               defaultValue={childDetailsPackage?.title}
             />
             <Input
-              label='Enter Price'
-              name='price'
+              label="Enter Price"
+              name="price"
               required
               defaultValue={childDetailsPackage?.price}
             />
             <Input
-              label='Enter Location'
-              name='location'
+              label="Enter Location"
+              name="location"
               defaultValue={childDetailsPackage?.location}
             />
             <Input
-              label='Enter First Shift'
-              name='shift1'
+              label="Enter First Shift"
+              name="shift1"
               defaultValue={childDetailsPackage?.shift1}
             />
             <Input
-              label='Enter Second Shift'
-              name='shift2'
+              label="Enter Second Shift"
+              name="shift2"
               defaultValue={childDetailsPackage?.shift1}
             />
           </div>
-          <div className='grid gap-4 md:grid-cols-2'>
+          <div className="grid gap-4 md:grid-cols-2">
             {/* multiple Conditions */}
             {/* <div className="flex items-center gap-5">
               <div className="relative flex w-full">
@@ -480,30 +483,30 @@ const ChildPackageDetails = () => {
               </div>
             </div> */}
           </div>
-          <div className=''>
-            <label htmlFor='' className='text-red'>
-              <span className='font-semibold'>Long Description</span>
+          <div className="">
+            <label htmlFor="" className="text-red">
+              <span className="font-semibold">Long Description</span>
             </label>
             <ReactQuill
-              theme='snow'
+              theme="snow"
               modules={modules}
               formats={formats}
               value={editorValue}
               onChange={seteditorValue}
-              className='my-2.5'
+              className="my-2.5"
             />
           </div>
           <Button
-            className='bg-blue w-fit flex items-center gap-1'
-            type='submit'
+            className="bg-blue w-fit flex items-center gap-1"
+            type="submit"
           >
-            Update{' '}
-            {childLoader && <Spinner className='h-4 w-4' color='white' />}
+            Update{" "}
+            {childLoader && <Spinner className="h-4 w-4" color="white" />}
           </Button>
         </form>
       )}
     </section>
-  )
+  );
 };
 
 export default ChildPackageDetails;

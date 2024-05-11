@@ -1,11 +1,6 @@
 import {
   Button,
-  Dialog,
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
   Input,
-  Textarea,
 } from '@material-tailwind/react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'

@@ -46,11 +46,11 @@ const AddBlogs = () => {
     setLoader1(true)
     e.preventDefault()
     const name = e.target.name.value
-    const blogslogan = e.target.descriptiion.value
+    // const blogslogan = e.target.descriptiion.value
     const blogs = {
       blogImg,
       name,
-      blogslogan,
+      // blogslogan,
       editorValue,
     }
     console.log(blogs)
@@ -116,7 +116,7 @@ const AddBlogs = () => {
 
         <div className=''>
           <label htmlFor='' className='text-red'>
-            <span className='font-semibold'>Long Description</span>
+            <span className='font-semibold'>Description</span>
           </label>
           <ReactQuill
             theme='snow'
