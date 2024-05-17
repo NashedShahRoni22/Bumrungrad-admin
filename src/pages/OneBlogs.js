@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ const OneBlogs = () => {
   const { slug } = useParams();
   const [loader, setLoader] = useState(true);
   const [oneBlog, setOneBlog] = useState({});
-  // console.log(oneBlog);
+  console.log(oneBlog);
   const [preview, setPreview] = useState(false);
   const [loader1, setLoader1] = useState(false);
   const [blogImg, setBlogImg] = useState("");

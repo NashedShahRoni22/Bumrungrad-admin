@@ -19,7 +19,7 @@ const ChildPackageDetails = () => {
   const [childLoader, setChildLoader] = useState(false);
   const { slug } = useParams();
   const [childDetailsPackage, setChildDetailsPackage] = useState({});
-  // console.log(childDetailsPackage);
+  console.log(childDetailsPackage);
 
   //dialogue
   //const [open, setOpen] = React.useState(false);
@@ -31,9 +31,8 @@ const ChildPackageDetails = () => {
 
   const [parentPckages, setParentPackages] = useState([]);
   const [parentId, setParentId] = useState("");
-  const [selectedChildImage, setSelectedChildImage] =
-    useState("");
-    // console.log(selectedChildImage);
+  const [selectedChildImage, setSelectedChildImage] = useState("");
+  // console.log(selectedChildImage);
   // const [information, setInformation] = useState("");
   //const [informations, setInformations] = useState([])
 
@@ -190,10 +189,15 @@ const ChildPackageDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        e.target.reset();
-        toast.success("Child Package Updated Successfully!");
-        // window.location.reload()
-        setChildLoader(false);
+        if (data?.status === 200) {
+          e.target.reset();
+          toast.success("Child Package Updated Successfully!");
+          // window.location.reload()
+          setChildLoader(false);
+        } else {
+          toast.error(data?.msg);
+          setChildLoader(false);
+        }
       })
       .catch((e) => console.error(e));
   };
@@ -226,7 +230,7 @@ const ChildPackageDetails = () => {
             >
               Choose file
             </label>
-            <label className='text-sm text-slate-500'>
+            <label className="text-sm text-slate-500">
               {selectedChildImage?.name
                 ? selectedChildImage?.name
                 : selectedChildImage}

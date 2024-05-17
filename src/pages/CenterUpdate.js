@@ -1,19 +1,19 @@
-import { Button, Input, Textarea } from '@material-tailwind/react'
-import React, { useEffect, useState } from 'react'
+import { Button, Input } from "@material-tailwind/react";
+import React, { useEffect, useState } from "react";
 //import { AiOutlineDelete } from "react-icons/ai";
-import { useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import Loader from '../components/Loader'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Loader from "../components/Loader";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export default function CenterUpdate() {
-  const { slug } = useParams()
-  const [loader, setLoader] = useState(false)
-  const [postLoader, setPostLoader] = useState(false)
-  const [center, setCenter] = useState({})
-  console.log(center);
-  const navigate = useNavigate()
+  const { slug } = useParams();
+  const [loader, setLoader] = useState(false);
+  const [postLoader, setPostLoader] = useState(false);
+  const [center, setCenter] = useState({});
+  // console.log(center);
+  const navigate = useNavigate();
 
   //dialogue
   //const [open, setOpen] = React.useState(false)
@@ -24,49 +24,49 @@ export default function CenterUpdate() {
   //const handleOpen3 = () => setOpen3(!open3)
 
   //data states
-  const [selectedCenterImg, setSelectedCenterImg] = useState('')
+  const [selectedCenterImg, setSelectedCenterImg] = useState("");
 
   //const [information, setInformation] = useState('')
-  const [informations, setInformations] = useState([])
+  const [informations, setInformations] = useState([]);
 
   //const [condition, setCondition] = useState('')
-  const [conditions, setConditions] = useState([])
+  const [conditions, setConditions] = useState([]);
 
   //const [treatment, setTreatment] = useState('')
-  const [treatments, setTreatments] = useState([])
+  const [treatments, setTreatments] = useState([]);
 
   //react quil
 
-  const [editorValue, seteditorValue] = useState('')
+  const [editorValue, seteditorValue] = useState("");
 
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ["bold", "italic", "underline", "strike", "blockquote"],
       [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
       ],
-      ['link', 'image', 'video', 'code-block'],
-      ['clean'],
+      ["link", "image", "video", "code-block"],
+      ["clean"],
     ],
-  }
+  };
 
   const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-  ]
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
 
   // // informations add remove functions
   // const addInformations = () => {
@@ -104,25 +104,25 @@ export default function CenterUpdate() {
 
   //get center
   useEffect(() => {
-    setLoader(true)
+    setLoader(true);
     fetch(`https://api.bumrungraddiscover.com/api/get/centers/${slug}`)
       .then((res) => res.json())
       .then((data) => {
-        setCenter(data?.response?.data)
-        setInformations(data?.response?.data?.informations)
-        setConditions(data?.response?.data?.conditions)
-        setTreatments(data?.response?.data?.treatments)
-        seteditorValue(data?.response?.data?.content)
-        setLoader(false)
-      })
-  }, [slug])
+        setCenter(data?.response?.data);
+        setInformations(data?.response?.data?.informations);
+        setConditions(data?.response?.data?.conditions);
+        setTreatments(data?.response?.data?.treatments);
+        seteditorValue(data?.response?.data?.content);
+        setLoader(false);
+      });
+  }, [slug]);
 
   //add clinic and centers
   const handleUpdateClinic = (e) => {
-    setPostLoader(true)
-    e.preventDefault()
-    const name = e.target.name.value
-    const location = e.target.location.value
+    setPostLoader(true);
+    e.preventDefault();
+    const name = e.target.name.value;
+    const location = e.target.location.value;
     //const description = e.target.description.value
     const postData = {
       selectedCenterImg,
@@ -133,78 +133,82 @@ export default function CenterUpdate() {
       //conditions,
       //treatments,
       editorValue,
-    }
+    };
     // console.log(postData)
-    const formData = new FormData()
-    formData.append('cover_photo', selectedCenterImg)
-    formData.append('content', editorValue)
-    formData.append('name', name)
-    formData.append('location', location)
+    const formData = new FormData();
+    formData.append("cover_photo", selectedCenterImg);
+    formData.append("content", editorValue);
+    formData.append("name", name);
+    formData.append("location", location);
     //formData.append('description', description)
     // formData.append('informations', JSON.stringify(informations))
     // formData.append('conditions', JSON.stringify(conditions))
     // formData.append('treatments', JSON.stringify(treatments))
 
     fetch(`https://api.bumrungraddiscover.com/api/update/center/${center.id}`, {
-      method: 'POST',
+      method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        setPostLoader(false)
-        e.target.reset()
-        toast.success('Clinic/Centers updated successfully!')
-        navigate('/home/centers-list')
+        console.log(data);
+        if (data?.status === 200) {
+          setPostLoader(false);
+          e.target.reset();
+          toast.success("Centers updated successfully!");
+          navigate("/home/centers-list");
+        } else {
+          toast.error(data?.msg);
+        }
       })
-      .catch((e) => console.error(e))
-  }
+      .catch((e) => console.error(e));
+  };
   return (
-    <div className='mx-5 md:container md:mx-auto py-10'>
+    <div className="mx-5 md:container md:mx-auto py-10">
       {loader ? (
         <Loader />
       ) : (
-        <form onSubmit={handleUpdateClinic} className='bg-white p-5'>
-          <p className='text-2xl font-semibold'>Update Center</p>
-          <hr className='my-5' />
-          <div className='flex items-start gap-5'>
+        <form onSubmit={handleUpdateClinic} className="bg-white p-5">
+          <p className="text-2xl font-semibold">Update Center</p>
+          <hr className="my-5" />
+          <div className="flex items-start gap-5">
             <img
               src={center?.cover_photo}
-              className='h-[250px]'
-              alt='center_cover_photo'
+              className="h-[250px]"
+              alt="center_cover_photo"
             />
 
             <div>
-              <div className='flex items-center'>
+              <div className="flex items-center">
                 <input
-                  type='file'
-                  id='custom-input'
+                  type="file"
+                  id="custom-input"
                   onChange={(e) => setSelectedCenterImg(e.target.files[0])}
                   hidden
                 />
                 <label
-                  htmlFor='custom-input'
-                  className='block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer'
+                  htmlFor="custom-input"
+                  className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer"
                 >
                   Choose file
                 </label>
-                <label className='text-sm text-slate-500'>
+                <label className="text-sm text-slate-500">
                   {selectedCenterImg?.name
                     ? selectedCenterImg?.name
-                    : 'No File Chosen'}
+                    : "No File Chosen"}
                 </label>
               </div>
-              <p className='text-red-400 text-sm mt-2.5'>
+              <p className="text-red-400 text-sm mt-2.5">
                 Image Ratio - 1200*628. Image size not more than 500kb
               </p>
             </div>
           </div>
 
-          <div className='grid gap-4 lg:grid-cols-2 my-4'>
-            <Input label='Enter Name' name='name' defaultValue={center?.name} />
+          <div className="grid gap-4 lg:grid-cols-2 my-4">
+            <Input label="Enter Name" name="name" defaultValue={center?.name} />
             <Input
-              label='Enter Location'
-              name='location'
+              label="Enter Location"
+              name="location"
               defaultValue={center?.location}
             />
             {/* multiple information  */}
@@ -441,24 +445,24 @@ export default function CenterUpdate() {
               name='description'
             />
           </div> */}
-          <div className=''>
-            <label htmlFor='' className='text-red'>
-              <span className='font-semibold'>Description</span>
+          <div className="">
+            <label htmlFor="" className="text-red">
+              <span className="font-semibold">Description</span>
             </label>
             <ReactQuill
-              theme='snow'
+              theme="snow"
               modules={modules}
               formats={formats}
               value={editorValue}
               onChange={seteditorValue}
-              className='my-2.5'
+              className="my-2.5"
             />
           </div>
-          <Button className='bg-blue' type='submit'>
-            {postLoader ? 'Loading' : 'Update Center'}
+          <Button className="bg-blue" type="submit">
+            {postLoader ? "Loading" : "Update Center"}
           </Button>
         </form>
       )}
     </div>
-  )
+  );
 }
