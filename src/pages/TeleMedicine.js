@@ -28,7 +28,7 @@ const TeleMedicine = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/tele_medicines/${telemedicineData.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/tele_medicines/${telemedicineData.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -53,7 +53,7 @@ const TeleMedicine = () => {
     "Action",
   ];
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/tele/medicine")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/tele/medicine")
       .then((res) => res.json())
       .then((data) => {
         setTeleMedicine(data.data);

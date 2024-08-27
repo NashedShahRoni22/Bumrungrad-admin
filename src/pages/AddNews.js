@@ -27,7 +27,7 @@ const AddNews = () => {
     formData.append('newsImage', newsImg)
     formData.append('newsTitle', name)
     formData.append('newsDescription', descriptiion)
-    fetch('https://api.bumrungraddiscover.com/api/add/news', {
+    fetch('https://api.discoverinternationalmedicalservice.com/api/add/news', {
       method: 'POST',
       body: formData,
     })

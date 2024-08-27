@@ -110,7 +110,7 @@ const ChildPackageDetails = () => {
 
   //get parent package
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/package")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/package")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 404) {
@@ -124,7 +124,7 @@ const ChildPackageDetails = () => {
   //get packages details
   useEffect(() => {
     setLoader(true);
-    fetch(`https://api.bumrungraddiscover.com/api/get/sub/package/${slug}`)
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/get/sub/package/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -180,7 +180,7 @@ const ChildPackageDetails = () => {
     // formData.append("exclusions", JSON.stringify(treatments));
 
     fetch(
-      `https://api.bumrungraddiscover.com/api/update/sub/package/${childDetailsPackage?.id}`,
+      `https://api.discoverinternationalmedicalservice.com/api/update/sub/package/${childDetailsPackage?.id}`,
       {
         method: "POST",
         body: formData,

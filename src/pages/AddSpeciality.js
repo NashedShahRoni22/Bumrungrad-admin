@@ -29,7 +29,7 @@ export default function AddSpeciality() {
     setLoading(true);
     const postData = { name: speciality };
     console.log(postData);
-    fetch("https://api.bumrungraddiscover.com/api/add/specialty", {
+    fetch("https://api.discoverinternationalmedicalservice.com/api/add/specialty", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -53,7 +53,7 @@ export default function AddSpeciality() {
   const handaleDeletespeciality = (d) => {
     const aggre = window.confirm(`You Want to Delete, ${d?.name}.`);
     if (aggre) {
-      fetch(`https://api.bumrungraddiscover.com/api/delete/specialties/${d.id}`)
+      fetch(`https://api.discoverinternationalmedicalservice.com/api/delete/specialties/${d.id}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -76,7 +76,7 @@ export default function AddSpeciality() {
       specialty: parentSpecialityId,
       sub_specialty: sub_speciality,
     };
-    fetch("https://api.bumrungraddiscover.com/api/add/sub/specialty", {
+    fetch("https://api.discoverinternationalmedicalservice.com/api/add/sub/specialty", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -100,7 +100,7 @@ export default function AddSpeciality() {
 
   //get speacilities
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/specialty")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/specialty")
       .then((res) => res.json())
       .then((data) => {
         if (data?.response?.status === 200) {
@@ -113,7 +113,7 @@ export default function AddSpeciality() {
 
   //get sub speacilities
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/sub/specialty")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/sub/specialty")
       .then((res) => res.json())
       .then((data) => {
         setSubSpecialities(data?.response?.data);
@@ -125,7 +125,7 @@ export default function AddSpeciality() {
     const aggre = window.confirm(`You Want to Delete, ${d?.sub_specialty}.`);
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/sub_specialties/${d.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/sub_specialties/${d.id}`
       )
         .then((res) => res.json())
         .then((data) => {

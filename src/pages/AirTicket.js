@@ -21,7 +21,7 @@ const AirTicket = () => {
     const aggre = window.confirm(`You Want to Delete, ${oneTicket?.country}.`);
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/air_tickets/${oneTicket.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/air_tickets/${oneTicket.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -37,7 +37,7 @@ const AirTicket = () => {
     }
   };
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/air/ticket")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/air/ticket")
       .then((res) => res.json())
       .then((data) => {
         setAirTicket(data.data);

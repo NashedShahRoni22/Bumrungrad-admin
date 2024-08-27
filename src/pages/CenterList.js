@@ -24,7 +24,7 @@ const CenterList = () => {
     const aggre = window.confirm(`You Want to Delete, ${centerinfo?.name}.`);
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/centers/${centerinfo.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/centers/${centerinfo.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -40,7 +40,7 @@ const CenterList = () => {
 
   const TABLE_HEAD = ["SL No", "Image", "Name", "Location", "Action"];
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/centers")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/centers")
       .then((res) => res.json())
       .then((data) => {
         setCenter(data?.response?.data);

@@ -27,7 +27,7 @@ const CheakUp = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/health_check_ups/${oneCheakUp.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/health_check_ups/${oneCheakUp.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -52,7 +52,7 @@ const CheakUp = () => {
     "Action",
   ];
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/health/check_up")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/health/check_up")
       .then((res) => res.json())
       .then((data) => {
         setCheckUp(data.data);

@@ -12,7 +12,7 @@ const HealthPackage = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/package_bookings/${centerinfo.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/package_bookings/${centerinfo.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -30,14 +30,14 @@ const HealthPackage = () => {
 
   const TABLE_HEAD = [
     "Package Name",
-    "patient Name",
+    "Patient Name",
     "HN Number",
-    "email",
+    "Email",
     "Phone Number",
     "Action",
   ];
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/package_booking")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/package_booking")
       .then((res) => res.json())
       .then((data) => {
         setHealthPackage(data?.data);

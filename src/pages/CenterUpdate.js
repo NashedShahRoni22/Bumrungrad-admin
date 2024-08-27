@@ -105,7 +105,7 @@ export default function CenterUpdate() {
   //get center
   useEffect(() => {
     setLoader(true);
-    fetch(`https://api.bumrungraddiscover.com/api/get/centers/${slug}`)
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/get/centers/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         setCenter(data?.response?.data);
@@ -145,7 +145,7 @@ export default function CenterUpdate() {
     // formData.append('conditions', JSON.stringify(conditions))
     // formData.append('treatments', JSON.stringify(treatments))
 
-    fetch(`https://api.bumrungraddiscover.com/api/update/center/${center.id}`, {
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/update/center/${center.id}`, {
       method: "POST",
       body: formData,
     })

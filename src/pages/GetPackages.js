@@ -36,7 +36,7 @@ export default function GetPackages() {
   const handaleDeletePackage = (p) => {
     const aggre = window.confirm(`You Want to Delete, ${p?.title}.`);
     if (aggre) {
-      fetch(`https://api.bumrungraddiscover.com/api/delete/packages/${p.id}`)
+      fetch(`https://api.discoverinternationalmedicalservice.com/api/delete/packages/${p.id}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -52,7 +52,7 @@ export default function GetPackages() {
   // get parent packages
   useEffect(() => {
     setLoader(true);
-    fetch("https://api.bumrungraddiscover.com/api/get/package")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/package")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 404) {
@@ -72,7 +72,7 @@ export default function GetPackages() {
     formData.append("title", title);
     formData.append("description", description);
 
-    fetch(`https://api.bumrungraddiscover.com/api/update/package/${id}`, {
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/update/package/${id}`, {
       method: "POST",
       body: formData,
     })

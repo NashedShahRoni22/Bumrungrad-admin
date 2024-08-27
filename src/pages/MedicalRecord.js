@@ -26,7 +26,7 @@ const MedicalRecord = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/medicalreports/${medicileRecordData.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/medicalreports/${medicileRecordData.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -50,7 +50,7 @@ const MedicalRecord = () => {
     "Action",
   ];
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/medical/report")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/medical/report")
       .then((res) => res.json())
       .then((data) => {
         setMedicalRecord(data.data);

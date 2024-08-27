@@ -143,7 +143,7 @@ export default function AddCenters() {
       // formData.append('conditions', JSON.stringify(conditions))
       // formData.append('treatments', JSON.stringify(treatments))
 
-      fetch('https://api.bumrungraddiscover.com/api/add/center', {
+      fetch('https://api.discoverinternationalmedicalservice.com/api/add/center', {
         method: 'POST',
         body: formData,
       })

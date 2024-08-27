@@ -27,7 +27,7 @@ const DoctorsList = () => {
     const aggre = window.confirm(`You Want to Delete, ${modaldata?.name}.`);
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/doctors/${modaldata.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/doctors/${modaldata.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -45,7 +45,7 @@ const DoctorsList = () => {
 
   useEffect(() => {
     setLoader(true);
-    fetch("https://api.bumrungraddiscover.com/api/get/doctors")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/doctors")
       .then((res) => res.json())
       .then((data) => {
         setDoctors(data?.response?.data);

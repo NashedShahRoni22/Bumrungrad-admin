@@ -114,7 +114,7 @@ export default function AddPackages() {
 
   //get parent package
   useEffect(() => {
-    fetch('https://api.bumrungraddiscover.com/api/get/package')
+    fetch('https://api.discoverinternationalmedicalservice.com/api/get/package')
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 404) {
@@ -140,7 +140,7 @@ export default function AddPackages() {
       formData.append('title', title)
       formData.append('description', description)
 
-      fetch('https://api.bumrungraddiscover.com/api/create/package', {
+      fetch('https://api.discoverinternationalmedicalservice.com/api/create/package', {
         method: 'POST',
         body: formData,
       })
@@ -200,7 +200,7 @@ export default function AddPackages() {
       //formData.append('inclusions', JSON.stringify(conditions))
       //formData.append('exclusions', JSON.stringify(treatments))
 
-      fetch('https://api.bumrungraddiscover.com/api/create/sub/package', {
+      fetch('https://api.discoverinternationalmedicalservice.com/api/create/sub/package', {
         method: 'POST',
         body: formData,
       })

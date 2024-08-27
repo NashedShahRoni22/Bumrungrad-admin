@@ -53,7 +53,6 @@ const AddBlogs = () => {
       // blogslogan,
       editorValue,
     }
-    console.log(blogs)
 
     const formData = new FormData()
     formData.append('blogImage', blogImg)
@@ -61,7 +60,7 @@ const AddBlogs = () => {
     //formData.append('blogSlogan', blogslogan)
     formData.append('blogDescription', editorValue) 
     //append data with keys
-    fetch('https://api.bumrungraddiscover.com/api/add/blogs', {
+    fetch('https://api.discoverinternationalmedicalservice.com/api/add/blogs', {
       method: 'POST',
       body: formData,
     })

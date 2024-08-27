@@ -7,7 +7,7 @@ const Blogslist = () => {
   const [allBlogs, setAllBlogs] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/blogs")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/blogs")
       .then((res) => res.json())
       .then((data) => {
         setAllBlogs(data.data);
@@ -18,7 +18,7 @@ const Blogslist = () => {
     const aggre = window.confirm(`You Want to Delete, ${oneBlogs?.blogTitle}.`);
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/blogs/${oneBlogs.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/blogs/${oneBlogs.id}`
       )
         .then((res) => res.json())
         .then((data) => {

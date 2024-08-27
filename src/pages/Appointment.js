@@ -25,7 +25,7 @@ const Appointment = () => {
     queryKey: ["appointment"],
     queryFn: () =>
       fetch(
-        "https://api.bumrungraddiscover.com/api/get/doctor/appointments"
+        "https://api.discoverinternationalmedicalservice.com/api/get/doctor/appointments"
       ).then((res) => res.json()),
   });
 
@@ -36,7 +36,7 @@ const Appointment = () => {
   // handle status change
   const handaleStatusChange = (data) => {
     fetch(
-      `https://api.bumrungraddiscover.com/api/review/appointment/${data?.id}`
+      `https://api.discoverinternationalmedicalservice.com/api/review/appointment/${data?.id}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -47,7 +47,7 @@ const Appointment = () => {
       });
   };
   const handaleSucess = (id) => {
-    fetch(`https://api.bumrungraddiscover.com/api/appointment/success/${id}`)
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/appointment/success/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -70,7 +70,7 @@ const Appointment = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/doctorappoinments/${appointmentData?.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/doctorappoinments/${appointmentData?.id}`
       )
         .then((res) => res.json())
         .then((data) => {

@@ -22,7 +22,7 @@ const MedicineOrder = () => {
     const aggre = window.confirm(`You Want to Delete, ${medicineData?.name}.`);
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/order_medicines/${medicineData.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/order_medicines/${medicineData.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -47,7 +47,7 @@ const MedicineOrder = () => {
     "Clear Order",
   ];
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/order/medicine")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/order/medicine")
       .then((res) => res.json())
       .then((data) => {
         setOrderMedicine(data.data);

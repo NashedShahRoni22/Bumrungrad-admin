@@ -26,7 +26,7 @@ const VisaProcessing = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/visa_processings/${oneVisa.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/visa_processings/${oneVisa.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -46,13 +46,13 @@ const VisaProcessing = () => {
     "Request ID",
     "Name",
     "Visa Invitation Letter",
-    "email",
+    "Email",
     "Phone",
     "Action",
   ];
 
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/visa/precessing")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/visa/precessing")
       .then((res) => res.json())
       .then((data) => {
         setVisaProcess(data.data);

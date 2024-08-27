@@ -7,7 +7,7 @@ export default function Home() {
   const [allData, setAllDta] = useState()
 
   useEffect(() => {
-    fetch('https://api.bumrungraddiscover.com/api/get/category/length')
+    fetch('https://api.discoverinternationalmedicalservice.com/api/get/category/length')
       .then((res) => res.json())
       .then((data) => {
         setAllDta(Object.values(data?.data))
@@ -17,9 +17,9 @@ export default function Home() {
   //console.log(allData?.length)
 
   return (
-    <section className='py-10 mx-10 md:container  md:mx-auto'>
-      <h1 className='text-3xl font-semibold'>Explore</h1>
-      <div className='mt-5'>
+    <section className='m-5 md:m-10'>
+      <h1 className='text-xl font-semibold text-blue'>Explore Features</h1>
+      <div className='mt-5 md:mt-10'>
       {loader ? (
         <Loader/>
       ) : (

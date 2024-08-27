@@ -50,7 +50,7 @@ const OneBlogs = () => {
   ];
   // get data
   useEffect(() => {
-    fetch(`https://api.bumrungraddiscover.com/api/get/blogs/${slug}`)
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/get/blogs/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         setOneBlog(data.data);
@@ -80,7 +80,7 @@ const OneBlogs = () => {
     formData.append("blogDescription", editorValue);
     //append data with keys
     fetch(
-      `https://api.bumrungraddiscover.com/api/update/blogs/${oneBlog?.id}`,
+      `https://api.discoverinternationalmedicalservice.com/api/update/blogs/${oneBlog?.id}`,
       {
         method: "POST",
         body: formData,

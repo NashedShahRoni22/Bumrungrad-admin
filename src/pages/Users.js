@@ -12,7 +12,7 @@ export default function Users() {
     )
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/air_pickups/${user.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/air_pickups/${user.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -31,7 +31,7 @@ export default function Users() {
   //get user data
   useEffect(() => {
     setLoader(true);
-    fetch("https://api.bumrungraddiscover.com/api/get/users")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/users")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -50,7 +50,7 @@ export default function Users() {
         {loader ? (
           <Loader />
         ) : (
-          <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {userData?.map((ud, i) => (
               <div key={i} className="shadow p-5 rounded relative">
                 <p className="flex gap-2">

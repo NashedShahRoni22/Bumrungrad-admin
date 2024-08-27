@@ -12,7 +12,7 @@ const ChildPackage = () => {
     const aggre = window.confirm(`You Want to Delete, ${cp?.title}.`);
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/sub_packages/${cp.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/sub_packages/${cp.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -27,7 +27,7 @@ const ChildPackage = () => {
   };
   useEffect(() => {
     setLoader(true);
-    fetch(`https://api.bumrungraddiscover.com/api/get/sub/packages/${slug}`)
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/get/sub/packages/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {

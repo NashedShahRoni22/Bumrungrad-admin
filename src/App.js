@@ -73,31 +73,31 @@ const router = createBrowserRouter([
         element: <DoctorsList />,
       },
       {
-        path: '/home/airAmbulance',
+        path: '/home/air_ambulance',
         element: <AirAmbulance />,
       },
       {
-        path: '/home/medicineOrder',
+        path: '/home/medicine_order',
         element: <MedicineOrder />,
       },
       {
-        path: '/home/teleMedicine',
+        path: '/home/tele_medicine',
         element: <TeleMedicine />,
       },
       {
-        path: '/home/airTicket',
+        path: '/home/air_ticket',
         element: <AirTicket />,
       },
       {
-        path: '/home/airPickup',
+        path: '/home/air_pickup',
         element: <AirPickUp />,
       },
       {
-        path: '/home/medicalRecord',
+        path: '/home/medical_record',
         element: <MedicalRecord />,
       },
       {
-        path: '/home/seeQuery',
+        path: '/home/see_query',
         element: <SeeQuery />,
       },
       {

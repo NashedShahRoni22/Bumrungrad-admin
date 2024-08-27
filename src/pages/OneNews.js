@@ -7,7 +7,7 @@ const OneNews = () => {
   const [loader, setLoader] = useState(true)
   const [oneNews, setNews] = useState({})
   useEffect(() => {
-    fetch(`https://api.bumrungraddiscover.com/api/get/news/${id}`)
+    fetch(`https://api.discoverinternationalmedicalservice.com/api/get/news/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setNews(data.data)

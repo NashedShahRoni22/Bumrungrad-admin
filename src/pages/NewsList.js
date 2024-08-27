@@ -6,7 +6,7 @@ const NewsList = () => {
   const [allNews, setAllNews] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/news")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/news")
       .then((res) => res.json())
       .then((data) => {
         setAllNews(data.data);
@@ -17,7 +17,7 @@ const NewsList = () => {
   const handaleDeleteNews = (oneNews) => {
     const aggre = window.confirm(`You Want to Delete, ${oneNews?.newsTitle}.`);
     if (aggre) {
-      fetch(`https://api.bumrungraddiscover.com/api/delete/news/${oneNews.id}`)
+      fetch(`https://api.discoverinternationalmedicalservice.com/api/delete/news/${oneNews.id}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

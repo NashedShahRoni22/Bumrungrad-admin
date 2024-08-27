@@ -20,7 +20,7 @@ const AirPickUp = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/air_pickups/${pickUp.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/air_pickups/${pickUp.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -37,7 +37,7 @@ const AirPickUp = () => {
   };
 
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/air/pickup")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/air/pickup")
       .then((res) => res.json())
       .then((data) => {
         setAirPickup(data.data);

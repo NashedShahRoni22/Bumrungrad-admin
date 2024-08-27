@@ -1,2 +1,2 @@
-email = admin@discoverinternationalmedicalservice.com
+email = support@discoverinternationalmedicalservice.com
 password = @Bumrungrad24

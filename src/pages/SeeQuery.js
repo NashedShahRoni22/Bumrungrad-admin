@@ -27,7 +27,7 @@ const SeeQuery = () => {
     );
     if (aggre) {
       fetch(
-        `https://api.bumrungraddiscover.com/api/delete/questions/${oneQuery.id}`
+        `https://api.discoverinternationalmedicalservice.com/api/delete/questions/${oneQuery.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -52,7 +52,7 @@ const SeeQuery = () => {
     "Action",
   ];
   useEffect(() => {
-    fetch("https://api.bumrungraddiscover.com/api/get/questions")
+    fetch("https://api.discoverinternationalmedicalservice.com/api/get/questions")
       .then((res) => res.json())
       .then((data) => {
         setAllQuery(data.data);

@@ -306,7 +306,7 @@ export function LeftBar() {
             Appoinments
           </ListItem>
         </Link>
-        <Link to="/home/airAmbulance">
+        <Link to="/home/air_ambulance">
           <ListItem>
             <ListItemPrefix>
               <BiSolidAmbulance className="h-5 w-5" />
@@ -314,7 +314,7 @@ export function LeftBar() {
             Air Ambulance
           </ListItem>
         </Link>
-        <Link to="/home/medicineOrder">
+        <Link to="/home/medicine_order">
           <ListItem>
             <ListItemPrefix>
               <AiOutlineOrderedList className="h-5 w-5" />
@@ -322,7 +322,7 @@ export function LeftBar() {
             Medicine Orders
           </ListItem>
         </Link>
-        <Link to="/home/teleMedicine">
+        <Link to="/home/tele_medicine">
           {" "}
           <ListItem>
             <ListItemPrefix>
@@ -339,7 +339,7 @@ export function LeftBar() {
             Visa Processing
           </ListItem>
         </Link>
-        <Link to="/home/airTicket">
+        <Link to="/home/air_ticket">
           <ListItem>
             <ListItemPrefix>
               <MdAirplaneTicket className="h-5 w-5" />
@@ -347,7 +347,7 @@ export function LeftBar() {
             Air Tickets
           </ListItem>
         </Link>
-        <Link to="/home/airPickup">
+        <Link to="/home/air_pickup">
           {" "}
           <ListItem>
             <ListItemPrefix>
@@ -356,7 +356,7 @@ export function LeftBar() {
             Air Pickup
           </ListItem>
         </Link>
-        <Link to="/home/medicalRecord">
+        <Link to="/home/medical_record">
           {" "}
           <ListItem>
             <ListItemPrefix>
@@ -365,7 +365,7 @@ export function LeftBar() {
             Medical Record
           </ListItem>
         </Link>
-        <Link to="/home/seeQuery">
+        <Link to="/home/see_query">
           {" "}
           <ListItem>
             <ListItemPrefix>
