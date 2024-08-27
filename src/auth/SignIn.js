@@ -11,7 +11,7 @@ export default function SignIn() {
     const email = form.email.value
     const password = form.password.value
     console.log(email, password)
-    if (email === 'admin@bumrungraddiscover.com' && password === 'admin2023') {
+    if (email === 'support@discoverinternationalmedicalservice.com' && password === '@Bumrungrad24') {
       navigate('/home')
       form.reset()
     } else {

@@ -45,7 +45,7 @@ export default function Users() {
   }, []);
   return (
     <div className="m-5 md:m-10">
-      <h1 className="text-3xl font-semibold text-blue">Registerted Users</h1>
+      <h1 className="text-xl font-semibold text-blue">Registerted Users: {userData?.length}</h1>
       <div className="mt-5">
         {loader ? (
           <Loader />

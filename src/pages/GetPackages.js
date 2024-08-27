@@ -87,12 +87,12 @@ export default function GetPackages() {
       .catch((e) => console.error(e));
   };
   return (
-    <div className="mx-5 my-5 md:container md:mx-auto p-10 bg-white rounded-xl">
+    <div className="m-5 md:m-10">
       {loader ? (
         <Loader />
       ) : (
         <>
-          <h2 className="text-2xl font-semibold text-blue">
+          <h2 className="text-xl font-semibold text-blue">
             Total Parent Packages: {packages?.length}
           </h2>
           <hr className="my-5" />
