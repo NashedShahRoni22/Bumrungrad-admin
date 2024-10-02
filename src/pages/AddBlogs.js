@@ -1,134 +1,158 @@
-import { Button, Input, } from '@material-tailwind/react'
-import { useState } from 'react'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
-import { useNavigate } from 'react-router-dom'
+import { Button, Input, Option, Select, Spinner } from "@material-tailwind/react";
+import { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { useNavigate } from "react-router-dom";
 
 const AddBlogs = () => {
-  const [loader1, setLoader1] = useState(false)
-  const [blogImg, setBlogImg] = useState('')
-  const navigate = useNavigate()
+  const [loader1, setLoader1] = useState(false);
+  const [blogImg, setBlogImg] = useState("");
+  const [country, setCountry] = useState("");
+  const navigate = useNavigate();
 
   //react quil
-  const [editorValue, seteditorValue] = useState('')
+  const [editorValue, seteditorValue] = useState("");
 
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ["bold", "italic", "underline", "strike", "blockquote"],
       [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
       ],
-      ['link', 'image', 'video', 'code-block'],
-      ['clean'],
+      ["link", "image", "video", "code-block"],
+      ["clean"],
     ],
-  }
+  };
 
   const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-  ]
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
 
   //post
   const handleAddBlogs = (e) => {
-    setLoader1(true)
-    e.preventDefault()
-    const name = e.target.name.value
+    setLoader1(true);
+    e.preventDefault();
+    const name = e.target.name.value;
     // const blogslogan = e.target.descriptiion.value
     const blogs = {
       blogImg,
       name,
       // blogslogan,
       editorValue,
-    }
+    };
 
-    const formData = new FormData()
-    formData.append('blogImage', blogImg)
-    formData.append('blogTitle', name)
-    //formData.append('blogSlogan', blogslogan)
-    formData.append('blogDescription', editorValue) 
+    const formData = new FormData();
+    formData.append("blogImage", blogImg);
+    formData.append("blogTitle", name);
+    formData.append("region", country);
+    formData.append("blogDescription", editorValue);
     //append data with keys
-    fetch('https://api.discoverinternationalmedicalservice.com/api/add/blogs', {
-      method: 'POST',
+    fetch("https://api.discoverinternationalmedicalservice.com/api/add/blogs", {
+      method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        setLoader1(false)
-        navigate('/home/blogs-list')
-        e.target.reset()
+        if (data.status === 200) {
+          setLoader1(false);
+          navigate("/home/blogs-list");
+        } else {
+          window.alert(data.msg);
+          setLoader1(false);
+        }
       })
-      .catch((e) => console.error(e))
-  }
+      .catch((e) => console.error(e));
+  };
 
+  const countries = [
+    "GLOBAL",
+    "BAHRAIN",
+    "BANGLADESH",
+    "CAMBODIA",
+    "CHAD",
+    "CHINA",
+    "EAST AFRICA",
+    "ETHIOPIA",
+    "HONG KONG",
+    "INDONESIA",
+    "KENYA",
+    "KUWAIT",
+    "LAOS",
+    "MONGOLIA",
+    "MYANMAR",
+    "NEPAL",
+  ];
   return (
-    <div className='mx-5 md:container md:mx-auto py-10 px-5'>
+    <div className="mx-5 md:container md:mx-auto py-10 px-5">
       <form
         onSubmit={handleAddBlogs}
-        className='bg-white shadow-xl rounded-xl p-5'
+        className="bg-white"
       >
-        <div className='flex justify-between'>
-          <p className='text-2xl font-semibold'>Add Blogs</p>
-          <Button className='bg-blue' type='submit'>
-            {loader1 ? 'Loading...' : 'Add Blogs'}
+        <div className="flex justify-between">
+          <p className="text-2xl font-semibold">Add Blogs</p>
+          <Button
+            className="bg-blue flex items-center gap-2"
+            type="submit"
+            disabled={editorValue === "" || country === ""}
+          >
+            Add Blogs
+            {
+              loader1 && <Spinner className="h-4 w-4" />
+            }
           </Button>
         </div>
 
-        <hr className='my-5' />
-        <div className='flex flex-row items-center'>
+        <hr className="my-5" />
+        <div className="flex flex-row items-center">
           <input
-            type='file'
-            id='custom-input'
+            type="file"
+            id="custom-input"
             onChange={(e) => setBlogImg(e.target.files[0])}
-            hidden
+            required
           />
-          <label
-            htmlFor='custom-input'
-            className='block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer'
-          >
-            Choose Blog Image
-          </label>
-          <label className='text-sm text-slate-500'>
-            {blogImg.name ? blogImg.name : 'No File Chosen'}
-          </label>
         </div>
-        <p className='text-red-400 text-sm mt-2.5'>
+        <p className="text-red-400 text-sm mt-2.5">
           Image Ratio - 1200*628. Image size not more than 500kb
         </p>
-        <div className='my-4 flex flex-col gap-y-4'>
-          <Input required label='Blog Title' name='name' />
-          {/* <Textarea required label='Blog Slogan' name='descriptiion' /> */}
+        <div className="my-4 flex flex-col gap-y-4">
+          <Input required label="Blog Title" name="name" />
+          <Select required value={country} label="Select Country" onChange={value => setCountry(value)}>
+            {countries.map((c) => (
+              <Option value={c}>{c}</Option>
+            ))}
+          </Select>
         </div>
 
-        <div className=''>
-          <label htmlFor='' className='text-red'>
-            <span className='font-semibold'>Description</span>
+        <div className="">
+          <label htmlFor="" className="text-red">
+            <span className="font-semibold">Description</span>
           </label>
           <ReactQuill
-            theme='snow'
+            theme="snow"
             modules={modules}
             formats={formats}
             value={editorValue}
             onChange={seteditorValue}
-            className='my-2.5'
+            className="my-2.5"
           />
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddBlogs
+export default AddBlogs;

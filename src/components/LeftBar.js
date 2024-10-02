@@ -298,7 +298,7 @@ export function LeftBar() {
           </AccordionBody>
         </Accordion>
 
-        <Link to="/home/add-appointMent">
+        <Link to="/home/appointments">
           <ListItem>
             <ListItemPrefix>
               <CalendarDaysIcon className="h-5 w-5" />

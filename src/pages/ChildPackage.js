@@ -58,12 +58,12 @@ const ChildPackage = () => {
                   >
                     <img src={cp?.cover_photo} alt="" loading="lazy" />
                     <div className="p-2.5">
-                      <p className="font-semibold text-blue md:text-xl">
+                      <p className="font-semibold text-blue md:text-xl mb-2.5">
                         {cp?.title}
                       </p>
                       <div
                         dangerouslySetInnerHTML={{
-                          __html: cp?.content?.slice(0, 200),
+                          __html: cp?.content?.slice(0, 250),
                         }}
                       />
                     </div>

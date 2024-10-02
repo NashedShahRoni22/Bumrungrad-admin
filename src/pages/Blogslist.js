@@ -50,12 +50,14 @@ const Blogslist = () => {
               <img src={d.blogImage} alt="" className="" />
               <div className="p-4">
                 {" "}
-                <h5 className="font-semibold text-blue text-lg">
+                <h5 className="font-semibold text-blue text-lg mb-2.5">
                   {d.blogTitle}
                 </h5>
-                {/* <p className='my-3 text-justify'>
-                    {d.blogSlogan?.slice(0, 160)}...{' '}
-                  </p> */}
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: d.blogDescription?.slice(0, 400),
+                  }}
+                />
               </div>
               <div className="flex justify-between">
                 {" "}

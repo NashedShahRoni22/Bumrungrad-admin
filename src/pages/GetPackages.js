@@ -104,10 +104,10 @@ export default function GetPackages() {
               >
                 <img src={p?.cover_photo} alt="" loading="lazy" />
                 <div className="p-2.5">
-                  <p className="font-semibold text-blue md:text-xl">
+                  <p className="font-semibold text-blue md:text-xl mb-2.5">
                     {p?.title}
                   </p>
-                  <p>{p?.description?.slice(0, 160)}</p>
+                  <p>{p?.description?.slice(0, 150)}</p>
                 </div>
                 <div className="flex">
                   <Link

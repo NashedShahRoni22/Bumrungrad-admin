@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
-import { Button, Input } from "@material-tailwind/react";
+import { Button, Input, Option, Select, Spinner } from "@material-tailwind/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ const OneBlogs = () => {
   const { slug } = useParams();
   const [loader, setLoader] = useState(true);
   const [oneBlog, setOneBlog] = useState({});
-  console.log(oneBlog);
+  const [country, setCountry] = useState("");
   const [preview, setPreview] = useState(false);
   const [loader1, setLoader1] = useState(false);
   const [blogImg, setBlogImg] = useState("");
@@ -50,10 +50,13 @@ const OneBlogs = () => {
   ];
   // get data
   useEffect(() => {
-    fetch(`https://api.discoverinternationalmedicalservice.com/api/get/blogs/${slug}`)
+    fetch(
+      `https://api.discoverinternationalmedicalservice.com/api/get/blogs/${slug}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setOneBlog(data.data);
+        setCountry(data.data.region);
         seteditorValue(data.data.blogDescription);
         setLoader(false);
       });
@@ -71,12 +74,11 @@ const OneBlogs = () => {
       // blogslogan,
       editorValue,
     };
-    console.log(blogs);
-
     const formData = new FormData();
-    formData.append("blogImage", blogImg);
+    formData.append("blogImage", blogImg !== "" ? blogImg : null);
     formData.append("blogTitle", name);
     // formData.append('blogSlogan', blogslogan)
+    formData.append("region", country);
     formData.append("blogDescription", editorValue);
     //append data with keys
     fetch(
@@ -88,13 +90,35 @@ const OneBlogs = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setLoader1(false);
-        navigate("/home/blogs-list");
-        e.target.reset();
+        if (data.status === 200) {
+          setLoader1(false);
+          navigate("/home/blogs-list");
+        } else {
+          window.alert(data.msg);
+          setLoader1(false);
+        }
       })
       .catch((e) => console.error(e));
   };
+
+  const countries = [
+    "GLOBAL",
+    "BAHRAIN",
+    "BANGLADESH",
+    "CAMBODIA",
+    "CHAD",
+    "CHINA",
+    "EAST AFRICA",
+    "ETHIOPIA",
+    "HONG KONG",
+    "INDONESIA",
+    "KENYA",
+    "KUWAIT",
+    "LAOS",
+    "MONGOLIA",
+    "MYANMAR",
+    "NEPAL",
+  ];
   return (
     <div className="p-5 my-5 md:container md:mx-auto">
       {loader ? (
@@ -103,7 +127,7 @@ const OneBlogs = () => {
         <>
           <div className="flex justify-between">
             <p className="text-2xl font-semibold">Update Blogs</p>
-            {preview ? (
+            {/* {preview ? (
               <Button
                 onClick={() => setPreview(!preview)}
                 className="bg-red-500"
@@ -114,7 +138,7 @@ const OneBlogs = () => {
               <Button onClick={() => setPreview(!preview)} className="bg-blue">
                 Preview
               </Button>
-            )}
+            )} */}
           </div>
 
           <hr className="my-5" />
@@ -131,25 +155,19 @@ const OneBlogs = () => {
           ) : (
             <form
               onSubmit={handleUpdateBlogs}
-              className="bg-white shadow-xl rounded-xl p-5"
+              className="bg-white"
             >
-              <img className="h-[200px]" src={oneBlog?.blogImage} alt="" />
+              <img
+                className="h-[400px] w-full"
+                src={oneBlog?.blogImage}
+                alt=""
+              />
               <div className="flex flex-row items-center mt-5">
                 <input
                   type="file"
                   id="custom-input"
                   onChange={(e) => setBlogImg(e.target.files[0])}
-                  hidden
                 />
-                <label
-                  htmlFor="custom-input"
-                  className="block text-sm text-slate-500 mr-4 py-2 px-4 rounded-md border-0 font-semibold bg-blue duration-300 ease-linear text-white cursor-pointer"
-                >
-                  Choose Blog Image
-                </label>
-                <label className="text-sm text-slate-500">
-                  {blogImg.name ? blogImg.name : "No File Chosen"}
-                </label>
               </div>
               <p className="text-red-400 text-sm mt-2.5">
                 Image Ratio - 1200*628. Image size not more than 500kb
@@ -161,6 +179,15 @@ const OneBlogs = () => {
                   label="Blog Title"
                   name="name"
                 />
+                <Select
+                  value={country}
+                  label="Select Country"
+                  onChange={(value) => setCountry(value)}
+                >
+                  {countries.map((c) => (
+                    <Option value={c}>{c}</Option>
+                  ))}
+                </Select>
                 {/* <Textarea
                   defaultValue={oneBlog?.blogSlogan}
                   required
@@ -177,8 +204,13 @@ const OneBlogs = () => {
                   className="my-2.5"
                 />
               </div>
-              <Button className="bg-blue" type="submit">
-                {loader1 ? "Loading..." : "Update Blogs"}
+              <Button
+                className="bg-blue flex items-center gap-2"
+                type="submit"
+                disabled={editorValue === ""}
+              >
+                Update Blogs
+                {loader1 && <Spinner className="h-4 w-4" />}
               </Button>
             </form>
           )}

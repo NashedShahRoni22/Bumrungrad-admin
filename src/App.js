@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         element: <AddCenters />,
       },
       {
-        path: '/home/add-appointMent',
+        path: '/home/appointments',
         element: <Appointment />,
       },
       {
