@@ -67,17 +67,17 @@ const OneBlogs = () => {
     setLoader1(true);
     e.preventDefault();
     const name = e.target.name.value;
-    // const blogslogan = e.target.descriptiion.value
+    const slug = e.target.slug.value
     const blogs = {
       blogImg,
       name,
-      // blogslogan,
+      slug,
       editorValue,
     };
     const formData = new FormData();
     formData.append("blogImage", blogImg !== "" ? blogImg : null);
     formData.append("blogTitle", name);
-    // formData.append('blogSlogan', blogslogan)
+    formData.append('slug', slug)
     formData.append("region", country);
     formData.append("blogDescription", editorValue);
     //append data with keys
@@ -176,8 +176,14 @@ const OneBlogs = () => {
                 <Input
                   defaultValue={oneBlog?.blogTitle}
                   required
-                  label="Blog Title"
+                  label="Title"
                   name="name"
+                />
+                <Input
+                  defaultValue={oneBlog?.slug}
+                  required
+                  label="Slug"
+                  name="slug"
                 />
                 <Select
                   value={country}

@@ -47,17 +47,18 @@ const AddBlogs = () => {
     setLoader1(true);
     e.preventDefault();
     const name = e.target.name.value;
-    // const blogslogan = e.target.descriptiion.value
+    const blogSlug = e.target.blogSlug.value
     const blogs = {
       blogImg,
       name,
-      // blogslogan,
+      blogSlug,
       editorValue,
     };
-
+    console.log(blogs);
     const formData = new FormData();
     formData.append("blogImage", blogImg);
     formData.append("blogTitle", name);
+    formData.append("slug", blogSlug);
     formData.append("region", country);
     formData.append("blogDescription", editorValue);
     //append data with keys
@@ -129,7 +130,8 @@ const AddBlogs = () => {
           Image Ratio - 1200*628. Image size not more than 500kb
         </p>
         <div className="my-4 flex flex-col gap-y-4">
-          <Input required label="Blog Title" name="name" />
+          <Input required label="Title" name="name" />
+          <Input required label="Slug" name="blogSlug" />
           <Select required value={country} label="Select Country" onChange={value => setCountry(value)}>
             {countries.map((c) => (
               <Option value={c}>{c}</Option>
