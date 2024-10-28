@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
-import { Button, Input, Option, Select, Spinner } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Option,
+  Select,
+  Spinner,
+} from "@material-tailwind/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
@@ -67,17 +73,17 @@ const OneBlogs = () => {
     setLoader1(true);
     e.preventDefault();
     const name = e.target.name.value;
-    const slug = e.target.slug.value
-    const blogs = {
-      blogImg,
-      name,
-      slug,
-      editorValue,
-    };
+    const slug = e.target.slug.value;
+    // const blogs = {
+    //   blogImg,
+    //   name,
+    //   slug,
+    //   editorValue,
+    // };
     const formData = new FormData();
     formData.append("blogImage", blogImg !== "" ? blogImg : null);
     formData.append("blogTitle", name);
-    formData.append('slug', slug)
+    formData.append("slug", slug);
     formData.append("region", country);
     formData.append("blogDescription", editorValue);
     //append data with keys
@@ -127,7 +133,7 @@ const OneBlogs = () => {
         <>
           <div className="flex justify-between">
             <p className="text-2xl font-semibold">Update Blogs</p>
-            {/* {preview ? (
+            {preview ? (
               <Button
                 onClick={() => setPreview(!preview)}
                 className="bg-red-500"
@@ -138,25 +144,25 @@ const OneBlogs = () => {
               <Button onClick={() => setPreview(!preview)} className="bg-blue">
                 Preview
               </Button>
-            )} */}
+            )}
           </div>
 
           <hr className="my-5" />
           {preview ? (
-            <div className="bg-white shadow-xl rounded-xl p-5 flex flex-col gap-2.5 md:gap-5">
+            <div className="flex flex-col gap-2.5 md:gap-5">
               <div className="flex justify-center">
-                <img className="w-fit h-fit" src={oneBlog?.blogImage} alt="" />
+                <img className="h-[400px] w-full" src={oneBlog?.blogImage} alt="" />
               </div>
               <div className="">
                 <h5 className="text-xl font-semibold">{oneBlog?.blogTitle}</h5>
+                <div
+                  dangerouslySetInnerHTML={{ __html: oneBlog?.blogDescription }}
+                />
                 {/* <p>{oneBlog?.blogSlogan}</p> */}
               </div>
             </div>
           ) : (
-            <form
-              onSubmit={handleUpdateBlogs}
-              className="bg-white"
-            >
+            <form onSubmit={handleUpdateBlogs} className="bg-white">
               <img
                 className="h-[400px] w-full"
                 src={oneBlog?.blogImage}
