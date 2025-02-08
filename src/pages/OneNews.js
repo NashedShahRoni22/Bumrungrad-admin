@@ -28,7 +28,7 @@ const OneNews = () => {
               className='lg:h-[40vh]'
             />
           </div>
-          <div className=''>
+          <div className='lg:w-1/2'>
             <h5 className='font-semibold text-blue text-xl'>
               {oneNews?.newsTitle}
             </h5>

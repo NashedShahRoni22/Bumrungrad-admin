@@ -17,10 +17,11 @@ const NewsList = () => {
   const handaleDeleteNews = (oneNews) => {
     const aggre = window.confirm(`You Want to Delete, ${oneNews?.newsTitle}.`);
     if (aggre) {
-      fetch(`https://api.discoverinternationalmedicalservice.com/api/delete/news/${oneNews.id}`)
+      fetch(
+        `https://api.discoverinternationalmedicalservice.com/api/delete/news/${oneNews.id}`
+      )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newNewsData = allNews.filter(
               (news) => news.id !== oneNews.id
@@ -55,16 +56,18 @@ const NewsList = () => {
                     {d.newsDescription?.slice(0, 160)} ...
                   </p>
                 </div>
-                <div className="p-4 flex justify-between">
+                
+                <div className="flex justify-between">
                   {" "}
-                  <Link to={`/home/one-News/${d?.id}`}>
-                    <button className="border border-blue bg-blue hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear">
-                      Read more
-                    </button>
+                  <Link
+                    to={`/home/one-News/${d?.id}`}
+                    className="text-center bg-blue text-white p-1.5 w-full"
+                  >
+                    Read more
                   </Link>
                   <button
                     onClick={() => handaleDeleteNews(d)}
-                    className="border border-red-400 bg-red-400 hover:bg-white px-2 py-1 rounded hover:text-blue text-white duration-300 ease-linear"
+                    className="text-center bg-red-500 text-white p-1.5 w-full"
                   >
                     Delete
                   </button>

@@ -32,7 +32,6 @@ const TeleMedicine = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newteleMedicine = teleMedicine.filter(
               (oneTelemedicine) => oneTelemedicine.id !== telemedicineData.id
@@ -60,7 +59,6 @@ const TeleMedicine = () => {
         setLoader(false);
       });
   }, []);
-  console.log(teleMedicine);
 
   return (
       <div className="m-5 md:m-10">

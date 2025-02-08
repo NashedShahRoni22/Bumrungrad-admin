@@ -20,7 +20,6 @@ const VisaProcessing = () => {
     setOneVisa(data);
   };
   const handaleDeleteVissa = (oneVisa) => {
-    console.log(oneVisa);
     const aggre = window.confirm(
       `You Want to Delete, ${oneVisa?.PataientFirstName}.`
     );
@@ -30,7 +29,6 @@ const VisaProcessing = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newQueryData = visaProcess.filter(
               (visa) => visa.id !== oneVisa.id

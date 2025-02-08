@@ -10,12 +10,12 @@ export default function SignIn() {
     const form = e.target
     const email = form.email.value
     const password = form.password.value
-    console.log(email, password)
     if (email === 'support@discoverinternationalmedicalservice.com' && password === '@Bumrungrad24') {
-      navigate('/home')
+      navigate('/home');
+      localStorage.setItem("bumrungradToken", "bumrungradToken@2025")
       form.reset()
     } else {
-      alert('Email or Password is Wrong ,Give Valid Email id and Password ')
+      alert('Email or Password is Wrong!')
     }
   }
   return (

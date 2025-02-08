@@ -118,7 +118,6 @@ export default function AddPackages() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 404) {
-          console.log(data)
         } else {
           setParentPackages(data?.data)
         }
@@ -147,7 +146,6 @@ export default function AddPackages() {
         .then((res) => res.json())
         .then((data) => {
           setLoader(false)
-          // console.log(data);
           e.target.reset()
           setSelectedParentImage('No file chosen')
           toast.success('Package Added Successfully!')
@@ -178,7 +176,6 @@ export default function AddPackages() {
       treatments,
       editorValue,
     }
-    console.log(postData)
     if (selectedChildImage === 'No file chosen') {
       setChildLoader(false)
       toast.error('Select Child Package Image')
@@ -206,7 +203,6 @@ export default function AddPackages() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           e.target.reset()
           toast.success('Child Package Added Successfully!')
           setChildLoader(false)

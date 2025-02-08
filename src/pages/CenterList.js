@@ -28,7 +28,6 @@ const CenterList = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newQueryData = center.filter((c) => c.id !== centerinfo.id);
             alert("Center Deleted Successfully");

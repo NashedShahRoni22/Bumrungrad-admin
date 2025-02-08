@@ -13,7 +13,6 @@ import { BsFileEarmarkArrowDown } from "react-icons/bs";
 const MedicalRecord = () => {
   const [loader, setLoader] = useState(true);
   const [medicalRecord, setMedicalRecord] = useState([]);
-  console.log(medicalRecord);
   const [open, setOpen] = React.useState(false);
   const [medicalRecordModalData, setModalData] = useState({});
   const handleOpen = (data) => {
@@ -30,7 +29,6 @@ const MedicalRecord = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newMedicineRecord = medicalRecord.filter(
               (oneMedicalRecord) =>

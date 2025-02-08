@@ -7,7 +7,6 @@ import { Button } from "@material-tailwind/react";
 const AirTicket = () => {
   const [loader, setLoader] = useState(true);
   const [airTicket, setAirTicket] = useState([]);
-  console.log(airTicket);
   const TABLE_HEAD = [
     "Request ID",
     "From Country",
@@ -25,7 +24,6 @@ const AirTicket = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newAirticketData = airTicket.filter(
               (airpickup) => airpickup.id !== oneTicket.id

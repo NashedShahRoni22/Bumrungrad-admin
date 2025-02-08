@@ -26,7 +26,6 @@ const MedicineOrder = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newMedicine = orderMedicine.filter(
               (medicine) => medicine.id !== medicineData.id
@@ -54,7 +53,6 @@ const MedicineOrder = () => {
         setLoader(false);
       });
   }, []);
-  console.log(orderMedicine);
   return (
     <div className="m-5 md:m-10">
       {loader ? (

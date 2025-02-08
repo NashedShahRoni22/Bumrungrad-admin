@@ -12,7 +12,6 @@ export default function CenterUpdate() {
   const [loader, setLoader] = useState(false);
   const [postLoader, setPostLoader] = useState(false);
   const [center, setCenter] = useState({});
-  // console.log(center);
   const navigate = useNavigate();
 
   //dialogue
@@ -134,7 +133,6 @@ export default function CenterUpdate() {
       //treatments,
       editorValue,
     };
-    // console.log(postData)
     const formData = new FormData();
     formData.append("cover_photo", selectedCenterImg);
     formData.append("content", editorValue);
@@ -151,7 +149,6 @@ export default function CenterUpdate() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data?.status === 200) {
           setPostLoader(false);
           e.target.reset();

@@ -16,7 +16,6 @@ const ChildPackage = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newPackage = childPackage.filter((pc) => pc.id !== cp.id);
             alert("Package Deleted Successfully");

@@ -20,7 +20,6 @@ export default function AddSpeciality() {
   const [speciality, setSpeciality] = useState("");
   const [specialties, setSpecialities] = useState([]);
   const [subSpecialties, setSubSpecialities] = useState([]);
-  console.log(subSpecialties);
   const [parentSpecialityId, setparentSpecialityId] = useState("");
   const [activeTab, setActiveTab] = React.useState("Expertise");
 
@@ -28,7 +27,6 @@ export default function AddSpeciality() {
   const addSpeciality = () => {
     setLoading(true);
     const postData = { name: speciality };
-    console.log(postData);
     fetch("https://api.discoverinternationalmedicalservice.com/api/add/specialty", {
       method: "POST",
       headers: {
@@ -40,7 +38,6 @@ export default function AddSpeciality() {
       .then((data) => {
         if (data.response.status === 404) {
           toast.error("Speciality Exist!");
-          console.log(data);
         } else {
           setSpeciality("");
           setLoading(false);
@@ -56,7 +53,6 @@ export default function AddSpeciality() {
       fetch(`https://api.discoverinternationalmedicalservice.com/api/delete/specialties/${d.id}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newTableData = specialties.filter(
               (doctor) => doctor.id !== d.id
@@ -85,7 +81,6 @@ export default function AddSpeciality() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data?.response?.status === 404) {
           toast.error("This Sub Speciality Exist!");
           setLoading2(false);
@@ -106,7 +101,6 @@ export default function AddSpeciality() {
         if (data?.response?.status === 200) {
           setSpecialities(data?.response?.data);
         } else {
-          console.log(data);
         }
       });
   }, [loading]);
@@ -129,7 +123,6 @@ export default function AddSpeciality() {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newTableData = subSpecialties.filter(
               (doctor) => doctor.id !== d.id

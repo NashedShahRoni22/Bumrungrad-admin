@@ -113,7 +113,6 @@ export default function AddCenters() {
       //conditions,
       //treatments,
     }
-    console.log(postData)
     if (
       selectedCenterImg === '' ||
       name === '' ||
@@ -149,7 +148,6 @@ export default function AddCenters() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           setLoader(false)
           e.target.reset()
           //setInformations([])

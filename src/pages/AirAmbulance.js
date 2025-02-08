@@ -32,7 +32,6 @@ const AirAmbulance = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newAirAmbulance = airAmbulance.filter(
               (oneAmbulance) => oneAmbulance.id !== airAmbulanceData.id
@@ -52,7 +51,6 @@ const AirAmbulance = () => {
         setLoader(false);
       });
   }, []);
-  console.log(airAmbulance);
 
   return (
     <div className="m-5 md:m-10">

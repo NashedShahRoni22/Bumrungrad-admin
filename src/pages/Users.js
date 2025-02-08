@@ -16,7 +16,6 @@ export default function Users() {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           if (data.status === 200) {
             const newUserData = userData.filter(
               (ud) => ud.id !== user.id
@@ -38,7 +37,6 @@ export default function Users() {
           setUserData(data.data);
           setLoader(false);
         } else {
-          console.log(data);
           setLoader(false);
         }
       });

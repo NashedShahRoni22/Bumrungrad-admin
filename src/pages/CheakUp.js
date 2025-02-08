@@ -31,7 +31,6 @@ const CheakUp = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newQueryData = checkUp.filter(
               (checkup) => checkup.id !== oneCheakUp.id

@@ -20,8 +20,6 @@ const AddNews = () => {
       name,
       descriptiion,
     }
-    console.log(news)
-    console.log(newsImg, name, descriptiion)
 
     const formData = new FormData()
     formData.append('newsImage', newsImg)
@@ -33,7 +31,6 @@ const AddNews = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setLoader1(false)
         e.target.reset()
       })

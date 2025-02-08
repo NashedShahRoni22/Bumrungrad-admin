@@ -31,7 +31,6 @@ const SeeQuery = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newQueryData = allQuery.filter(
               (query) => query.id !== oneQuery.id

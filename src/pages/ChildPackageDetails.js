@@ -19,7 +19,6 @@ const ChildPackageDetails = () => {
   const [childLoader, setChildLoader] = useState(false);
   const { slug } = useParams();
   const [childDetailsPackage, setChildDetailsPackage] = useState({});
-  console.log(childDetailsPackage);
 
   //dialogue
   //const [open, setOpen] = React.useState(false);
@@ -32,7 +31,6 @@ const ChildPackageDetails = () => {
   const [parentPckages, setParentPackages] = useState([]);
   const [parentId, setParentId] = useState("");
   const [selectedChildImage, setSelectedChildImage] = useState("");
-  // console.log(selectedChildImage);
   // const [information, setInformation] = useState("");
   //const [informations, setInformations] = useState([])
 
@@ -114,7 +112,6 @@ const ChildPackageDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 404) {
-          console.log(data);
         } else {
           setParentPackages(data?.data);
         }
@@ -164,7 +161,6 @@ const ChildPackageDetails = () => {
       //conditions,
       //treatments,
     };
-    console.log(postData);
     const formData = new FormData();
     formData.append("cover_photo", selectedChildImage);
     formData.append("title", title);
@@ -188,7 +184,6 @@ const ChildPackageDetails = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data?.status === 200) {
           e.target.reset();
           toast.success("Child Package Updated Successfully!");

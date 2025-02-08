@@ -18,7 +18,7 @@ import { toast } from 'react-toastify'
 export default function AddDoctors() {
   //loader
   const [loader, setLoader] = useState(false)
-  //dialogue
+  //dialogues
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(!open)
   const [open2, setOpen2] = React.useState(false)
@@ -265,7 +265,6 @@ export default function AddDoctors() {
           setSpecialities(data?.response?.data)
           setLoader(false)
         } else {
-          console.log(data)
         }
       })
   }, [])
@@ -283,7 +282,6 @@ export default function AddDoctors() {
             setSubSpecialities(data?.response?.data)
             setLoader(false)
           } else {
-            console.log(data)
           }
         })
     }
@@ -309,7 +307,6 @@ export default function AddDoctors() {
       articles: articles,
       schedules: schedules,
     }
-    console.log(postData)
     const formData = new FormData()
     // file upload
     formData.append('cover_photo', selectedDoctorImg)
@@ -341,9 +338,7 @@ export default function AddDoctors() {
       .then((data) => {
         if (data.status === 404) {
           setLoader(false)
-          console.log(data)
         } else {
-          console.log(data)
           toast.success('Doctor Added Successfully!')
           window.location.reload()
         }

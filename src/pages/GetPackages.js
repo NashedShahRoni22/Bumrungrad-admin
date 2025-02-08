@@ -39,7 +39,6 @@ export default function GetPackages() {
       fetch(`https://api.discoverinternationalmedicalservice.com/api/delete/packages/${p.id}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newPackage = packages.filter((pc) => pc.id !== p.id);
             alert("Package Deleted Successfully");
@@ -56,7 +55,6 @@ export default function GetPackages() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 404) {
-          console.log(data);
           setLoader(false);
         } else {
           setPackages(data?.data);
@@ -78,7 +76,6 @@ export default function GetPackages() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         toast.success("Parent Package Added Successfully!");
         setOpen(false);
         setUpdateLoader(false);

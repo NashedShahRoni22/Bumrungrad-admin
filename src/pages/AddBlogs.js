@@ -54,7 +54,6 @@ const AddBlogs = () => {
       blogSlug,
       editorValue,
     };
-    console.log(blogs);
     const formData = new FormData();
     formData.append("blogImage", blogImg);
     formData.append("blogTitle", name);

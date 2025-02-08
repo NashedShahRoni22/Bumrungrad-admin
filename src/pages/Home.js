@@ -14,7 +14,6 @@ export default function Home() {
         setLoader(false)
       })
   }, [])
-  //console.log(allData?.length)
 
   return (
     <section className='m-5 md:m-10'>

@@ -40,17 +40,17 @@ const Appointment = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === 200) {
           refetch();
         }
       });
   };
   const handaleSucess = (id) => {
-    fetch(`https://api.discoverinternationalmedicalservice.com/api/appointment/success/${id}`)
+    fetch(
+      `https://api.discoverinternationalmedicalservice.com/api/appointment/success/${id}`
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === 200) {
           refetch();
         }
@@ -74,7 +74,6 @@ const Appointment = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             setModalData({});
             alert("Appointment Deleted Successfully");
@@ -89,8 +88,8 @@ const Appointment = () => {
     "HN Number",
     "Doctor Name",
     "Speciality",
-    "View",
     "Status",
+    "View",
   ];
   return (
     <div className="m-5 md:m-10">
@@ -173,15 +172,6 @@ const Appointment = () => {
                   </Typography>
                 </td>
 
-                <td className="p-4 flex">
-                  <button
-                    onClick={() => handleOpen(appointments)}
-                    className="px-2 py-1 shadow-md rounded border border-blue text-blue flex items-center gap-2"
-                  >
-                    <AiFillEye className="text-xl" />
-                    View
-                  </button>
-                </td>
                 <td className="p-4">
                   {appointments?.status === "0" && (
                     <button className="px-2 py-1 shadow rounded bg-red-500 text-white flex items-center gap-2">
@@ -204,6 +194,16 @@ const Appointment = () => {
                       Completed
                     </button>
                   )}
+                </td>
+
+                <td className="p-4 flex">
+                  <button
+                    onClick={() => handleOpen(appointments)}
+                    className="px-2 py-1 shadow-md rounded border border-blue text-blue flex items-center gap-2"
+                  >
+                    <AiFillEye className="text-xl" />
+                    View
+                  </button>
                 </td>
               </tr>
             ))}

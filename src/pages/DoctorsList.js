@@ -7,13 +7,13 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { AiFillEye } from "react-icons/ai";
+import { AiFillEdit, AiFillEye } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const DoctorsList = () => {
   const [loader, setLoader] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = useState({});
-  // console.log(modalData);
   const handleOpen = (data) => {
     setOpen(!open);
     setModalData(data);
@@ -31,7 +31,6 @@ const DoctorsList = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 200) {
             const newTableData = doctors.filter(
               (doctor) => doctor.id !== modaldata.id
@@ -52,6 +51,7 @@ const DoctorsList = () => {
         setLoader(false);
       });
   }, []);
+  
   return (
     <div className="m-5 md:m-10">
       {loader ? (
@@ -116,6 +116,13 @@ const DoctorsList = () => {
                       </Typography>
                     </td>
                     <td className="p-4 flex justify-around ">
+                      <Link
+                        to={`/home/update-doctor/${doctor?.slug}`}
+                        className="flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-orange-600 text-white"
+                      >
+                        <AiFillEdit className="text-xl" />
+                        Edit
+                      </Link>
                       <button
                         onClick={() => handleOpen(doctor)}
                         className="flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white "
