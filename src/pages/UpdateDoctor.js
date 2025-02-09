@@ -12,13 +12,14 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AiOutlineDelete, AiFillEye } from "react-icons/ai";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
 
 export default function UpdateDoctor() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [doctor, setDoctor] = useState({});
   //loaders
   const [getLoader, setGetLoader] = useState(false);
@@ -313,6 +314,24 @@ export default function UpdateDoctor() {
           setInterests(data?.response?.data?.interests);
           setExperiences(data?.response?.data?.experiences);
           setResearchs(data?.response?.data?.researches);
+          // Extracting the individual arrays for schedules
+          const { arrival, leave, day, shift, location } =
+            data?.response?.data || {};
+
+          // If any of the arrays are missing or empty, we don't process the schedules
+          if (arrival && leave && day && shift && location) {
+            // Combine these arrays into a single array of schedule entries
+            const newScheduleData = day.map((d, index) => [
+              d, // Day
+              shift[index], // Shift
+              arrival[index], // Arrival time
+              leave[index], // Leave time
+              location[index], // Location
+            ]);
+
+            // Store the combined schedule data in the state
+            setSchedules(newScheduleData);
+          }
           setGetLoader(false);
         } else {
           alert("Something went wrong!");
@@ -364,7 +383,7 @@ export default function UpdateDoctor() {
     formData.append("schedule", JSON.stringify(schedules));
 
     fetch(
-      "https://api.discoverinternationalmedicalservice.com/api/add/doctor",
+      `https://api.discoverinternationalmedicalservice.com/api/update/doctor/${doctor?.id}`,
       {
         method: "POST",
         body: formData,
@@ -376,7 +395,7 @@ export default function UpdateDoctor() {
           setLoader(false);
         } else {
           toast.success("Doctor Updated Successfully!");
-          window.location.reload();
+          navigate("/home/doctors-list");
         }
       })
       .catch((e) => {
@@ -1318,16 +1337,10 @@ export default function UpdateDoctor() {
               *Double check your given information before submit!
             </p>
             <Button
-              disabled={
-                selectedDoctorImg === "" ||
-                gender === "" ||
-                langs.length === 0 ||
-                parentSpecialityId === ""
-              }
               className="bg-blue flex items-center w-fit gap-1"
               onClick={handleUpdateDoctor}
             >
-              Submit {loader && <Spinner className="h-4 w-4" color="white" />}
+              Update {loader && <Spinner className="h-4 w-4" color="white" />}
             </Button>
           </div>
         </div>
