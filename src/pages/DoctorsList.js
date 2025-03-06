@@ -14,6 +14,8 @@ const DoctorsList = () => {
   const [loader, setLoader] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = useState({});
+  const [doctorName, setDoctorName] = useState("");
+  const [searchName, setSearchName] = useState("");
   const handleOpen = (data) => {
     setOpen(!open);
     setModalData(data);
@@ -42,101 +44,130 @@ const DoctorsList = () => {
     }
   };
 
+  // Get doctors
   useEffect(() => {
     setLoader(true);
-    fetch("https://api.discoverinternationalmedicalservice.com/api/get/doctors")
-      .then((res) => res.json())
-      .then((data) => {
-        setDoctors(data?.response?.data);
-        setLoader(false);
-      });
-  }, []);
-  
+    const fetchData = () => {
+      const queryParams = `name=${searchName}`;
+
+      const baseUrl =
+        "https://api.discoverinternationalmedicalservice.com/api/search/doctor";
+      const finalUrl = queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+
+      // Fetch data from the API
+      fetch(finalUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          setDoctors(data?.data);
+          setLoader(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching doctors:", error);
+          setLoader(false);
+        });
+    };
+
+    fetchData();
+  }, [searchName]);
+
   return (
     <div className="m-5 md:m-10">
+      <div className="flex justify-between items-center">
+        <p className="text-xl font-semibold text-blue">
+          Total Doctors: {doctors?.length}
+        </p>
+        <div className="flex justify-between items-center">
+          <input
+            className="px-4 py-1.5 border border-blue rounded-l focus:outline-none"
+            placeholder="Doctor Name"
+            onChange={(e) => setDoctorName(e.target.value)}
+          />
+          <button
+            onClick={() => setSearchName(doctorName)}
+            className="px-4 py-1.5 border border-blue bg-blue text-white rounded-r"
+          >
+            Search
+          </button>
+        </div>
+      </div>
       {loader ? (
         <Loader />
       ) : (
-        <>
-          <p className="text-xl font-semibold text-blue">
-            Total Doctors: {doctors?.length}
-          </p>
-          <Card className="mt-5 md:mt-10 h-full overflow-scroll">
-            <table className="w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  {TABLE_HEAD.map((head, i) => (
-                    <th
-                      key={i}
-                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+        <Card className="mt-5 md:mt-10 h-full overflow-scroll">
+          <table className="w-full min-w-max table-auto text-left">
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head, i) => (
+                  <th
+                    key={i}
+                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                  >
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className={`font-normal leading-none opacity-70 ${
+                        i === 4 && "text-center"
+                      }`}
                     >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className={`font-normal leading-none opacity-70 ${
-                          i === 4 && "text-center"
-                        }`}
-                      >
-                        {head}
-                      </Typography>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {doctors?.map((doctor, index) => (
-                  <tr key={index} className="even:bg-blue-gray-50/50">
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {doctor?.name}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {doctor?.specialty}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        as="a"
-                        href="#"
-                        variant="small"
-                        color="blue-gray"
-                        className="font-medium"
-                      >
-                        {doctor?.gender}
-                      </Typography>
-                    </td>
-                    <td className="p-4 flex justify-around ">
-                      <Link
-                        to={`/home/update-doctor/${doctor?.slug}`}
-                        className="flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-orange-600 text-white"
-                      >
-                        <AiFillEdit className="text-xl" />
-                        Edit
-                      </Link>
-                      <button
-                        onClick={() => handleOpen(doctor)}
-                        className="flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white "
-                      >
-                        <AiFillEye className="text-xl" />
-                        View
-                      </button>
-                    </td>
-                  </tr>
+                      {head}
+                    </Typography>
+                  </th>
                 ))}
-              </tbody>
-            </table>
-          </Card>
-        </>
+              </tr>
+            </thead>
+            <tbody>
+              {doctors?.map((doctor, index) => (
+                <tr key={index} className="even:bg-blue-gray-50/50">
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {doctor?.name}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {doctor?.specialty}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      as="a"
+                      href="#"
+                      variant="small"
+                      color="blue-gray"
+                      className="font-medium"
+                    >
+                      {doctor?.gender}
+                    </Typography>
+                  </td>
+                  <td className="p-4 flex justify-around ">
+                    <Link
+                      to={`/home/update-doctor/${doctor?.slug}`}
+                      className="flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-orange-600 text-white"
+                    >
+                      <AiFillEdit className="text-xl" />
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => handleOpen(doctor)}
+                      className="flex w-fit gap-2 items-center px-2 py-1 shadow rounded bg-blue text-white "
+                    >
+                      <AiFillEye className="text-xl" />
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Card>
       )}
       <Dialog
         open={open}
