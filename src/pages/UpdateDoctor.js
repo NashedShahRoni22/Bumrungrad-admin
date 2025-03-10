@@ -304,6 +304,9 @@ export default function UpdateDoctor() {
       .then((data) => {
         if (data?.response?.status === 200) {
           setDoctor(data?.response?.data);
+          setName(data?.response?.data?.name);
+          setparentSpecialityId(data?.response?.data?.specialty);
+          setGender(data?.response?.data?.gender);
           setSelectedSubSpecialities(data?.response?.data?.sub_specialty);
           setLangs(data?.response?.data?.lang);
           setSchools(data?.response?.data?.schools);
@@ -445,7 +448,7 @@ export default function UpdateDoctor() {
                 label="Enter Name"
                 name="name"
                 onChange={(e) => setName(e.target.value)}
-                defaultValue={doctor?.name}
+                defaultValue={name}
               />
             </div>
 
@@ -509,7 +512,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {selectedSubSpecialities.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c}
                             </p>
                             <AiOutlineDelete
@@ -539,63 +542,61 @@ export default function UpdateDoctor() {
                 </Dialog>
               </div>
 
-              <div>
-                <div className="w-full relative flex gap-1">
-                  <Select
-                    label="Language Spoken"
-                    onChange={(value) => handleLangChange(value)}
-                  >
-                    {languages.map((l, i) => (
-                      <Option key={i} value={l}>
-                        {l}
-                      </Option>
-                    ))}
-                  </Select>
-                  <button
-                    onClick={handleOpen9}
-                    className="px-2.5 py-0.5 border border-blue rounded"
-                  >
-                    <AiFillEye className="text-3xl text-blue" />
-                  </button>
-                  {langs.length > 0 && (
-                    <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
-                  )}
-                  <Dialog open={open9} handler={handleOpen9}>
-                    <DialogHeader>Language Spoken</DialogHeader>
-                    <DialogBody divider>
-                      {langs.length > 0 ? (
-                        <div className="flex flex-col gap-4">
-                          {langs.map((c, i) => (
-                            <div key={i} className="flex justify-between">
-                              <p className="text-xl">
-                                {i + 1}. {c}
-                              </p>
-                              <AiOutlineDelete
-                                onClick={() => removeLang(c)}
-                                className="text-red-500 text-3xl cursor-pointer"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="py-5 font-semibold text-red-500">
-                          Enter Something!
-                        </p>
-                      )}
-                    </DialogBody>
-                    <DialogFooter>
-                      <Button
-                        variant="text"
-                        color="red"
-                        size="sm"
-                        onClick={handleOpen9}
-                        className="mr-1"
-                      >
-                        <span>Close</span>
-                      </Button>
-                    </DialogFooter>
-                  </Dialog>
-                </div>
+              <div className="w-full relative flex gap-1">
+                <Select
+                  label="Language Spoken"
+                  onChange={(value) => handleLangChange(value)}
+                >
+                  {languages.map((l, i) => (
+                    <Option key={i} value={l}>
+                      {l}
+                    </Option>
+                  ))}
+                </Select>
+                <button
+                  onClick={handleOpen9}
+                  className="px-2.5 py-0.5 border border-blue rounded"
+                >
+                  <AiFillEye className="text-3xl text-blue" />
+                </button>
+                {langs.length > 0 && (
+                  <div className="h-3 w-3 rounded-full bg-green-400 absolute -top-1 -right-1 shadow-xl"></div>
+                )}
+                <Dialog open={open9} handler={handleOpen9}>
+                  <DialogHeader>Language Spoken</DialogHeader>
+                  <DialogBody divider>
+                    {langs.length > 0 ? (
+                      <div className="flex flex-col gap-4">
+                        {langs.map((c, i) => (
+                          <div key={i} className="flex justify-between">
+                            <p className="text-xl flex-1">
+                              {i + 1}. {c}
+                            </p>
+                            <AiOutlineDelete
+                              onClick={() => removeLang(c)}
+                              className="text-red-500 text-3xl cursor-pointer"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="py-5 font-semibold text-red-500">
+                        Enter Something!
+                      </p>
+                    )}
+                  </DialogBody>
+                  <DialogFooter>
+                    <Button
+                      variant="text"
+                      color="red"
+                      size="sm"
+                      onClick={handleOpen9}
+                      className="mr-1"
+                    >
+                      <span>Close</span>
+                    </Button>
+                  </DialogFooter>
+                </Dialog>
               </div>
             </div>
             {/* Schools */}
@@ -634,7 +635,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {schools.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.school}
                             </p>
                             <AiOutlineDelete
@@ -700,7 +701,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {certificates.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.certificate}
                             </p>
                             <AiOutlineDelete
@@ -766,7 +767,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {trainings.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.training}
                             </p>
                             <AiOutlineDelete
@@ -832,7 +833,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {articles.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.article}
                             </p>
                             <AiOutlineDelete
@@ -898,7 +899,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {fellowships.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.fellowship}
                             </p>
                             <AiOutlineDelete
@@ -964,7 +965,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {interests.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.Interest}
                             </p>
                             <AiOutlineDelete
@@ -1030,7 +1031,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {experiences.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.experience}
                             </p>
                             <AiOutlineDelete
@@ -1096,7 +1097,7 @@ export default function UpdateDoctor() {
                       <div className="flex flex-col gap-4">
                         {researchs.map((c, i) => (
                           <div key={i} className="flex justify-between">
-                            <p className="text-xl">
+                            <p className="text-xl flex-1">
                               {i + 1}. {c.research}
                             </p>
                             <AiOutlineDelete
